@@ -165,10 +165,16 @@ export default function BasketballCourt({ children, width = 400, height = 640, c
         <text x={width * 0.88} y={courtY + padding + 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2">3PT</text>
       )}
 
-      {/* Children (avatars, ball, arrows, overlays) */}
-      <g>
-        {children}
-      </g>
+      {/* Children (avatars, ball, arrows, overlays) — translate to correct half */}
+      {half === 'bottom' ? (
+        <g transform={`translate(0, ${height / 2})`}>
+          {children}
+        </g>
+      ) : (
+        <g>
+          {children}
+        </g>
+      )}
     </svg>
   );
 }
