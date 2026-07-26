@@ -166,6 +166,10 @@ export default function SpacingGame({ onComplete, onAdvance }) {
                 size={18}
                 glow
               />
+              {/* Transparent hit area — BallHandlerAvatar has pointerEvents:none internally */}
+              {!moved && (
+                <circle cx={playerPos.x} cy={playerPos.y} r="30" fill="transparent" />
+              )}
             </motion.g>
 
             {/* Target zone */}

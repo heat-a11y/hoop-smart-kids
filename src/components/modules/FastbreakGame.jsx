@@ -159,6 +159,10 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
               {teammateGlow && (
                 <circle cx={d.teammate1.x} cy={d.teammate1.y} r="28" fill="none" stroke="#2ECC71" strokeWidth="3" opacity="0.4" className="animate-ping" />
               )}
+              {/* Transparent hit area — avatar has pointerEvents:none internally, so this catches taps */}
+              {phase === 'decision' && (
+                <circle cx={d.teammate1.x} cy={d.teammate1.y} r="32" fill="transparent" />
+              )}
             </g>
 
             {/* Ball Handler */}
