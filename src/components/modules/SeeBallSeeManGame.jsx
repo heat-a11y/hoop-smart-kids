@@ -1,6 +1,6 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import InteractiveCourt, { PlayerDefenseSVG } from '../court/InteractiveCourt';
+import InteractiveCourt from '../court/InteractiveCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
 import Basketball from '../court/Basketball';
 import CoachBear from './CoachBear';
@@ -60,7 +60,7 @@ export default function SeeBallSeeManGame({ onComplete, onAdvance }) {
   const [showCoach, setShowCoach] = useState(false);
   const [showSightLines, setShowSightLines] = useState(false);
   const [distanceToCorrect, setDistanceToCorrect] = useState(999);
-  const dragTargetId = 'defender-you';
+  const _dragTargetId = 'defender-you';
 
   // Check if player is in the correct zone
   useEffect(() => {

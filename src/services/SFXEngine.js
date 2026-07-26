@@ -17,7 +17,7 @@ function getCtx() {
   if (!audioCtx) {
     try {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    } catch (e) {
+    } catch (_e) {
       return null;
     }
   }
@@ -33,20 +33,6 @@ function createGain(ctx, startTime, value, duration, endValue = 0.001) {
   gain.gain.exponentialRampToValueAtTime(endValue, startTime + duration);
   gain.connect(ctx.destination);
   return gain;
-}
-
-function createOsc(ctx, type, freq, startTime, duration, gainValue = 0.2) {
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.type = type;
-  osc.frequency.setValueAtTime(freq, startTime);
-  gain.gain.setValueAtTime(gainValue, startTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start(startTime);
-  osc.stop(startTime + duration);
-  return { osc, gain };
 }
 
 /** Master mute: suspends AudioContext entirely */
@@ -92,7 +78,7 @@ const sfx = {
 
       osc1.start(t); osc1.stop(t + 0.4);
       osc2.start(t + 0.02); osc2.stop(t + 0.35);
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 
   /** Dribble: low-frequency damped impact */
@@ -108,7 +94,7 @@ const sfx = {
       osc.frequency.exponentialRampToValueAtTime(60, t + 0.08);
       osc.connect(gain);
       osc.start(t); osc.stop(t + 0.12);
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 
   /** Cheer: upward arpeggio + filtered noise burst */
@@ -154,7 +140,7 @@ const sfx = {
         osc.start(start);
         osc.stop(start + 0.3);
       });
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 
   /** Level up fanfare: C major chord arpeggio */
@@ -178,7 +164,7 @@ const sfx = {
         osc.start(start);
         osc.stop(start + 0.3);
       });
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 
   /** Wrong answer: descending sawtooth buzz */
@@ -194,7 +180,7 @@ const sfx = {
       osc.frequency.exponentialRampToValueAtTime(100, t + 0.25);
       osc.connect(gain);
       osc.start(t); osc.stop(t + 0.3);
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 
   /** Swish: filtered noise sweep (net sound) */
@@ -217,7 +203,7 @@ const sfx = {
       noise.connect(filter);
       filter.connect(gain);
       noise.start(t); noise.stop(t + 0.3);
-    } catch (e) { /* silent */ }
+    } catch (_e) { /* silent */ }
   },
 };
 

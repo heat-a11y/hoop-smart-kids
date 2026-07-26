@@ -23,7 +23,7 @@ const TARGET_BALL = {
 };
 
 export default function TripleThreatGame({ onComplete, onAdvance }) {
-  const { lang, t } = useLanguage();
+  const { lang, t: _t } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.tripleThreat;
   const text = lang === 'en' ? scenario.en : scenario.zh;

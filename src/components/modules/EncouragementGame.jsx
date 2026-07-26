@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart } from 'lucide-react';
 import CoachBear from './CoachBear';
 import TeamSpiritMeter from './TeamSpiritMeter';
 import sfx from '../../services/SFXEngine';

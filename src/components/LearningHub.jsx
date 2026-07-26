@@ -45,7 +45,7 @@ export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCom
   const { addXP } = useGame();
   const [activeHub, setActiveHub] = useState(null);
 
-  const handleHubClick = (hub, label) => {
+  const handleHubClick = (hub, _label) => {
     if (hub === 'offense' && onEnterOffense) {
       onEnterOffense();
       return;

@@ -225,7 +225,7 @@ export function GameProvider({ children }) {
           dispatch({ type: 'HYDRATE', payload: hydrated });
         }
       }
-    } catch (e) { /* ignore corrupt save */ }
+    } catch (_e) { /* ignore corrupt save */ }
   }, []);
 
   // Sync soundEnabled to SFXEngine master mute
@@ -239,7 +239,7 @@ export function GameProvider({ children }) {
     try {
       const data = serialize(state);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    } catch (e) { /* storage full or private mode */ }
+    } catch (_e) { /* storage full or private mode */ }
   }, [state.totalXP, state.drillsCompleted, state.soundEnabled, state.language,
       state.unlockedBadges, state.moduleResults, state.titleEn]);
 

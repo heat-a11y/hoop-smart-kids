@@ -154,14 +154,28 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
               className={phase === 'decision' ? 'cursor-pointer' : ''}
               style={{ pointerEvents: phase === 'decision' ? 'auto' : 'none' }}
             >
+              {/* Big pulsing glow when tappable */}
+              {phase === 'decision' && (
+                <>
+                  <circle cx={d.teammate1.x} cy={d.teammate1.y} r="44" fill="#2ECC71" opacity="0.08" className="animate-ping" />
+                  <circle cx={d.teammate1.x} cy={d.teammate1.y} r="36" fill="none" stroke="#2ECC71" strokeWidth="4" opacity="0.5" strokeDasharray="6,4" />
+                  {/* Arrow pointing to teammate */}
+                  <g transform={`translate(${d.teammate1.x + 40}, ${d.teammate1.y - 25})`}>
+                    <polygon points="0,0 12,6 0,12" fill="#2ECC71" opacity="0.9" />
+                    <text x="18" y="9" fill="#2ECC71" fontSize="9" fontWeight="bold" fontFamily="Nunito, sans-serif">
+                      TAP!
+                    </text>
+                  </g>
+                </>
+              )}
               <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate pulse={teammateGlow} delay={0.3} />
-              {/* Teammate glow ring when ready */}
+              {/* Glow ring */}
               {teammateGlow && (
                 <circle cx={d.teammate1.x} cy={d.teammate1.y} r="28" fill="none" stroke="#2ECC71" strokeWidth="3" opacity="0.4" className="animate-ping" />
               )}
-              {/* Transparent hit area — avatar has pointerEvents:none internally, so this catches taps */}
+              {/* Transparent hit area */}
               {phase === 'decision' && (
-                <circle cx={d.teammate1.x} cy={d.teammate1.y} r="32" fill="transparent" />
+                <circle cx={d.teammate1.x} cy={d.teammate1.y} r="40" fill="transparent" />
               )}
             </g>
 
@@ -246,23 +260,41 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
         </motion.div>
       )}
 
-      {/* Wrong decision fallback buttons */}
+      {/* Decision action buttons */}
       {phase === 'decision' && (
-        <motion.div className="grid grid-cols-2 gap-2" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div className="space-y-2" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          {/* Primary: pass to teammate */}
           <motion.button
-            onClick={() => handleWrongChoice('B')}
-            className="py-3 bg-basketball-red/20 border border-basketball-red/30 rounded-xl font-display font-bold text-sm text-basketball-red hover:bg-basketball-red/30 transition-all"
-            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+            onClick={handleTapTeammate}
+            className="w-full py-4 bg-gradient-to-r from-success-green to-emerald-600 rounded-2xl font-display font-bold text-white text-base shadow-xl shadow-success-green/30 relative overflow-hidden"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
           >
-            💪 {lang === 'en' ? 'Force the shot' : '强行投篮'}
+            <motion.div
+              className="absolute inset-0 bg-white/15"
+              animate={{ opacity: [0, 0.3, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+            />
+            <span className="relative z-10">✋ {lang === 'en' ? 'Pass to teammate!' : '传给队友！'}</span>
           </motion.button>
-          <motion.button
-            onClick={() => handleWrongChoice('C')}
-            className="py-3 bg-neon-yellow/20 border border-neon-yellow/30 rounded-xl font-display font-bold text-sm text-neon-yellow hover:bg-neon-yellow/30 transition-all"
-            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-          >
-            🏃 {lang === 'en' ? 'Pull up mid-range' : '急停中投'}
-          </motion.button>
+
+          {/* Wrong options */}
+          <div className="grid grid-cols-2 gap-2">
+            <motion.button
+              onClick={() => handleWrongChoice('B')}
+              className="py-3 bg-basketball-red/20 border border-basketball-red/30 rounded-xl font-display font-bold text-sm text-basketball-red hover:bg-basketball-red/30 transition-all"
+              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+            >
+              💪 {lang === 'en' ? 'Force the shot' : '强行投篮'}
+            </motion.button>
+            <motion.button
+              onClick={() => handleWrongChoice('C')}
+              className="py-3 bg-neon-yellow/20 border border-neon-yellow/30 rounded-xl font-display font-bold text-sm text-neon-yellow hover:bg-neon-yellow/30 transition-all"
+              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+            >
+              🏃 {lang === 'en' ? 'Pull up mid-range' : '急停中投'}
+            </motion.button>
+          </div>
         </motion.div>
       )}
 

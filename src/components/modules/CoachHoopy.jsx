@@ -76,7 +76,7 @@ const coachIcons = {
 };
 
 export default function CoachHoopy({
-  show,
+  _show,
   type = 'correct',
   message,
   onDismiss,

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import BasketballCourt from '../court/BasketballCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
 import CoachBear from './CoachBear';
@@ -17,7 +17,7 @@ export default function SpacingGame({ onComplete, onAdvance }) {
 
   const [moved, setMoved] = useState(false);
   const [playerPos, setPlayerPos] = useState({ x: d.positions[0].startX, y: d.positions[0].startY });
-  const [showTarget, setShowTarget] = useState(false);
+  const [_showTarget, setShowTarget] = useState(false);
   const [phase, setPhase] = useState('playing'); // playing | feedback
   const [showCoach, setShowCoach] = useState(false);
 

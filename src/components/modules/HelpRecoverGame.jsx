@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import BasketballCourt from '../court/BasketballCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
 import Basketball from '../court/Basketball';
@@ -66,7 +66,6 @@ export default function HelpRecoverGame({ onComplete, onAdvance }) {
     onComplete();
   }, [onComplete]);
 
-  const getChoiceText = (choice) => lang === 'en' ? choice.en : (choice.zh || choice.en);
 
   // Animated positions
   const helpX = d.helpPath.to.x;

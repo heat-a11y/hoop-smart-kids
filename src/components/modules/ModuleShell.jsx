@@ -11,7 +11,7 @@ import sfx from '../../services/SFXEngine';
  * Shared module shell that eliminates duplication across Offense/Defense/Communication modules.
  * Pass drills array, summary config, and the module key for i18n.
  */
-export default function ModuleShell({ drills, summary, moduleKey, icon: moduleIcon, onBack }) {
+export default function ModuleShell({ drills, summary, moduleKey: _moduleKey, icon: moduleIcon, onBack }) {
   const { lang, t } = useLanguage();
   const { totalXP, soundEnabled } = useGame();
   const [currentIndex, setCurrentIndex] = useState(0);

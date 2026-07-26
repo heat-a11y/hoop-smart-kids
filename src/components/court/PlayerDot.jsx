@@ -7,12 +7,6 @@ const teamColors = {
   neutral: '#8B5CF6',      // Purple
 };
 
-const playerEmojis = {
-  offense: '🔵',
-  defense: '🔴',
-  ballHandler: '🟡',
-};
-
 export default function PlayerDot({
   x,
   y,

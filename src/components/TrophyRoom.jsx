@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Download, Star, Trophy, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { X, Download, Star, Trophy } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useGame } from '../context/GameContext';
 import badges from '../data/badges';
@@ -98,7 +97,7 @@ export default function TrophyRoom({ onClose }) {
               {lang === 'en' ? 'Current Title' : '当前称号'}
             </p>
             <div className="flex justify-center gap-1 mt-2">
-              {TITLES.map((t, i) => (
+              {TITLES.map((t, _i) => (
                 <div
                   key={t.en}
                   className={`w-2 h-2 rounded-full ${

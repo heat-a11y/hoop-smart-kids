@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Trophy, Globe, Award, Star } from 'lucide-react';
+import { Volume2, VolumeX, Trophy, Globe, Award } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useGame } from '../context/GameContext';
 import BadgesDrawer from './BadgesDrawer';

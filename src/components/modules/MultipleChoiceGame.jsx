@@ -13,7 +13,7 @@ import { useGame } from '../../context/GameContext';
  * Renders any scenario data that has: title, subtitle, setup, choices[], and optional diagram{}.
  */
 export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, onAdvance, half: courtHalfProp }) {
-  const { lang, t } = useLanguage();
+  const { lang, t: _t } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const text = lang === 'en' ? scenario.en : scenario.zh;
   const d = scenario.diagram;
@@ -24,7 +24,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
 
   const [phase, setPhase] = useState('intro');
   const [selectedChoice, setSelectedChoice] = useState(null);
-  const [showResult, setShowResult] = useState(false);
+  const [_showResult, setShowResult] = useState(false);
   const [showCoach, setShowCoach] = useState(false);
 
   const handleChoice = useCallback((choice) => {

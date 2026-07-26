@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BasketballCourt from '../court/BasketballCourt';
-import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
+import { TeammateAvatar, DefenderAvatar } from '../court/Avatars';
 import Basketball from '../court/Basketball';
 import CoachBear from './CoachBear';
 import sfx from '../../services/SFXEngine';

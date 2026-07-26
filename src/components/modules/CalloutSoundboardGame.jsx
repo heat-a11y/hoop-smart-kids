@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Volume2 } from 'lucide-react';
 import CoachBear from './CoachBear';
-import TeamSpiritMeter from './TeamSpiritMeter';
 import sfx from '../../services/SFXEngine';
 import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
