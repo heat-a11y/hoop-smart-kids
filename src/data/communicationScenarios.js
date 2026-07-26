@@ -11,7 +11,7 @@ const communicationScenarios = {
           id: 'screen', label: "📢 'SCREEN LEFT!'",
           correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defenderYou', to: { x: 200, y: 215 }, label: '🛡️ Adjusts!', color: '#2ECC71' },
             { target: 'screener', to: { x: 240, y: 190 }, label: '🧱 Screen whiffs!', color: '#EF4444' },
@@ -32,7 +32,7 @@ const communicationScenarios = {
           id: 'quiet', label: '🤐 Stay quiet',
           correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defenderYou', to: { x: 200, y: 210 }, label: '💥 Blindsided!', color: '#EF4444' },
             { target: 'screener', to: { x: 210, y: 200 }, label: '🧱 Screen connects!', color: '#EF4444' },
@@ -51,7 +51,7 @@ const communicationScenarios = {
           id: 'screen', label: "📢 '左边有掩护！'",
           correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defenderYou', to: { x: 200, y: 215 }, label: '🛡️ 调整！', color: '#2ECC71' },
             { target: 'screener', to: { x: 240, y: 190 }, label: '🧱 掩护扑空！', color: '#EF4444' },
@@ -72,7 +72,7 @@ const communicationScenarios = {
           id: 'quiet', label: '🤐 保持安静',
           correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defenderYou', to: { x: 200, y: 210 }, label: '💥 被撞了！', color: '#EF4444' },
             { target: 'screener', to: { x: 210, y: 200 }, label: '🧱 挡住了！', color: '#EF4444' },
@@ -215,7 +215,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: "'SWITCH!' — Swap assignments", correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 200 }, label: '🔄 Takes screener', color: '#2ECC71' },
             { target: 'defender2', to: { x: 200, y: 250 }, label: '🔄 Picks up PG', color: '#00D4FF' },
@@ -232,7 +232,7 @@ const NEW_COMM_SCENARIOS = {
           en: { title: 'Too slow!', feedback: "Fighting through puts you a step behind while the ball handler turns the corner. They get an open look or force help rotation. If you can switch, switch — it keeps the pressure on.", tip: 'Only fight through screens if switching creates a terrible mismatch.' } },
         { id: 'C', label: 'Stay silent, see what happens', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 240 }, label: '❓ Confused', color: '#EF4444' },
             { target: 'defender2', to: { x: 200, y: 210 }, label: '❓ Confused', color: '#EF4444' },
@@ -248,7 +248,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: '"换防！" — 交换防守对象', correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 200 }, label: '🔄 防掩护者', color: '#2ECC71' },
             { target: 'defender2', to: { x: 200, y: 250 }, label: '🔄 防控卫', color: '#00D4FF' },
@@ -265,7 +265,7 @@ const NEW_COMM_SCENARIOS = {
           zh: { title: '太慢了！', feedback: '挤过掩护会让你慢一步，持球者已经转身突破了。他们会得到空位投篮机会或迫使协防。如果能换防就换防——保持压力。', tip: '只有当换防会造成严重错位时才挤过掩护。' } },
         { id: 'C', label: '保持沉默，见机行事', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 240 }, label: '❓ 混乱', color: '#EF4444' },
             { target: 'defender2', to: { x: 200, y: 210 }, label: '❓ 混乱', color: '#EF4444' },
@@ -291,7 +291,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: "'BALL! I GOT BALL!' — Pick up the handler", correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 250 }, label: '🔊 Picks up ball!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 260 }, label: '⏳ Slowed down', color: '#FFE135' },
@@ -307,7 +307,7 @@ const NEW_COMM_SCENARIOS = {
           en: { title: 'Layup line!', feedback: "Everyone is looking around while the ball handler dribbles uncontested to the rim.", tip: 'Someone MUST pick up the ball immediately.' } },
         { id: 'C', label: 'Run to the paint and wait', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 200 }, label: '🏃 To paint', color: '#EF4444' },
             { target: 'defender2', to: { x: 160, y: 160 }, label: '🏃 To paint', color: '#EF4444' },
@@ -323,7 +323,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: '"球！我来防持球者！"', correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 250 }, label: '🔊 防持球！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 260 }, label: '⏳ 减速', color: '#FFE135' },
@@ -339,7 +339,7 @@ const NEW_COMM_SCENARIOS = {
           zh: { title: '轻松上篮！', feedback: '所有人都在寻找自己的人，而持球者畅通无阻。', tip: '必须有人立即去防持球者。' } },
         { id: 'C', label: '跑回禁区等待', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 200 }, label: '🏃 回禁区', color: '#EF4444' },
             { target: 'defender2', to: { x: 160, y: 160 }, label: '🏃 回禁区', color: '#EF4444' },
@@ -366,7 +366,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: "'BASELINE SCREEN!' — Direction + action", correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender2', to: { x: 280, y: 160 }, label: '📢 Anticipates!', color: '#2ECC71' },
             { target: 'defender1', to: { x: 240, y: 150 }, label: '🧱 Screen missed', color: '#EF4444' },
@@ -382,7 +382,7 @@ const NEW_COMM_SCENARIOS = {
           en: { title: 'Too vague!', feedback: "'Watch out' doesn't tell them what's coming or from where. They get screened because they don't know what to watch for.", tip: 'Be specific: direction + action. Vague warnings = screened anyway.' } },
         { id: 'C', label: 'Stay silent — they should see it', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender2', to: { x: 280, y: 170 }, label: '💥 Screened!', color: '#EF4444' },
             { target: 'defender1', to: { x: 250, y: 150 }, label: '🧱 Catches them!', color: '#EF4444' },
@@ -397,7 +397,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: '"底线掩护！" — 方向加动作', correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender2', to: { x: 280, y: 160 }, label: '📢 提前预判！', color: '#2ECC71' },
             { target: 'defender1', to: { x: 240, y: 150 }, label: '🧱 掩护扑空', color: '#EF4444' },
@@ -413,7 +413,7 @@ const NEW_COMM_SCENARIOS = {
           zh: { title: '太模糊了！', feedback: '"小心"没有告诉队友什么来了或从哪里来。他们不知道要提防什么。', tip: '要具体：方向加动作。模糊的警告 = 还是被挡住。' } },
         { id: 'C', label: '保持沉默——他们应该能看到', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender2', to: { x: 280, y: 170 }, label: '💥 被挡住了！', color: '#EF4444' },
             { target: 'defender1', to: { x: 250, y: 150 }, label: '🧱 被卡住！', color: '#EF4444' },
@@ -438,7 +438,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: "'TRAP!' — Signal immediately", correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 270, y: 180 }, label: '🪤 Traps!', color: '#2ECC71' },
             { target: 'defender2', to: { x: 260, y: 190 }, label: '🪤 Help trap!', color: '#00D4FF' },
@@ -455,7 +455,7 @@ const NEW_COMM_SCENARIOS = {
           en: { title: 'Too slow!', feedback: "'Help' doesn't tell your teammate to trap — they just slide into help position, leaving the ball handler time to make a play.", tip: 'If you want a trap, say "TRAP!" If you want help, say "HELP!" Be clear.' } },
         { id: 'C', label: 'Wait and see if they score again', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 280, y: 180 }, label: '🏀 Scores again!', color: '#EF4444' },
           ],
@@ -469,7 +469,7 @@ const NEW_COMM_SCENARIOS = {
       choices: [
         { id: 'A', label: '"包夹！" — 立即信号', correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 270, y: 180 }, label: '🪤 包夹！', color: '#2ECC71' },
             { target: 'defender2', to: { x: 260, y: 190 }, label: '🪤 协防包夹！', color: '#00D4FF' },
@@ -486,7 +486,7 @@ const NEW_COMM_SCENARIOS = {
           zh: { title: '太慢了！', feedback: '"协防"没有告诉队友要包夹——他们只会滑步到协防位置，给持球者时间处理球。', tip: '想要包夹就说"包夹"。想要协防就说"协防"。要清晰。' } },
         { id: 'C', label: '等着看他们是否再得分', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 280, y: 180 }, label: '🏀 又得分！', color: '#EF4444' },
           ],

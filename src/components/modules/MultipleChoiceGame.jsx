@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import InteractiveCourt from '../court/InteractiveCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
@@ -30,10 +30,21 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
 
   const courtHalf = courtHalfProp || (moduleKey === 'offense' ? 'top' : 'bottom');
 
-  const [phase, setPhase] = useState('intro'); // intro | animating | feedback
+  const [phase, setPhase] = useState(scenario.setupAnimation ? 'setup' : 'intro'); // setup | intro | animating | feedback
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [showCoach, setShowCoach] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
+  const setupRef = useRef(null);
+
+  // Play setup animation on mount (if any)
+  useEffect(() => {
+    if (phase === 'setup' && scenario.setupAnimation) {
+      setupRef.current = setTimeout(() => {
+        setPhase('intro');
+      }, 900); // 0.9s for setup animation
+      return () => clearTimeout(setupRef.current);
+    }
+  }, [phase, scenario.setupAnimation]);
 
   const choiceLabels = ['A', 'B', 'C', 'D'];
 
@@ -43,8 +54,8 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   // Default positions at the BOTTOM of the court so they don't block players
   const getDefaultPosition = (index, total) => {
     const layouts = {
-      2: [{ x: 110, y: 275 }, { x: 290, y: 275 }],
-      3: [{ x: 80, y: 272 }, { x: 200, y: 272 }, { x: 320, y: 272 }],
+      2: [{ x: 100, y: 275 }, { x: 300, y: 275 }],
+      3: [{ x: 60, y: 272 }, { x: 200, y: 272 }, { x: 340, y: 272 }],
       4: [{ x: 85, y: 270 }, { x: 315, y: 270 }, { x: 85, y: 300 }, { x: 315, y: 300 }],
     };
     return (layouts[total] || layouts[3])[index] || { x: 200, y: 272 };
@@ -233,6 +244,25 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                 return <Basketball x={bp.x} y={bp.y - 16} animate delay={0.5} />;
               })()}
 
+              {/* Setup phase — show the pass animation before choices */}
+              {phase === 'setup' && scenario.setupAnimation && (
+                <g opacity="0.8">
+                  {scenario.setupAnimation.map((sa, i) => (
+                    <g key={`setup-${i}`}>
+                      <path
+                        d={`M ${sa.fromX} ${sa.fromY} Q ${(sa.fromX + sa.toX) / 2} ${Math.min(sa.fromY, sa.toY) - 25}, ${sa.toX} ${sa.toY}`}
+                        fill="none" stroke="#00D4FF" strokeWidth="2.5"
+                        strokeDasharray="6,3" opacity="0.8"
+                      />
+                      <text x={(sa.fromX + sa.toX) / 2} y={Math.min(sa.fromY, sa.toY) - 18}
+                        textAnchor="middle" fill="#00D4FF" fontSize="9" fontWeight="bold"
+                        fontFamily="Nunito, sans-serif"
+                      >{sa.label}</text>
+                    </g>
+                  ))}
+                </g>
+              )}
+
               {/* ═══════════════════════════════════════════════════════════
                  CHOICE BUTTONS ON THE COURT — interactive SVG foreignObjects
                  Rendered only during intro phase (before a choice is made)
@@ -332,7 +362,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         )}
       </motion.div>
 
-      {/* Animating indicator */}
+      {/* Animating / Setup indicator */}
       <AnimatePresence>
         {phase === 'animating' && (
           <motion.div
@@ -345,6 +375,21 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
               <motion.span className="inline-block w-3 h-3 bg-neon-blue rounded-full" animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.6 }} />
               <span className="font-display font-bold text-sm text-neon-blue">
                 {lang === 'en' ? '▶️ Playing out the play...' : '▶️ 展示跑位中...'}
+              </span>
+            </div>
+          </motion.div>
+        )}
+        {phase === 'setup' && scenario.setupAnimation && (
+          <motion.div
+            className="mt-4 text-center py-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-court-orange/10 border border-court-orange/30 rounded-2xl px-5 py-3">
+              <motion.span className="inline-block w-3 h-3 bg-court-orange rounded-full" animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.6 }} />
+              <span className="font-display font-bold text-sm text-court-orange">
+                {lang === 'en' ? '🎯 Watch the pass...' : '🎯 观察传球...'}
               </span>
             </div>
           </motion.div>

@@ -10,7 +10,7 @@ const offenseScenarios = {
           id: 'A',
           label: 'Shoot the open jumper',
           correct: true,
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 170 }, label: '🏀 Shoot!', color: '#00D4FF' },
             { target: 'defender1', to: { x: 200, y: 150 }, label: '📏 Sagging', color: '#EF4444' },
@@ -41,7 +41,7 @@ const offenseScenarios = {
           id: 'C',
           label: 'Pass back to PG',
           correct: 'suboptimal',
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 210 }, label: '↩️ Pass back', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ Recovers', color: '#EF4444' },
@@ -64,7 +64,7 @@ const offenseScenarios = {
           label: '投篮 - 空位跳投',
           correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 170 }, label: '🏀 投篮！', color: '#00D4FF' },
             { target: 'defender1', to: { x: 200, y: 150 }, label: '📏 后退', color: '#EF4444' },
@@ -97,7 +97,7 @@ const offenseScenarios = {
           label: '回传给控卫',
           correct: 'suboptimal',
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 210 }, label: '↩️ 回传', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ 恢复', color: '#EF4444' },
@@ -133,7 +133,7 @@ const offenseScenarios = {
           id: 'A',
           label: 'Pass to teammate for layup',
           correct: true,
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 160, y: 200 }, label: '🎯 Dumps pass', color: '#2ECC71' },
             { target: 'teammate1', to: { x: 120, y: 120 }, label: '🏃 Scores!', color: '#00D4FF' },
@@ -164,7 +164,7 @@ const offenseScenarios = {
           id: 'C',
           label: 'Pull up for a mid-range shot',
           correct: false,
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 240 }, label: '🏀 Pull up', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 220 }, label: '👀 Easy contest', color: '#EF4444' },
@@ -187,7 +187,7 @@ const offenseScenarios = {
           label: '传给队友上篮',
           correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 160, y: 200 }, label: '🎯 传球！', color: '#2ECC71' },
             { target: 'teammate1', to: { x: 120, y: 120 }, label: '🏃 得分！', color: '#00D4FF' },
@@ -220,7 +220,7 @@ const offenseScenarios = {
           label: '急停跳投',
           correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 240 }, label: '🏀 急停', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 220 }, label: '👀 轻松干扰', color: '#EF4444' },
@@ -254,7 +254,7 @@ const offenseScenarios = {
           label: 'Move to the wing (Correct!)',
           correct: true,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           en: {
             title: 'Great spacing!',
             feedback: "Excellent! By moving to the wing, you've opened up the floor. Now the ball handler has space to drive, passing lanes are clear, and the defense has to spread out. This is how good offense works!",
@@ -285,7 +285,7 @@ const offenseScenarios = {
           label: '移动到侧翼（正确！）',
           correct: true,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           zh: {
             title: '出色的空间！',
             feedback: '太棒了！通过移动到侧翼，你打开了进攻空间。现在持球者有突破空间，传球路线清晰，防守方必须分散。这就是好的进攻！',
@@ -297,7 +297,7 @@ const offenseScenarios = {
           label: '留在禁区',
           correct: false,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           zh: {
             title: '太拥挤了！',
             feedback: '禁区已经挤满了！站在队友旁边会让一个防守者轻松防两个人。散开给每个人工作的空间。',
@@ -338,7 +338,7 @@ const NEW_OFFENSE_SCENARIOS = {
           en: { title: 'Pull up for the jumper!', feedback: "Perfect! When the defender goes under the screen, they're begging you to shoot. If you can knock down that jumper, they'll have to go over the top next time, which opens up your drive. Make them pay!", tip: 'When the defense goes under the screen, shoot it. When they go over, drive. Simple read!' } },
         { id: 'B', label: 'Drive hard to the basket', correct: false,
           
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '🚗 Drive blocked!', color: '#EF4444' },
             { target: 'defender1', to: { x: 200, y: 165 }, label: '🛑 Cuts off', color: '#EF4444' },
@@ -347,7 +347,7 @@ const NEW_OFFENSE_SCENARIOS = {
           en: { title: 'Drive into a crowd', feedback: "The defender went UNDER — they're already positioned to cut off your drive. If you try to force it, you'll run into the help defender too. The open shot was the right call here.", tip: 'Defender going under = they want you to drive so the help can trap you. Shoot instead!' } },
         { id: 'C', label: 'Lob pass to the roller', correct: false,
           
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'teammate1', to: { x: 200, y: 120 }, label: '🏃 Roller goes', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 160 }, label: '✋ Intercepts!', color: '#EF4444' },
@@ -370,7 +370,7 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '急停跳投！', feedback: '完美！当防守者从掩护下方绕过时，他们是在让你投篮。如果你能投进，下次他们就会从上方绕过，为你打开突破空间。让他们付出代价！', tip: '防守从下方绕过就投篮，从上方绕过就突破。简单阅读！' } },
         { id: 'B', label: '强行突破', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '🚗 突破被挡！', color: '#EF4444' },
             { target: 'defender1', to: { x: 200, y: 165 }, label: '🛑 拦住', color: '#EF4444' },
@@ -379,7 +379,7 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '突破入人群', feedback: '防守者从下方绕过已经有了突破位置的准备。强行突破会遇到协防。空位投篮才是正确选择。', tip: '防守从下方绕过 = 他们想让你突破以便夹击。选择投篮！' } },
         { id: 'C', label: '高吊传给顺下队友', correct: false,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'teammate1', to: { x: 200, y: 120 }, label: '🏃 顺下', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 160 }, label: '✋ 截断！', color: '#EF4444' },
@@ -398,6 +398,9 @@ const NEW_OFFENSE_SCENARIOS = {
 
   giveAndGo: {
     id: 'give-and-go',
+    setupAnimation: [
+      { fromX: 200, fromY: 230, toX: 300, toY: 220, label: '🎯 Pass!' },
+    ],
     en: {
       title: 'Give & Go',
       subtitle: 'Pass and Cut Decision',
@@ -413,14 +416,14 @@ const NEW_OFFENSE_SCENARIOS = {
           en: { title: 'Sharp cut!', feedback: "YES! When your defender ball-watches, that's your cue to cut hard to the rim. Your teammate will find you with a pass for an easy layup. The give-and-go is the oldest play in basketball for a reason!", tip: 'If your defender looks at the ball, they lose you. Cut hard and expect the pass back.' } },
         { id: 'B', label: 'Stand still and wait', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ Recovers', color: '#EF4444' },
           ],
           en: { title: 'Defense recovers', feedback: "By standing still, you let your defender recover. The window for the cut was open for only a second — and you missed it. Keep moving off the ball!", tip: 'If you pass, don\'t stand and watch. Cut, screen, or relocate. Movement creates offense.' } },
         { id: 'C', label: 'Set a screen for the passer', correct: 'suboptimal',
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 280, y: 200 }, label: '🧱 Setting screen', color: '#FFE135' },
           ],
@@ -442,14 +445,14 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '犀利切入！', feedback: '没错！当你的防守者看球时，就是你切入篮下的信号。你的队友会找到你传出一个轻松上篮。传切配合是最古老的篮球战术，原因就在这里！', tip: '如果防守者看球，他们就会失去你。果断切入并期待回传。' } },
         { id: 'B', label: '站在原地等待', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ 恢复防守', color: '#EF4444' },
           ],
           zh: { title: '防守恢复', feedback: '站在原地让防守者有恢复时间。切入的窗口只开了一瞬间——你错过了。球传出去后要继续移动！', tip: '传完球不要站着看。切入、掩护或重新定位。移动创造进攻。' } },
         { id: 'C', label: '给持球队友做掩护', correct: 'suboptimal',
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 280, y: 200 }, label: '🧱 做掩护', color: '#FFE135' },
           ],
@@ -483,7 +486,7 @@ const NEW_OFFENSE_SCENARIOS = {
           en: { title: 'Great vision!', feedback: "EXACTLY! You saw the double team coming and made the extra pass before getting trapped. Your teammate is now wide open. Good post players score, GREAT post players make everyone better!", tip: 'Always know where your teammates are before you catch the post entry. Beats the double team every time.' } },
         { id: 'B', label: 'Try to score through both', correct: false,
           
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 160 }, label: '💪 Forces shot', color: '#EF4444' },
             { target: 'defender1', to: { x: 200, y: 140 }, label: '⬆️ Contest!', color: '#EF4444' },
@@ -492,7 +495,7 @@ const NEW_OFFENSE_SCENARIOS = {
           en: { title: 'Blocked!', feedback: "Two defenders are too much even for the best post players. You're getting stripped or blocked. Trust your teammates and make the pass — you'll get the ball back next possession!", tip: 'Double team = someone is open. Find them immediately.' } },
         { id: 'C', label: 'Wait for the double to arrive', correct: false,
           
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender3', to: { x: 200, y: 160 }, label: '🪤 Arrives!', color: '#EF4444' },
             { target: 'defender2', to: { x: 230, y: 170 }, label: '📏 Lanes shrink', color: '#EF4444' },
@@ -518,7 +521,7 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '出色的视野！', feedback: '太对了！你在包夹形成之前就看到了并传出了球。你的队友现在完全空位。好的低位球员能得分，伟大的低位球员能让每个队友变得更好！', tip: '在低位接球前就要知道队友的位置。这样每次都能破解包夹。' } },
         { id: 'B', label: '强打两人', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 160 }, label: '💪 强打', color: '#EF4444' },
             { target: 'defender1', to: { x: 200, y: 140 }, label: '⬆️ 封盖！', color: '#EF4444' },
@@ -527,7 +530,7 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '被盖了！', feedback: '两个防守者即使对最好的低位球员也太多了。你会被抢断或盖帽。相信队友并传球——下次进攻球还会回到你手中！', tip: '包夹 = 有人空位。立刻找到他。' } },
         { id: 'C', label: '等包夹来了再说', correct: false,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'defender3', to: { x: 200, y: 160 }, label: '🪤 到了！', color: '#EF4444' },
             { target: 'defender2', to: { x: 230, y: 170 }, label: '📏 路线被封', color: '#EF4444' },
@@ -549,74 +552,75 @@ const NEW_OFFENSE_SCENARIOS = {
   isolation: {
     id: 'isolation',
     en: {
-      title: 'Isolation Attack',
-      subtitle: 'When to Go 1-on-1',
-      setup: "You're isolated at the top of the key with your defender in front of you. You have a size advantage — you're taller and stronger. The shot clock is at 10 seconds. What's the right approach?",
+      title: 'Post-Up Attack',
+      subtitle: 'Low Post Isolation',
+      setup: "You're posting up in the low block with a huge size mismatch — you're taller and stronger than your defender. The ball is entered to you in the paint. The shot clock is at 10 seconds. What's the right approach?",
       choices: [
-        { id: 'A', label: 'Back them down, seal, and score', correct: true,
+        { id: 'A', label: 'Back them down, seal, and finish', correct: true,
           
           position: { x: 200, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 200, y: 160 }, label: '💪 Backs down!', color: '#2ECC71' },
-            { target: 'defender1', to: { x: 200, y: 145 }, label: '📏 Pushed back', color: '#EF4444' },
+            { target: 'ballHandler', to: { x: 200, y: 110 }, label: '💪 Backs down!', color: '#2ECC71' },
+            { target: 'defender1', to: { x: 200, y: 90 }, label: '📏 Pushed back', color: '#EF4444' },
           ],
-          en: { title: 'Use your size!', feedback: "EXACTLY! You have a size advantage — use it. Back your defender down, feel their position, seal them on your hip, and finish over them. That's efficient offense. No wasted dribbles.", tip: 'When you have a size mismatch, punish it immediately. Take one or two dribbles and go to work.' } },
-        { id: 'B', label: 'Fancy crossovers and step-back', correct: false,
+          en: { title: 'Use your size!', feedback: "EXACTLY! You have a size advantage in the post — use it. Back your defender down, feel their position, seal them on your hip, and finish over them. That's efficient offense in the paint. No wasted dribbles.", tip: 'When you have a size mismatch in the post, punish it immediately. Seal, pivot, and score.' } },
+        { id: 'B', label: 'Face up and take a jump hook', correct: false,
           
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 180, y: 210 }, label: '🕺 Dribbling', color: '#FFE135' },
-            { target: 'defender1', to: { x: 180, y: 190 }, label: '👀 Stays with you', color: '#EF4444' },
+            { target: 'ballHandler', to: { x: 200, y: 120 }, label: '🏀 Jump hook', color: '#FFE135' },
+            { target: 'defender1', to: { x: 200, y: 95 }, label: '🛡️ contests', color: '#EF4444' },
           ],
-          en: { title: 'Too complicated', feedback: "Fancy dribbling wastes your size advantage and risks a turnover. You're taller — why are you playing small? Post them up or face up and attack the rim directly.", tip: 'Play to your strengths. If you\'re bigger, don\'t dance on the perimeter.' } },
-        { id: 'C', label: 'Pass it out and reset', correct: 'suboptimal',
+          en: { title: 'Too far from basket', feedback: "A jump hook is a good move, but you're close enough to back them all the way down for a higher-percentage shot. Use your strength to get to the rim.", tip: 'The closer you are to the basket, the higher your percentage. Back them down all the way.' } },
+        { id: 'C', label: 'Kick it out and reset', correct: 'suboptimal',
           
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 200, y: 230 }, label: '↩️ Passes out', color: '#FFE135' },
+            { target: 'ballHandler', to: { x: 200, y: 130 }, label: '↩️ Passes out', color: '#FFE135' },
             { target: 'teammate1', to: { x: 300, y: 250 }, label: '📩 Receives', color: '#FFE135' },
-            { target: 'defender1', to: { x: 200, y: 190 }, label: '🛡️ Recovers', color: '#EF4444' },
+            { target: 'defender1', to: { x: 200, y: 95 }, label: '🛡️ Recovers', color: '#EF4444' },
           ],
-          en: { title: 'You had the advantage', feedback: "You passed up a mismatch! With 10 seconds on the clock, you have time to attack. If you consistently pass out of mismatches, the defense doesn't respect you. Be aggressive!", tip: 'Isolation mismatches are gold. Attack before the defense can send help.' } },
+          en: { title: 'You had the advantage', feedback: "You passed up a mismatch in the paint! With 10 seconds on the clock, you have time to attack. If you consistently pass out of mismatches, the defense doesn't respect you. Be aggressive!", tip: 'Post mismatches are gold. Attack before the double team arrives.' } },
       ],
     },
     zh: {
-      title: '单打进攻',
-      subtitle: '何时一对一',
-      setup: '你在弧顶单打，防守者在你面前。你有身材优势——更高更壮。进攻时间还剩10秒。正确的做法是什么？',
+      title: '低位单打',
+      subtitle: '禁区背身单打',
+      setup: '你在低位要球，有巨大的身材优势——你比防守者更高更壮。球传入你手中。进攻时间还剩10秒。正确的做法是什么？',
       choices: [
-        { id: 'A', label: '背身推进，卡位，得分', correct: true,
+        { id: 'A', label: '背身推进，卡位，终结', correct: true,
 
           position: { x: 200, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 200, y: 160 }, label: '💪 背打！', color: '#2ECC71' },
-            { target: 'defender1', to: { x: 200, y: 145 }, label: '📏 被推开', color: '#EF4444' },
+            { target: 'ballHandler', to: { x: 200, y: 110 }, label: '💪 背打！', color: '#2ECC71' },
+            { target: 'defender1', to: { x: 200, y: 90 }, label: '📏 被推开', color: '#EF4444' },
           ],
-          zh: { title: '利用你的身材！', feedback: '没错！你有身材优势就利用它。背身推进，感受防守者的位置，把他们卡在身侧，然后在他们头上得分。这就是高效的进攻。不浪费运球。', tip: '当你有身材优势时，立即利用。一两下运球就开始进攻。' } },
-        { id: 'B', label: '花式运球和后撤步', correct: false,
+          zh: { title: '利用你的身材！', feedback: '没错！你在低位有身材优势就利用它。背身推进，感受防守者的位置，把他们卡在身侧，然后在篮下终结。这就是高效的禁区进攻。', tip: '当你在低位有错位时，立即利用。卡位、转身、得分。' } },
+        { id: 'B', label: '面框跳勾手', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 180, y: 210 }, label: '🕺 运球', color: '#FFE135' },
-            { target: 'defender1', to: { x: 180, y: 190 }, label: '👀 贴住你', color: '#EF4444' },
+            { target: 'ballHandler', to: { x: 200, y: 120 }, label: '🏀 勾手', color: '#FFE135' },
+            { target: 'defender1', to: { x: 200, y: 95 }, label: '🛡️ 干扰', color: '#EF4444' },
           ],
-          zh: { title: '太复杂了', feedback: '花式运球浪费了你的身材优势还冒着失误的风险。你更高——为什么要打小个球？面框或背筐直接攻击篮筐。', tip: '发挥你的优势。如果你更大只，不要在外线跳舞。' } },
+          zh: { title: '离篮筐太远', feedback: '勾手是好动作，但你离得够近可以一路背打到篮下获得更高命中率的出手。利用你的力量打到篮下。', tip: '离篮筐越近命中率越高。一路打到篮下。' } },
         { id: 'C', label: '传出去重新组织', correct: 'suboptimal',
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
-            { target: 'ballHandler', to: { x: 200, y: 230 }, label: '↩️ 传出去', color: '#FFE135' },
+            { target: 'ballHandler', to: { x: 200, y: 130 }, label: '↩️ 传出去', color: '#FFE135' },
             { target: 'teammate1', to: { x: 300, y: 250 }, label: '📩 接球', color: '#FFE135' },
-            { target: 'defender1', to: { x: 200, y: 190 }, label: '🛡️ 恢复', color: '#EF4444' },
+            { target: 'defender1', to: { x: 200, y: 95 }, label: '🛡️ 恢复', color: '#EF4444' },
           ],
-          zh: { title: '你有优势', feedback: '你放弃了错位机会！还有10秒，你有时间进攻。如果你总是放弃错位，防守者就不会尊重你。要果断！', tip: '单打错位是金子。在防守协防到来之前进攻！' } },
+          zh: { title: '你有优势', feedback: '你放弃了禁区内的错位机会！还有10秒，你有时间进攻。如果你总是放弃错位，防守者就不会尊重你。要果断！', tip: '低位错位是金子。在包夹到来之前进攻！' } },
       ],
     },
     diagram: {
-      ballHandler: { x: 200, y: 230, label: 'You' },
-      teammate1: { x: 300, y: 250, label: 'SG' },
-      teammate2: { x: 120, y: 240, label: 'PG' },
-      defender1: { x: 200, y: 180, label: 'D' },
+      ballHandler: { x: 200, y: 130, label: 'You' },
+      teammate1: { x: 310, y: 170, label: 'SG' },
+      teammate2: { x: 90, y: 170, label: 'PG' },
+      defender1: { x: 200, y: 95, label: 'D' },
+      defender2: { x: 290, y: 210, label: 'Help' },
     },
   },
 
@@ -635,14 +639,14 @@ const NEW_OFFENSE_SCENARIOS = {
           ],
           en: { title: 'Beautiful backdoor!', feedback: "TEXTBOOK! When a defender overplays the passing lane, they're vulnerable to the back cut. Give a slight move toward the ball (to sell the catch), then explode to the basket. Your teammate hits you with the pass for an easy layup!", tip: 'Overplay = backdoor. If they deny the pass, cut behind them. Simple read.' } },
         { id: 'B', label: 'Stand still and hope for the pass', correct: false,
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 300, y: 160 }, label: '🛡️ Denies firmly', color: '#EF4444' },
           ],
           en: { title: 'Too easy to guard', feedback: "Standing still makes you easy to guard. The defender has you denied — you're not getting the ball here. You need to CREATE separation with movement.", tip: 'If you can\'t get the ball, MOVE. Don\'t stand and watch. Cut, screen, or relocate.' } },
         { id: 'C', label: 'Run to the opposite side of the court', correct: false,
           
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'teammate1', to: { x: 120, y: 200 }, label: '🏃 Runs away', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 170 }, label: '🛡️ Recovers easy', color: '#EF4444' },
@@ -665,14 +669,14 @@ const NEW_OFFENSE_SCENARIOS = {
           zh: { title: '漂亮的反跑！', feedback: '教科书！当防守者过度防守传球路线时，他们容易被打反跑。先向球方向做接球假动作，然后爆发切入篮下。你的队友传球给你轻松上篮！', tip: '过度防守 = 反跑。如果他们阻止接球，就从他们身后切入。简单阅读。' } },
         { id: 'B', label: '站着等传球', correct: false,
 
-          position: { x: 320, y: 272 },
+          position: { x: 340, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 300, y: 160 }, label: '🛡️ 死死守住', color: '#EF4444' },
           ],
           zh: { title: '太好防了', feedback: '站着不动让你很容易被防守。防守者阻止了你接球——你在这里拿不到球。你需要通过移动创造空间。', tip: '如果你接不到球，就移动。不要站着看。切入、掩护或重新定位。' } },
         { id: 'C', label: '跑到球场的另一侧', correct: false,
 
-          position: { x: 80, y: 272 },
+          position: { x: 60, y: 272 },
           animate: [
             { target: 'teammate1', to: { x: 120, y: 200 }, label: '🏃 跑远了', color: '#FFE135' },
             { target: 'defender1', to: { x: 200, y: 170 }, label: '🛡️ 轻松恢复', color: '#EF4444' },
