@@ -106,7 +106,7 @@ function gameReducer(state, action) {
         unlockedBadges: badgeResult.unlockedBadges,
         newlyUnlockedBadges: [
           ...state.newlyUnlockedBadges,
-          ...badgeResult.newlyUnlocked,
+          ...badgeResult.newlyUnlockedBadges,
         ],
         showLevelUp: levelUp,
         lastXPGain: action.amount,
