@@ -83,6 +83,8 @@ export interface InteractiveCourtProps {
   onCourtTap?: (x: number, y: number) => void;
   /** Extra SVG children */
   children?: React.ReactNode;
+  /** Simple mode: renders court + children only (no built-in players/zones/trajectories). Use children for custom content. */
+  simple?: boolean;
 }
 
 /* ------------------------------------------------------------------ */
@@ -308,6 +310,7 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
   onPlayerDrag,
   onCourtTap,
   children,
+  simple = false,
 }) => {
   const padding = 24;
   const svgRef = useRef<SVGSVGElement>(null);
@@ -509,19 +512,44 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
+        {/* Shared filters used by avatar components */}
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="softShadow">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
+        </filter>
+        <filter id="successGlow">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <marker id="arrowYellow" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0,0 6,3 0,6" fill="#FFE135" />
+        </marker>
+        <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+          <polygon points="0,0 6,3 0,6" fill="#2ECC71" />
+        </marker>
       </defs>
 
       {/* Court backdrop */}
       <CourtBackground w={width} h={height} pad={padding} />
 
       {/* Trajectories (render behind players) */}
-      {trajectoryEls}
+      {!simple && trajectoryEls}
 
       {/* Zones */}
-      {zoneEls}
+      {!simple && zoneEls}
 
       {/* Players */}
-      {playerEls}
+      {!simple && playerEls}
 
       {/* Extra children */}
       {children}

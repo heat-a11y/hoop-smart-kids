@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import BasketballCourt from '../court/BasketballCourt';
+import InteractiveCourt from '../court/InteractiveCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
 import Basketball from '../court/Basketball';
 import CoachBear from './CoachBear';
@@ -75,7 +75,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
 
         {d && (
           <div className="relative">
-            <BasketballCourt width={400} height={320}>
+            <InteractiveCourt simple width={400} height={320}>
               {/* Render diagram players */}
               {d.ballHandler && <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate glow pulse delay={0.1} />}
               {d.teammate1 && <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />}
@@ -87,7 +87,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
               {d.defender4 && <DefenderAvatar x={d.defender4.x} y={d.defender4.y} label={d.defender4.label} animate delay={0.2} />}
               {d.teammate4 && <TeammateAvatar x={d.teammate4.x} y={d.teammate4.y} label={d.teammate4.label} animate delay={0.3} />}
               {d.ballHandler && <Basketball x={d.ballHandler.x} y={d.ballHandler.y - 16} animate delay={0.5} />}
-            </BasketballCourt>
+            </InteractiveCourt>
           </div>
         )}
       </motion.div>
