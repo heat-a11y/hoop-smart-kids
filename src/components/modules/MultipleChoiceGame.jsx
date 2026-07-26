@@ -40,14 +40,14 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   const choiceColors = ['#2ECC71', '#EF4444', '#FFE135', '#00D4FF'];
   const choiceBgColors = ['rgba(46,204,113,0.15)', 'rgba(239,68,68,0.15)', 'rgba(255,225,53,0.15)', 'rgba(0,212,255,0.15)'];
 
-  // Default positions on the half-court (width=400, height≈320 active area)
+  // Default positions at the BOTTOM of the court so they don't block players
   const getDefaultPosition = (index, total) => {
     const layouts = {
-      2: [{ x: 100, y: 140 }, { x: 300, y: 140 }],
-      3: [{ x: 200, y: 70 }, { x: 90, y: 200 }, { x: 310, y: 200 }],
-      4: [{ x: 90, y: 70 }, { x: 310, y: 70 }, { x: 90, y: 200 }, { x: 310, y: 200 }],
+      2: [{ x: 110, y: 275 }, { x: 290, y: 275 }],
+      3: [{ x: 80, y: 272 }, { x: 200, y: 272 }, { x: 320, y: 272 }],
+      4: [{ x: 85, y: 270 }, { x: 315, y: 270 }, { x: 85, y: 300 }, { x: 315, y: 300 }],
     };
-    return (layouts[total] || layouts[3])[index] || { x: 200, y: 140 };
+    return (layouts[total] || layouts[3])[index] || { x: 200, y: 272 };
   };
 
   // Get the animation targets for the selected choice (if any)
@@ -123,8 +123,8 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   const cutColor = '#2ECC71';
 
   // Choice pill dimensions
-  const pillW = 148;
-  const pillH = 44;
+  const pillW = 138;
+  const pillH = 38;
 
   return (
     <div className="px-4 md:px-8 mb-8" key={retryKey}>
@@ -260,10 +260,10 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                             alignItems: 'center',
                             gap: '8px',
                             padding: '0 10px',
-                            borderRadius: '22px',
-                            border: '1px solid rgba(255,255,255,0.12)',
-                            background: 'rgba(15,15,30,0.85)',
-                            backdropFilter: 'blur(8px)',
+                            borderRadius: '20px',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            background: 'rgba(15,15,30,0.6)',
+                            backdropFilter: 'blur(6px)',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
                             fontFamily: '"Nunito", system-ui, sans-serif',
@@ -275,8 +275,8 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                               e.currentTarget.style.transform = 'scale(1.04)';
                             }}
                             onMouseLeave={e => {
-                              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                              e.currentTarget.style.background = 'rgba(15,15,30,0.85)';
+                              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                              e.currentTarget.style.background = 'rgba(15,15,30,0.6)';
                               e.currentTarget.style.transform = 'scale(1)';
                             }}
                             onClick={() => handleChoice(choice)}

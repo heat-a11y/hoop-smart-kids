@@ -53,7 +53,7 @@ const defenseScenarios = {
           id: 'help', label: '🛡️ Slide to help!',
           correct: true,
 
-          position: { x: 255, y: 185 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'helpDefender', to: { x: 255, y: 185 }, label: '🛡️ Help!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 250, y: 175 }, label: '⏳ Picks up', color: '#EF4444' },
@@ -63,7 +63,7 @@ const defenseScenarios = {
           id: 'stay', label: '👀 Stay on my man',
           correct: false,
 
-          position: { x: 190, y: 150 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 250, y: 150 }, label: '🏀 Easy layup!', color: '#EF4444' },
             { target: 'helpDefender', to: { x: 190, y: 150 }, label: '👀 Stays put', color: '#EF4444' },
@@ -80,7 +80,7 @@ const defenseScenarios = {
           id: 'help', label: '🛡️ 滑步协防！',
           correct: true,
 
-          position: { x: 255, y: 185 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'helpDefender', to: { x: 255, y: 185 }, label: '🛡️ 协防！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 250, y: 175 }, label: '⏳ 收球', color: '#EF4444' },
@@ -90,7 +90,7 @@ const defenseScenarios = {
           id: 'stay', label: '👀 守住自己的人',
           correct: false,
 
-          position: { x: 190, y: 150 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 250, y: 150 }, label: '🏀 轻松上篮！', color: '#EF4444' },
             { target: 'helpDefender', to: { x: 190, y: 150 }, label: '👀 没动', color: '#EF4444' },
@@ -149,7 +149,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: 'Sprint close, chop step, high hand', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 260, y: 200 }, label: '🏃 Sprint & chop!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 300, y: 220 }, label: '🏀 Contested', color: '#FFE135' },
@@ -157,7 +157,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Textbook closeout!', feedback: "Perfect! Sprint toward the shooter, then chop your feet to decelerate 6 feet away, and raise a high hand to contest. You're close enough to affect the shot but balanced enough to stay in front of a drive.", tip: 'Sprint, chop, contest. Never jump at a shooter — stay on your feet and use your length!' } },
         { id: 'B', label: 'Jog over, stay low', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 200 }, label: '🐢 Jogging', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 300, y: 200 }, label: '🏀 Open shot!', color: '#EF4444' },
@@ -165,7 +165,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Too slow!', feedback: "Jogging gives the shooter all day to catch, aim, and shoot. By the time you arrive, the ball is already in the air. A good shooter will punish lazy closeouts every time.", tip: 'Closeout speed matters. Make the shooter feel your presence early.' } },
         { id: 'C', label: 'Full sprint, jump at shooter', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 290, y: 205 }, label: '🛫 Jumped!', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 300, y: 220 }, label: '🧢 Pump fake', color: '#EF4444' },
@@ -180,7 +180,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: '冲刺、碎步减速、举手干扰', correct: true,
 
-          position: { x: 200, y: 220 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 260, y: 200 }, label: '🏃 冲刺碎步！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 300, y: 220 }, label: '🏀 受干扰', color: '#FFE135' },
@@ -188,7 +188,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '教科书式扑防！', feedback: '完美！先冲刺靠近射手，然后在6英尺处用碎步减速，举起一只手干扰。你离得够近可以影响投篮，又保持平衡不会被突破。', tip: '冲刺、碎步、干扰。永远不要跳向射手——保持站立用臂展干扰！' } },
         { id: 'B', label: '慢跑过去，保持低重心', correct: false,
 
-          position: { x: 200, y: 240 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 200 }, label: '🐢 慢跑', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 300, y: 200 }, label: '🏀 空位出手！', color: '#EF4444' },
@@ -196,7 +196,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '太慢了！', feedback: '慢跑给了射手充足的时间接球、瞄准和投篮。等你到了，球已经出手了。好的射手会惩罚每一次懒散的扑防。', tip: '扑防速度很重要。让射手早点感受到你的存在。' } },
         { id: 'C', label: '全速冲刺，跳向射手', correct: false,
 
-          position: { x: 200, y: 210 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 290, y: 205 }, label: '🛫 跳了！', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 300, y: 220 }, label: '🧢 假动作', color: '#EF4444' },
@@ -220,7 +220,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: 'Show hard then recover', correct: true,
 
-          position: { x: 290, y: 190 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 220 }, label: '🛑 Shows hard!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 230 }, label: '⏳ Hesitates', color: '#FFE135' },
@@ -228,7 +228,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Show & Recover!', feedback: "Right! You 'show' your body to the ball handler to slow them down while your teammate recovers over the screen, then you sprint back to your man (the roller). This is standard pick & roll defense!", tip: 'Show hard enough to slow the ball handler, but recover fast so the roller isn\'t open.' } },
         { id: 'B', label: 'Switch onto the ball handler', correct: false,
 
-          position: { x: 250, y: 210 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 240 }, label: '🔄 Switches', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 250 }, label: '🏃 PG drives!', color: '#EF4444' },
@@ -236,7 +236,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Bad matchup', feedback: "Switching puts your big man on their quick guard — that's a mismatch they'll exploit. Only switch when both defenders can guard both positions, or as a surprise tactic.", tip: 'Avoid switching if it creates a size/speed mismatch. Communicate the switch if you do!' } },
         { id: 'C', label: 'Sag off and protect the paint', correct: false,
 
-          position: { x: 250, y: 170 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 210 }, label: '📏 Sags off', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 240 }, label: '🏀 Open 3!', color: '#EF4444' },
@@ -251,7 +251,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: '强力展示后回位', correct: true,
 
-          position: { x: 230, y: 180 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 220 }, label: '🛑 强力展示！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 230 }, label: '⏳ 犹豫', color: '#FFE135' },
@@ -259,7 +259,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '展示并回位！', feedback: '对！你向持球者"展示"你的身体来延缓他们，等你的队友绕过掩护后，你迅速回防你的防守对象（顺下者）。这是标准的挡拆防守！', tip: '展示要足够强硬以延缓持球者，但回位要快以免顺下者空位。' } },
         { id: 'B', label: '换防到持球者', correct: false,
 
-          position: { x: 180, y: 210 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 240 }, label: '🔄 换防', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 250 }, label: '🏃 小打大！', color: '#EF4444' },
@@ -267,7 +267,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '错位不利', feedback: '换防会让你的大个子去防对方的快速后卫——这是他们会利用的错位。只有当两个防守者都能防两个位置时才换防，或作为奇招使用。', tip: '如果换防会造成大小/快慢错位，避免换防。如果换防一定要沟通！' } },
         { id: 'C', label: '后退保护禁区', correct: false,
 
-          position: { x: 230, y: 230 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 210 }, label: '📏 后退', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 240 }, label: '🏀 空位三分！', color: '#EF4444' },
@@ -292,7 +292,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: 'Jab step toward the passing lane, one hand up', correct: true,
 
-          position: { x: 200, y: 130 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 290, y: 190 }, label: '✋ Deny!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 330, y: 140 }, label: '⏳ Hesitates', color: '#FFE135' },
@@ -300,7 +300,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Perfect denial stance!', feedback: "YES! You're in the passing lane with your near hand up and your body angled to see both the ball and your man. The passer hesitates — you've successfully taken away the pass. That's elite defense!", tip: 'Get in the passing lane early. Make the passer think twice. One pass away = deny the pass first.' } },
         { id: 'B', label: 'Stand directly behind your man', correct: false,
 
-          position: { x: 200, y: 140 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 250, y: 210 }, label: '🔄 Behind', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 330, y: 140 }, label: '🎯 Easy pass!', color: '#EF4444' },
@@ -308,7 +308,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Too easy!', feedback: "Playing behind your man lets them catch the ball easily. Now they're facing the basket with options. You want to make every catch difficult, especially near the scoring areas.", tip: 'Front your man in the post. Deny on the wing. Make every catch a battle.' } },
         { id: 'C', label: 'Sag all the way into the paint', correct: false,
 
-          position: { x: 200, y: 120 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 250, y: 170 }, label: '📏 Too deep', color: '#EF4444' },
             { target: 'teammate1', to: { x: 250, y: 220 }, label: '🏀 Open catch!', color: '#EF4444' },
@@ -323,7 +323,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: '刺步向传球路线，单手举起', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 290, y: 190 }, label: '✋ 拦截！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 330, y: 140 }, label: '⏳ 犹豫', color: '#FFE135' },
@@ -331,7 +331,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '完美的拦截姿势！', feedback: '没错！你站在传球路线上，近侧手举起，身体角度能看到球和你的防守人。传球者犹豫了——你成功阻止了传球。这就是精英级防守！', tip: '早一步站在传球路线上。让传球者三思。距离球一步 = 先拦截传球。' } },
         { id: 'B', label: '站在防守对象身后', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 250, y: 210 }, label: '🔄 在后面', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 330, y: 140 }, label: '🎯 轻松传球！', color: '#EF4444' },
@@ -339,7 +339,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '太轻松了！', feedback: '站在防守对象身后让他们轻松接球。现在他们面对篮筐有多种选择。你要让每次接球都变得困难，尤其是在得分区域附近。', tip: '在低位绕前防守。在侧翼拦截传球。让每次接球都变成战斗。' } },
         { id: 'C', label: '后退到禁区', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 250, y: 170 }, label: '📏 太深了', color: '#EF4444' },
             { target: 'teammate1', to: { x: 250, y: 220 }, label: '🏀 轻松接球！', color: '#EF4444' },
@@ -363,7 +363,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: 'One step inside the paint, ball-you-man triangle', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 180 }, label: '🎯 Help side!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 320, y: 200 }, label: '👀 Sees D', color: '#FFE135' },
@@ -371,7 +371,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Perfect help position!', feedback: "Exactly! You're in the 'help side' position — one step inside the paint, angled so you can see both the ball and your man. From here you can help on a drive AND recover to your shooter.", tip: 'Help side = one foot in the paint, eyes on the ball, know where your man is.' } },
         { id: 'B', label: 'Stand on the three-point line next to your man', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 180, y: 210 }, label: '📏 Too far', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 280, y: 170 }, label: '🏀 Drives past!', color: '#EF4444' },
@@ -379,7 +379,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'No help available', feedback: "You're too far from the paint to help. If the ball handler drives, by the time you arrive they've already scored.", tip: 'If you can\'t touch the paint with your help side foot, you\'re too far.' } },
         { id: 'C', label: 'Sag all the way to the baseline', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 230 }, label: '📉 Out of play', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 280, y: 170 }, label: '🏀 Drives!', color: '#EF4444' },
@@ -394,7 +394,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: '禁区边缘一步，球-你-人三角形', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 180 }, label: '🎯 协防侧！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 320, y: 200 }, label: '👀 看到防守', color: '#FFE135' },
@@ -402,11 +402,11 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '完美的协防位置！', feedback: '没错！你站在协防侧位置——禁区里一步，身体角度能看到球和你的防守人。从这里你可以协防突破，也可以回防你的射手。', tip: '协防侧 = 一只脚在禁区里，眼睛看球，知道你的防守人在哪。' } },
         { id: 'B', label: '站在三分线外你的防守人旁边', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           zh: { title: '无法协防', feedback: '你离禁区太远无法协防。如果持球者突破，等你到了他们已经在得分了。', tip: '如果你的协防侧脚够不到禁区，你就太远了。' } },
         { id: 'C', label: '后退到底线', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 230, y: 230 }, label: '📉 出局了', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 280, y: 170 }, label: '🏀 突破！', color: '#EF4444' },
@@ -431,7 +431,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: 'Jump straight up, arms vertical, no body contact', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 130 }, label: '🧱 Vertical!', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '🚫 Contested!', color: '#FFE135' },
@@ -439,7 +439,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Clean contest!', feedback: "Perfect verticality! You jumped straight up with both arms raised — no forward lean, no body contact. This is the legal way to contest any shot in the paint.", tip: 'Verticality = jump straight up. Don\'t jump forward. Let the shooter initiate contact.' } },
         { id: 'B', label: 'Swat from behind', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 140 }, label: '✋ Reaching!', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '❌ And-1!', color: '#EF4444' },
@@ -447,7 +447,7 @@ const NEW_DEFENSE_SCENARIOS = {
           en: { title: 'Foul!', feedback: "Reaching from behind almost always results in body contact or arm slapping. It's a foul 9 times out of 10.", tip: 'Don\'t reach from behind. Either contest from the side or take the charge.' } },
         { id: 'C', label: 'Slap the floor and yell', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 130 }, label: '🏀 Easy bucket!', color: '#EF4444' },
           ],
@@ -461,7 +461,7 @@ const NEW_DEFENSE_SCENARIOS = {
       choices: [
         { id: 'A', label: '垂直起跳，双臂竖直，无身体接触', correct: true,
 
-          position: { x: 260, y: 200 },
+          position: { x: 200, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 130 }, label: '🧱 垂直起跳！', color: '#2ECC71' },
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '🚫 被干扰！', color: '#FFE135' },
@@ -469,7 +469,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '干净的干扰！', feedback: '完美的垂直起跳！你垂直起跳双手高举——没有前倾，没有身体接触。这是在禁区干扰投篮的合法方式。', tip: '垂直起跳 = 跳直。不要向前跳。让投篮者制造接触。' } },
         { id: 'B', label: '从身后封盖', correct: false,
 
-          position: { x: 230, y: 200 },
+          position: { x: 320, y: 272 },
           animate: [
             { target: 'defender1', to: { x: 200, y: 140 }, label: '✋ 打手！', color: '#EF4444' },
             { target: 'ballHandler', to: { x: 200, y: 150 }, label: '❌ 2+1！', color: '#EF4444' },
@@ -477,7 +477,7 @@ const NEW_DEFENSE_SCENARIOS = {
           zh: { title: '犯规！', feedback: '从身后伸手几乎总是导致身体接触或打手。十次有九次是犯规。', tip: '不要从身后伸手。要么从侧面干扰，要么造进攻犯规。' } },
         { id: 'C', label: '拍地板大喊', correct: false,
 
-          position: { x: 290, y: 205 },
+          position: { x: 80, y: 272 },
           animate: [
             { target: 'ballHandler', to: { x: 200, y: 130 }, label: '🏀 轻松得分', color: '#EF4444' },
           ],
