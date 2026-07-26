@@ -171,7 +171,8 @@ export default function SeeBallSeeManGame({ onComplete, onAdvance }) {
         <div className="relative">
           <InteractiveCourt
             simple
-            width={400} height={320}
+            width={400}
+            half="top"
             onCourtTap={handleCourtTap}
           >
             {/* Ball Handler */}
@@ -320,18 +321,16 @@ export default function SeeBallSeeManGame({ onComplete, onAdvance }) {
         )}
       </AnimatePresence>
 
-      {/* Coach Bear */}
-      {showCoach && selectedPos && (
-        <CoachBear
-          show={showCoach}
-          type={selectedPos.correct ? 'correct' : 'wrong'}
-          title={selectedPos.label}
-          feedback={getPosText(selectedPos).feedback}
-          tip={getPosText(selectedPos).tip}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedPos?.correct ? 'correct' : 'wrong'}
+        title={selectedPos?.label || ''}
+        feedback={selectedPos ? getPosText(selectedPos).feedback : ''}
+        tip={selectedPos ? getPosText(selectedPos).tip : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

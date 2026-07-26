@@ -6,6 +6,7 @@ import Header from './components/Header';
 import HeroBanner from './components/HeroBanner';
 import LearningHub from './components/LearningHub';
 import ProgressBar from './components/ProgressBar';
+import BadgesDrawer from './components/BadgesDrawer';
 import OffenseModule from './components/modules/OffenseModule';
 import DefenseModule from './components/modules/DefenseModule';
 import CommunicationModule from './components/modules/CommunicationModule';
@@ -60,12 +61,17 @@ function LevelUpOverlay() {
   );
 }
 
-function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication }) {
+function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onViewBadges }) {
   return (
     <div className="min-h-screen pb-12">
       <div className="max-w-6xl mx-auto">
         <Header />
-        <HeroBanner />
+        <HeroBanner
+          onStartLearning={() => {
+            document.getElementById('learning-hubs')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onViewBadges={onViewBadges}
+        />
         <ProgressBar />
         <LearningHub onEnterOffense={onEnterOffense} onEnterDefense={onEnterDefense} onEnterCommunication={onEnterCommunication} />
       </div>
@@ -76,6 +82,7 @@ function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication }) {
 
 export default function App() {
   const [screen, setScreen] = useState('dashboard');
+  const [showBadges, setShowBadges] = useState(false);
 
   return (
     <GameProvider>
@@ -92,6 +99,7 @@ export default function App() {
                 onEnterOffense={() => setScreen('offense')}
                 onEnterDefense={() => setScreen('defense')}
                 onEnterCommunication={() => setScreen('communication')}
+                onViewBadges={() => setShowBadges(true)}
               />
             </motion.div>
           )}
@@ -124,6 +132,11 @@ export default function App() {
             >
               <CommunicationModule onBack={() => setScreen('dashboard')} />
             </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showBadges && (
+            <BadgesDrawer onClose={() => setShowBadges(false)} />
           )}
         </AnimatePresence>
       </LanguageProvider>

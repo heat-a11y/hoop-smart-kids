@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import InteractiveCourt from '../court/InteractiveCourt';
 import { BallHandlerAvatar, TeammateAvatar, DefenderAvatar } from '../court/Avatars';
@@ -48,26 +48,39 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
     requestAnimationFrame(animate);
   }, [d]);
 
-  // Countdown timer during decision phase
+  // Countdown timer during decision phase — ref-based to avoid interval reset
+  const countdownRef = useRef(countdown);
+  useEffect(() => { countdownRef.current = countdown; }, [countdown]);
+  const phaseRef = useRef(phase);
+  useEffect(() => { phaseRef.current = phase; }, [phase]);
+
   useEffect(() => {
     if (phase !== 'decision') return;
-    if (countdown <= 0) {
-      // Auto-fail — ran out of time
-      const timeoutChoice = {
-        id: 'timeout',
-        label: '⏰ Time expired!',
-        correct: 'suboptimal',
-        en: { title: 'Too slow!', feedback: "You hesitated! In a fastbreak, hesitation lets the defense recover. Make the read and pass quickly!", tip: 'In 2-on-1, decide fast. The defender commits? Pass immediately.' },
-        zh: { title: '太慢了！', feedback: '你犹豫了！快攻中犹豫会让防守恢复。快速阅读并传出球！', tip: '2对1快攻中要快速决定。防守扑向你？立即传球。' },
-      };
-      setSelectedChoice(timeoutChoice);
-      setPhase('feedback');
-      setTimeout(() => setShowCoach(true), 500);
-      return;
-    }
-    const timer = setInterval(() => setCountdown(prev => prev - 1), 1000);
+    const endTime = Date.now() + countdown * 1000;
+
+    const timer = setInterval(() => {
+      const remaining = Math.ceil((endTime - Date.now()) / 1000);
+      if (remaining <= 0) {
+        clearInterval(timer);
+        // Auto-fail — ran out of time
+        const timeoutChoice = {
+          id: 'timeout',
+          label: '⏰ Time expired!',
+          correct: 'suboptimal',
+          en: { title: 'Too slow!', feedback: "You hesitated! In a fastbreak, hesitation lets the defense recover. Make the read and pass quickly!", tip: 'In 2-on-1, decide fast. The defender commits? Pass immediately.' },
+          zh: { title: '太慢了！', feedback: '你犹豫了！快攻中犹豫会让防守恢复。快速阅读并传出球！', tip: '2对1快攻中要快速决定。防守扑向你？立即传球。' },
+        };
+        setSelectedChoice(timeoutChoice);
+        setPhase('feedback');
+        setTimeout(() => setShowCoach(true), 500);
+      } else if (remaining !== countdownRef.current) {
+        setCountdown(remaining);
+      }
+    }, 250);
+
     return () => clearInterval(timer);
-  }, [phase, countdown, lang]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, lang]);
 
   // Tap teammate to pass (correct action)
   const handleTapTeammate = useCallback(() => {
@@ -134,7 +147,7 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <InteractiveCourt simple width={400} height={320}>
+          <InteractiveCourt simple width={400} half="bottom">
             {/* Teammate cutting to basket - tappable when glowing */}
             <g
               onClick={phase === 'decision' ? handleTapTeammate : undefined}
@@ -249,18 +262,16 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
         </motion.div>
       )}
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={getResultType(selectedChoice)}
-          title={selectedChoice.en?.title || selectedChoice.zh?.title || (lang === 'en' ? 'Great try!' : '不错的尝试！')}
-          feedback={selectedChoice.en?.feedback || selectedChoice.zh?.feedback || (lang === 'en' ? 'Keep learning!' : '继续学习！')}
-          tip={selectedChoice.en?.tip || selectedChoice.zh?.tip || (lang === 'en' ? 'Practice makes perfect!' : '熟能生巧！')}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice ? getResultType(selectedChoice) : 'correct'}
+        title={selectedChoice?.en?.title || selectedChoice?.zh?.title || (lang === 'en' ? 'Great try!' : '不错的尝试！')}
+        feedback={selectedChoice?.en?.feedback || selectedChoice?.zh?.feedback || (lang === 'en' ? 'Keep learning!' : '继续学习！')}
+        tip={selectedChoice?.en?.tip || selectedChoice?.zh?.tip || (lang === 'en' ? 'Practice makes perfect!' : '熟能生巧！')}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

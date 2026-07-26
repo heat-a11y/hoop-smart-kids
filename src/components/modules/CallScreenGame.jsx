@@ -90,7 +90,7 @@ export default function CallScreenGame({ onComplete, onAdvance }) {
         </div>
 
         <div className="relative">
-          <InteractiveCourt simple width={400} height={320}>
+          <InteractiveCourt simple width={400} half="bottom">
             {/* Ball Handler */}
             <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate />
             <Basketball x={d.ballHandler.x + 12} y={d.ballHandler.y} animate />
@@ -204,18 +204,16 @@ export default function CallScreenGame({ onComplete, onAdvance }) {
         )}
       </AnimatePresence>
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={selectedChoice.correct ? 'correct' : 'wrong'}
-          title={getChoiceText(selectedChoice).title}
-          feedback={getChoiceText(selectedChoice).feedback}
-          tip={getChoiceText(selectedChoice).tip}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice?.correct ? 'correct' : 'wrong'}
+        title={selectedChoice ? getChoiceText(selectedChoice).title : ''}
+        feedback={selectedChoice ? getChoiceText(selectedChoice).feedback : ''}
+        tip={selectedChoice ? getChoiceText(selectedChoice).tip : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

@@ -181,18 +181,16 @@ export default function EncouragementGame({ onComplete, onAdvance }) {
         )}
       </AnimatePresence>
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={selectedChoice.correct ? 'correct' : 'wrong'}
-          title={getChoiceText(selectedChoice).title}
-          feedback={getChoiceText(selectedChoice).feedback}
-          tip={getChoiceText(selectedChoice).tip}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice?.correct ? 'correct' : 'wrong'}
+        title={selectedChoice ? getChoiceText(selectedChoice).title : ''}
+        feedback={selectedChoice ? getChoiceText(selectedChoice).feedback : ''}
+        tip={selectedChoice ? getChoiceText(selectedChoice).tip : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

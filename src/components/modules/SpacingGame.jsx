@@ -106,7 +106,7 @@ export default function SpacingGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <BasketballCourt width={400} height={320}>
+          <BasketballCourt width={400} half="bottom">
             {/* Other players crowded in paint */}
             {d.positions.slice(1).map((pos) => (
               pos.defender ? (
@@ -257,18 +257,16 @@ export default function SpacingGame({ onComplete, onAdvance }) {
         </motion.div>
       )}
 
-      {/* Coach Bear */}
-      {showCoach && (
-        <CoachBear
-          show={showCoach}
-          type={moved ? 'correct' : 'wrong'}
-          title={lang === 'en' ? (moved ? text.choices[0].en.title : text.choices[1].en.title) : (moved ? text.choices[0].zh.title : text.choices[1].zh.title)}
-          feedback={lang === 'en' ? (moved ? text.choices[0].en.feedback : text.choices[1].en.feedback) : (moved ? text.choices[0].zh.feedback : text.choices[1].zh.feedback)}
-          tip={lang === 'en' ? (moved ? text.choices[0].en.tip : text.choices[1].en.tip) : (moved ? text.choices[0].zh.tip : text.choices[1].zh.tip)}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={moved ? 'correct' : 'wrong'}
+        title={lang === 'en' ? (moved ? text.choices[0].en.title : text.choices[1].en.title) : (moved ? text.choices[0].zh.title : text.choices[1].zh.title)}
+        feedback={lang === 'en' ? (moved ? text.choices[0].en.feedback : text.choices[1].en.feedback) : (moved ? text.choices[0].zh.feedback : text.choices[1].zh.feedback)}
+        tip={lang === 'en' ? (moved ? text.choices[0].en.tip : text.choices[1].en.tip) : (moved ? text.choices[0].zh.tip : text.choices[1].zh.tip)}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

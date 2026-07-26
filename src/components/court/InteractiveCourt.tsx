@@ -67,10 +67,12 @@ export interface Trajectory {
 }
 
 export interface InteractiveCourtProps {
-  /** ViewBox width (default 800) */
+  /** ViewBox width (default 400) */
   width?: number;
-  /** ViewBox height (default 500) */
+  /** ViewBox height (default 640) */
   height?: number;
+  /** Which half of the full court to render children in: 'top' (defense, y 0-320) or 'bottom' (offense, y 320-640) */
+  half?: 'top' | 'bottom';
   /** Players to render */
   players?: PlayerDef[];
   /** Target zones (green = open, red = pressure) */
@@ -259,40 +261,65 @@ function CourtBackground({ w, h, pad }: { w: number; h: number; pad: number }) {
   return (
     <g>
       {/* Wood court */}
-      <rect x={pad} y={pad} width={w - 2 * pad} height={h - 2 * pad} fill="#D4A04A" rx="6" stroke="#8B6914" strokeWidth="2" />
-      {/* Inner border */}
-      <rect x={pad + 10} y={pad + 10} width={w - 2 * pad - 20} height={h - 2 * pad - 20} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.85" rx="2" />
+      <rect x={pad} y={pad} width={w - 2 * pad} height={h - 2 * pad} fill="url(#woodGrain)" rx="6" stroke="#8B6914" strokeWidth="2" />
+
+      {/* Court border */}
+      <rect x={pad + 8} y={pad + 8} width={w - 2 * pad - 16} height={h - 2 * pad - 16} fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.85" rx="2" />
 
       {/* Wood grain lines */}
       {[0.15, 0.35, 0.55, 0.75, 0.9].map((pct, i) => (
-        <line key={i} x1={pad + 12} y1={pad + h * 0.12 * (pct + 0.1)} x2={w - pad - 12} y2={pad + h * 0.12 * (pct + 0.1)} stroke="#B86C30" strokeWidth={0.3 + (i % 2) * 0.2} opacity={0.12 + i * 0.02} />
+        <line key={i} x1={pad + 10} y1={pad + h * 0.12 * (pct + 0.1)} x2={w - pad - 10} y2={pad + h * 0.12 * (pct + 0.1)} stroke="#B86C30" strokeWidth={0.3 + (i % 2) * 0.2} opacity={0.12 + i * 0.02} />
       ))}
 
-      {/* Half-court line */}
-      <line x1={w / 2} y1={pad + 10} x2={w / 2} y2={h - pad - 10} stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="6,4" />
+      {/* Half-court line (horizontal — divides top defense / bottom offense) */}
+      <line x1={pad + 8} y1={h / 2} x2={w - pad - 8} y2={h / 2} stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="6,4" />
 
       {/* Center circle */}
-      <circle cx={w / 2} cy={h - pad - 10} r="36" fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4,4" />
+      <circle cx={w / 2} cy={h / 2} r="30" fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.4" strokeDasharray="4,4" />
 
-      {/* Three-point arc */}
-      <path d={`M ${w * 0.2} ${pad + 10} Q ${w / 2} ${pad - 30}, ${w * 0.8} ${pad + 10}`} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+      {/* ---- TOP HALF (defense / back court) ---- */}
 
-      {/* Free-throw line */}
-      <line x1={w * 0.28} y1={h * 0.3} x2={w * 0.72} y2={h * 0.3} stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+      {/* Top three-point arc */}
+      <path d={`M ${w * 0.25} ${pad + 8} Q ${w / 2} ${pad - 20}, ${w * 0.75} ${pad + 8}`} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
 
-      {/* Key / Lane */}
-      <rect x={w * 0.28} y={pad + 10} width={w * 0.44} height={h * 0.3 - pad - 10} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="4,3" />
+      {/* Top free-throw line */}
+      <line x1={w * 0.3} y1={h * 0.2} x2={w * 0.7} y2={h * 0.2} stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
 
-      {/* Basket */}
-      <g transform={`translate(${w / 2}, ${pad + 6})`}>
-        <rect x="-14" y="-2" width="28" height="4" fill="white" opacity="0.8" rx="1" />
-        <ellipse cx="0" cy="7" rx="12" ry="3.5" fill="none" stroke="red" strokeWidth="2.5" />
-        <path d="M -9 10 Q -5 18 0 20 Q 5 18 9 10" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.5" />
+      {/* Top Key / Lane */}
+      <rect x={w * 0.3} y={pad + 8} width={w * 0.4} height={h * 0.2 - pad - 8} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="4,3" />
+
+      {/* Top Basket / Hoop */}
+      <g transform={`translate(${w / 2}, ${pad + 4})`}>
+        <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />
+        <ellipse cx="0" cy="6" rx="10" ry="3" fill="none" stroke="red" strokeWidth="2.5" />
+        <path d="M -8 8 Q -5 16 0 18 Q 5 16 8 8" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.5" />
       </g>
 
-      {/* Labels */}
-      <text x={w / 2} y={h * 0.15} textAnchor="middle" fill="white" fontSize="11" opacity="0.12" fontWeight="bold" fontFamily="Nunito, sans-serif">PAINT</text>
-      <text x={w * 0.88} y={pad + 22} textAnchor="middle" fill="white" fontSize="8" opacity="0.15" fontFamily="Nunito, sans-serif">3PT</text>
+      {/* Top labels */}
+      <text x={w / 2} y={h * 0.12} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold" fontFamily="Nunito, sans-serif">PAINT</text>
+      <text x={w * 0.88} y={pad + 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2" fontFamily="Nunito, sans-serif">3PT</text>
+
+      {/* ---- BOTTOM HALF (offense / front court) ---- */}
+
+      {/* Bottom three-point arc (mirrored) */}
+      <path d={`M ${w * 0.25} ${h - pad - 8} Q ${w / 2} ${h - pad + 20}, ${w * 0.75} ${h - pad - 8}`} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+
+      {/* Bottom free-throw line */}
+      <line x1={w * 0.3} y1={h - h * 0.2} x2={w * 0.7} y2={h - h * 0.2} stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+
+      {/* Bottom Key / Lane (mirrored) */}
+      <rect x={w * 0.3} y={h - h * 0.2} width={w * 0.4} height={h * 0.2 - pad - 8} fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="4,3" />
+
+      {/* Bottom Basket / Hoop (mirrored) */}
+      <g transform={`translate(${w / 2}, ${h - pad - 4})`}>
+        <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />
+        <ellipse cx="0" cy="-6" rx="10" ry="3" fill="none" stroke="red" strokeWidth="2.5" />
+        <path d="M -8 -8 Q -5 -16 0 -18 Q 5 -16 8 -8" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.5" />
+      </g>
+
+      {/* Bottom labels */}
+      <text x={w / 2} y={h - h * 0.12} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold" fontFamily="Nunito, sans-serif">PAINT</text>
+      <text x={w * 0.88} y={h - pad - 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2" fontFamily="Nunito, sans-serif">3PT</text>
     </g>
   );
 }
@@ -302,8 +329,9 @@ function CourtBackground({ w, h, pad }: { w: number; h: number; pad: number }) {
 /* ------------------------------------------------------------------ */
 
 const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
-  width = 800,
-  height = 500,
+  width = 400,
+  height = 640,
+  half,
   players = [],
   zones = [],
   trajectories = [],
@@ -491,7 +519,7 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
       preserveAspectRatio="xMidYMid meet"
       className={`w-full mx-auto h-auto select-none ${simple ? 'max-w-lg' : 'max-w-2xl'}`}
       style={{
-        touchAction: 'none',
+        touchAction: simple ? 'manipulation' : 'none',
         filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
         maxHeight: '55vh',
         WebkitUserSelect: 'none',
@@ -505,6 +533,22 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
       {/* Animation keyframes via inline <style> */}
       <defs>
         <style>{animationStyles}</style>
+
+        {/* Wood grain pattern */}
+        <pattern id="woodGrain" patternUnits="userSpaceOnUse" width="20" height="20">
+          <rect width="20" height="20" fill="#C97B3E" />
+          <line x1="0" y1="18" x2="20" y2="18" stroke="#B86C30" strokeWidth="0.5" opacity="0.3" />
+          <line x1="0" y1="14" x2="20" y2="14" stroke="#B86C30" strokeWidth="0.3" opacity="0.2" />
+          <line x1="0" y1="6" x2="20" y2="6" stroke="#B86C30" strokeWidth="0.3" opacity="0.15" />
+        </pattern>
+
+        {/* Court floor gradient */}
+        <linearGradient id="courtGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#D4A04A" />
+          <stop offset="50%" stopColor="#C88D3A" />
+          <stop offset="100%" stopColor="#B87D30" />
+        </linearGradient>
+
         <filter id="ic-glow-filter">
           <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge>
@@ -551,8 +595,16 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
       {/* Players */}
       {!simple && playerEls}
 
-      {/* Extra children */}
-      {children}
+      {/* Extra children (with optional half-court transform) */}
+      {half === 'bottom' ? (
+        <g transform={`translate(0, ${height / 2})`}>
+          {children}
+        </g>
+      ) : half === 'top' ? (
+        <g>
+          {children}
+        </g>
+      ) : children}
     </svg>
   );
 };

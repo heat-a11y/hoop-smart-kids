@@ -3,9 +3,14 @@
  * dual-input (touch + mouse) pointer events, and safe touch zones.
  *
  * Scales automatically from 320px mobile to widescreen desktop.
+ * Supports half='top' (defense, basket at top) and half='bottom' (offense, basket at bottom).
  */
-export default function BasketballCourt({ children, width = 400, height = 350, className = '' }) {
+export default function BasketballCourt({ children, width = 400, height = 640, className = '', half = 'top' }) {
   const padding = 20;
+  const isBottom = half === 'bottom';
+  const courtY = isBottom ? height / 2 : 0;
+  const basketY = isBottom ? height - padding - 4 : padding + 4;
+  const courtH = height / 2 - padding - 8;
 
   return (
     <svg
@@ -14,7 +19,7 @@ export default function BasketballCourt({ children, width = 400, height = 350, c
       style={{
         filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
         maxHeight: '50vh',
-        touchAction: 'none',
+        touchAction: 'manipulation',
       }}
     >
       <defs>
@@ -35,7 +40,7 @@ export default function BasketballCourt({ children, width = 400, height = 350, c
 
         {/* Clip path */}
         <clipPath id="courtClip">
-          <rect x={padding} y={padding} width={width - 2 * padding} height={height - 2 * padding} rx="4" />
+          <rect x={padding} y={courtY + padding} width={width - 2 * padding} height={courtH} rx="4" />
         </clipPath>
 
         {/* Glow filter */}
@@ -73,69 +78,95 @@ export default function BasketballCourt({ children, width = 400, height = 350, c
 
       {/* Court base */}
       <rect
-        x={padding} y={padding}
-        width={width - 2 * padding} height={height - 2 * padding}
+        x={padding} y={courtY + padding}
+        width={width - 2 * padding} height={courtH}
         fill="url(#woodGrain)" rx="6"
         stroke="#8B6914" strokeWidth="2"
       />
 
       {/* Court border */}
       <rect
-        x={padding + 8} y={padding + 8}
-        width={width - 2 * padding - 16} height={height - 2 * padding - 16}
+        x={padding + 8} y={courtY + padding + 8}
+        width={width - 2 * padding - 16} height={courtH - 16}
         fill="none" stroke="white" strokeWidth="2" strokeOpacity="0.85" rx="2"
       />
 
       {/* Half-court line */}
       <line
-        x1={width / 2} y1={padding + 8}
-        x2={width / 2} y2={height - padding - 8}
+        x1={width / 2} y1={courtY + padding + 8}
+        x2={width / 2} y2={courtY + height / 2 - padding - 8}
         stroke="white" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="6,4"
       />
 
       {/* Center circle */}
       <circle
-        cx={width / 2} cy={height - padding - 8}
+        cx={width / 2} cy={courtY + height / 2 - padding - 8}
         r="30" fill="none" stroke="white" strokeWidth="1.5"
         strokeOpacity="0.4" strokeDasharray="4,4"
       />
 
       {/* Three-point arc */}
-      <path
-        d={`M ${width * 0.25} ${padding + 8} Q ${width / 2} ${padding - 20}, ${width * 0.75} ${padding + 8}`}
-        fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6"
-      />
+      {isBottom ? (
+        <path
+          d={`M ${width * 0.25} ${courtY + height / 2 - padding - 8} Q ${width / 2} ${courtY + height / 2 + 20}, ${width * 0.75} ${courtY + height / 2 - padding - 8}`}
+          fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6"
+        />
+      ) : (
+        <path
+          d={`M ${width * 0.25} ${courtY + padding + 8} Q ${width / 2} ${courtY + padding - 20}, ${width * 0.75} ${courtY + padding + 8}`}
+          fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6"
+        />
+      )}
 
       {/* Free-throw line */}
       <line
-        x1={width * 0.3} y1={height * 0.35}
-        x2={width * 0.7} y2={height * 0.35}
+        x1={width * 0.3} y1={isBottom ? courtY + height / 2 - height * 0.35 : courtY + height * 0.35}
+        x2={width * 0.7} y2={isBottom ? courtY + height / 2 - height * 0.35 : courtY + height * 0.35}
         stroke="white" strokeWidth="1.5" strokeOpacity="0.6"
       />
 
       {/* Key / Lane */}
-      <rect
-        x={width * 0.3} y={padding + 8}
-        width={width * 0.4} height={height * 0.35 - padding - 8}
-        fill="none" stroke="white" strokeWidth="1.5"
-        strokeOpacity="0.5" strokeDasharray="4,3"
-      />
+      {isBottom ? (
+        <rect
+          x={width * 0.3}
+          y={courtY + height / 2 - height * 0.35 + padding + 8}
+          width={width * 0.4}
+          height={height * 0.35 - padding - 8}
+          fill="none" stroke="white" strokeWidth="1.5"
+          strokeOpacity="0.5" strokeDasharray="4,3"
+        />
+      ) : (
+        <rect
+          x={width * 0.3} y={courtY + padding + 8}
+          width={width * 0.4} height={height * 0.35 - padding - 8}
+          fill="none" stroke="white" strokeWidth="1.5"
+          strokeOpacity="0.5" strokeDasharray="4,3"
+        />
+      )}
 
       {/* Basket / Hoop */}
-      <g transform={`translate(${width / 2}, ${padding + 4})`}>
+      <g transform={`translate(${width / 2}, ${basketY})`}>
         <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />
         <ellipse cx="0" cy="6" rx="10" ry="3" fill="none" stroke="red" strokeWidth="2.5" />
         <path d="M -8 8 Q -5 16 0 18 Q 5 16 8 8" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.5" />
       </g>
 
       {/* Paint label */}
-      <text x={width / 2} y={height * 0.2} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold">PAINT</text>
+      {isBottom ? (
+        <text x={width / 2} y={courtY + height / 2 - height * 0.2} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold">PAINT</text>
+      ) : (
+        <text x={width / 2} y={courtY + height * 0.2} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold">PAINT</text>
+      )}
 
       {/* Three-point label */}
-      <text x={width * 0.88} y={padding + 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2">3PT</text>
+      {isBottom ? (
+        <text x={width * 0.88} y={courtY + height / 2 - padding - 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2">3PT</text>
+      ) : (
+        <text x={width * 0.88} y={courtY + padding + 20} textAnchor="middle" fill="white" fontSize="7" opacity="0.2">3PT</text>
+      )}
 
       {/* Children (avatars, ball, arrows, overlays) */}
-      <g style={{ touchAction: 'none' }}>
+      <g>
         {children}
       </g>
     </svg>

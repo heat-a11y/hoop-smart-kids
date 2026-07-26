@@ -116,7 +116,7 @@ export default function TripleThreatGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <InteractiveCourt simple width={400} height={320}>
+          <InteractiveCourt simple width={400} half="bottom">
             {/* Teammates */}
             <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />
             <TeammateAvatar x={d.teammate2.x} y={d.teammate2.y} label={d.teammate2.label} animate delay={0.3} />
@@ -261,18 +261,16 @@ export default function TripleThreatGame({ onComplete, onAdvance }) {
         </motion.div>
       )}
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={getResultType(selectedChoice)}
-          title={lang === 'en' ? selectedChoice.en.title : (selectedChoice.zh ? selectedChoice.zh.title : selectedChoice.en.title)}
-          feedback={lang === 'en' ? selectedChoice.en.feedback : (selectedChoice.zh ? selectedChoice.zh.feedback : selectedChoice.en.feedback)}
-          tip={lang === 'en' ? selectedChoice.en.tip : (selectedChoice.zh ? selectedChoice.zh.tip : selectedChoice.en.tip)}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice ? getResultType(selectedChoice) : 'correct'}
+        title={selectedChoice ? (lang === 'en' ? selectedChoice.en.title : (selectedChoice.zh?.title || selectedChoice.en.title)) : ''}
+        feedback={selectedChoice ? (lang === 'en' ? selectedChoice.en.feedback : (selectedChoice.zh?.feedback || selectedChoice.en.feedback)) : ''}
+        tip={selectedChoice ? (lang === 'en' ? selectedChoice.en.tip : (selectedChoice.zh?.tip || selectedChoice.en.tip)) : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

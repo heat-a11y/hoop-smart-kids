@@ -66,7 +66,7 @@ export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCom
   const hubs = ['offense', 'defense', 'communication'];
 
   return (
-    <section className="px-4 md:px-8 mb-8">
+    <section className="px-4 md:px-8 mb-8" id="learning-hubs">
       {/* Section Header */}
       <motion.div
         className="flex items-center justify-between mb-6"

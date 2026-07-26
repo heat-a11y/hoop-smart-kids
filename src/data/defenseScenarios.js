@@ -81,7 +81,7 @@ const defenseScenarios = {
       helpDefenderMan: { x: 130, y: 130, label: 'Your Man' },
       helpPath: { from: { x: 190, y: 150 }, mid: { x: 220, y: 175 }, to: { x: 255, y: 185 }, label: 'help' },
       recoverPath: { from: { x: 255, y: 185 }, to: { x: 175, y: 140 }, label: 'recover' },
-      basket: { x: 250, y: 30 },
+      basket: { x: 250, y: 12 },
     },
   },
 
@@ -109,7 +109,7 @@ const defenseScenarios = {
       shooter: { x: 200, y: 220, label: 'Shooter' },
       defenderYou: { x: 250, y: 180, label: 'You' },
       opponent: { x: 270, y: 195, label: 'Opponent' },
-      basket: { x: 250, y: 30 },
+      basket: { x: 250, y: 12 },
       ballArc: { start: { x: 200, y: 220 }, peak: { x: 250, y: 60 }, end: { x: 250, y: 35 } },
     },
   },

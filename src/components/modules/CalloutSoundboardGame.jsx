@@ -159,18 +159,16 @@ export default function CalloutSoundboardGame({ onComplete, onAdvance }) {
         </div>
       </motion.div>
 
-      {/* Coach Bear */}
-      {feedback && (
-        <CoachBear
-          show={showCoach}
-          type={feedback.type}
-          title={feedback.title}
-          feedback={feedback.feedback}
-          tip={feedback.tip}
-          onNext={onAdvance || (currentRound < rounds.length - 1 || onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={feedback?.type || 'correct'}
+        title={feedback?.title || ''}
+        feedback={feedback?.feedback || ''}
+        tip={feedback?.tip || ''}
+        onNext={onAdvance || (currentRound < rounds.length - 1 || onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

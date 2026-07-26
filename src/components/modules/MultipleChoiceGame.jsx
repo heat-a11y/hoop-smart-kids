@@ -12,11 +12,14 @@ import { useGame } from '../../context/GameContext';
  * Generic multiple-choice scenario game.
  * Renders any scenario data that has: title, subtitle, setup, choices[], and optional diagram{}.
  */
-export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, onAdvance }) {
+export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, onAdvance, half: courtHalfProp }) {
   const { lang, t } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const text = lang === 'en' ? scenario.en : scenario.zh;
   const d = scenario.diagram;
+
+  // Determine court half: explicit half prop wins, else derive from moduleKey
+  const courtHalf = courtHalfProp || (moduleKey === 'offense' ? 'bottom' : 'top');
 
   const [phase, setPhase] = useState('intro');
   const [selectedChoice, setSelectedChoice] = useState(null);
@@ -75,7 +78,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
 
         {d && (
           <div className="relative">
-            <InteractiveCourt simple width={400} height={320}>
+            <InteractiveCourt simple width={400} half={courtHalf}>
               {/* Render diagram players */}
               {d.ballHandler && <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate glow pulse delay={0.1} />}
               {d.teammate1 && <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />}
@@ -165,18 +168,16 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         )}
       </AnimatePresence>
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={getResultType(selectedChoice)}
-          title={lang === 'en' ? selectedChoice.en?.title : selectedChoice.zh?.title || (lang === 'en' ? 'Great try!' : '不错的尝试！')}
-          feedback={lang === 'en' ? selectedChoice.en?.feedback : selectedChoice.zh?.feedback || (lang === 'en' ? 'Keep learning!' : '继续学习！')}
-          tip={lang === 'en' ? selectedChoice.en?.tip : selectedChoice.zh?.tip || (lang === 'en' ? 'Practice makes perfect!' : '熟能生巧！')}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice ? getResultType(selectedChoice) : 'correct'}
+        title={selectedChoice ? (lang === 'en' ? selectedChoice.en?.title : selectedChoice.zh?.title) || (lang === 'en' ? 'Great try!' : '不错的尝试！') : ''}
+        feedback={selectedChoice ? (lang === 'en' ? selectedChoice.en?.feedback : selectedChoice.zh?.feedback) || (lang === 'en' ? 'Keep learning!' : '继续学习！') : ''}
+        tip={selectedChoice ? (lang === 'en' ? selectedChoice.en?.tip : selectedChoice.zh?.tip) || (lang === 'en' ? 'Practice makes perfect!' : '熟能生巧！') : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

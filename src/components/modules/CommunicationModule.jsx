@@ -6,23 +6,26 @@ import ModuleShell from './ModuleShell';
 import { useLanguage } from '../../context/LanguageContext';
 import allCommScenarios from '../../data/communicationScenarios';
 
-const makeScenario = (key, icon, en, zh) => ({
+const makeScenario = (key, icon, en, zh, half = 'top') => ({
   id: key,
-  component: (props) => <MultipleChoiceGame {...props} scenario={allCommScenarios[key]} moduleKey="communication" />,
+  component: (props) => <MultipleChoiceGame {...props} scenario={allCommScenarios[key]} moduleKey="communication" half={half} />,
   icon, en, zh,
   subtitleEn: allCommScenarios[key].en.subtitle,
   subtitleZh: allCommScenarios[key].zh.subtitle,
   color: 'from-court-orange to-basketball-red',
+  half,
 });
 
 const DRILLS = [
-  { id: 'call-screen', component: CallScreenGame, icon: '📢', en: 'Call the Screen!', zh: '呼叫掩护！', subtitleEn: 'Vocal Communication', subtitleZh: '声音沟通', color: 'from-neon-yellow to-yellow-500' },
-  { id: 'soundboard', component: CalloutSoundboardGame, icon: '🔊', en: 'Callout Soundboard', zh: '口令发声板', subtitleEn: 'Tap the Right Call', subtitleZh: '正确口令', color: 'from-neon-blue to-blue-600' },
-  { id: 'encourage', component: EncouragementGame, icon: '💪', en: 'Teammate Encouragement', zh: '鼓励队友', subtitleEn: 'Build Your Team Up!', subtitleZh: '建设团队！', color: 'from-success-green to-emerald-600' },
-  makeScenario('callSwitch', '🔄', 'Call the Switch', '呼叫换防'),
-  makeScenario('transitionComm', '⚡', 'Transition Defense', '转换防守'),
-  makeScenario('offBallScreen', '👀', 'Off-Ball Screen', '无球掩护沟通'),
-  makeScenario('doubleTeam', '🪤', 'Call the Trap', '呼叫包夹'),
+  // ─── Front Court (Offense Communication) ───
+  { id: 'call-screen', component: CallScreenGame, icon: '📢', en: 'Call the Screen!', zh: '呼叫掩护！', subtitleEn: '🎯 Front Court', subtitleZh: '🎯 前场进攻沟通', color: 'from-neon-yellow to-yellow-500', half: 'bottom' },
+  { id: 'soundboard', component: CalloutSoundboardGame, icon: '🔊', en: 'Callout Soundboard', zh: '口令发声板', subtitleEn: 'Offensive Communication', subtitleZh: '进攻沟通', color: 'from-neon-blue to-blue-600', half: 'bottom' },
+  makeScenario('callSwitch', '🔄', 'Call the Switch', '呼叫换防', 'bottom'),
+  // ─── Back Court (Defense Communication) ───
+  { id: 'encourage', component: EncouragementGame, icon: '💪', en: 'Teammate Encouragement', zh: '鼓励队友', subtitleEn: '🛡️ Back Court', subtitleZh: '🛡️ 后场防守沟通', color: 'from-success-green to-emerald-600', half: 'top' },
+  makeScenario('transitionComm', '⚡', 'Transition Defense', '转换防守', 'top'),
+  makeScenario('offBallScreen', '👀', 'Off-Ball Screen', '无球掩护沟通', 'top'),
+  makeScenario('doubleTeam', '🪤', 'Call the Trap', '呼叫包夹', 'top'),
 ];
 
 export default function CommunicationModule({ onBack }) {

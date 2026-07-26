@@ -19,7 +19,7 @@ const letterVariants = {
   }),
 };
 
-export default function HeroBanner() {
+export default function HeroBanner({ onStartLearning, onViewBadges }) {
   const { lang, t } = useLanguage();
   const heading = t('hero.heading');
 
@@ -53,9 +53,9 @@ export default function HeroBanner() {
             </span>
           </motion.div>
 
-          {/* Hero Heading — letter by letter */}
+          {/* Hero Heading — letter by letter, emoji-safe */}
           <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-            {heading.split('').map((char, i) => (
+            {Array.from(heading).map((char, i) => (
               <motion.span
                 key={i}
                 custom={i}
@@ -86,6 +86,7 @@ export default function HeroBanner() {
             transition={{ delay: 0.6, duration: 0.5 }}
           >
             <motion.button
+              onClick={onStartLearning}
               className="group relative px-8 py-3.5 bg-gradient-to-r from-court-orange to-basketball-red rounded-2xl font-display font-bold text-base text-white shadow-xl shadow-court-orange/30 overflow-hidden"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -95,6 +96,7 @@ export default function HeroBanner() {
             </motion.button>
 
             <motion.button
+              onClick={onViewBadges}
               className="px-8 py-3.5 bg-white/5 backdrop-blur-sm border border-white/15 rounded-2xl font-display font-bold text-sm text-white/80 hover:bg-white/10 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}

@@ -98,7 +98,7 @@ export default function HelpRecoverGame({ onComplete, onAdvance }) {
         </div>
 
         <div className="relative">
-          <BasketballCourt width={400} height={320}>
+          <BasketballCourt width={400} half="top">
             {/* Basket */}
             <g transform={`translate(${d.basket.x}, ${d.basket.y})`}>
               <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />
@@ -207,18 +207,16 @@ export default function HelpRecoverGame({ onComplete, onAdvance }) {
         </motion.div>
       )}
 
-      {/* Coach Bear */}
-      {showCoach && selectedChoice && (
-        <CoachBear
-          show={showCoach}
-          type={selectedChoice.correct ? 'correct' : 'wrong'}
-          title={lang === 'en' ? selectedChoice.en.title : selectedChoice.zh.title}
-          feedback={lang === 'en' ? selectedChoice.en.feedback : selectedChoice.zh.feedback}
-          tip={lang === 'en' ? selectedChoice.en.tip : selectedChoice.zh.tip}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={selectedChoice?.correct ? 'correct' : 'wrong'}
+        title={selectedChoice ? (lang === 'en' ? selectedChoice.en.title : selectedChoice.zh.title) : ''}
+        feedback={selectedChoice ? (lang === 'en' ? selectedChoice.en.feedback : selectedChoice.zh.feedback) : ''}
+        tip={selectedChoice ? (lang === 'en' ? selectedChoice.en.tip : selectedChoice.zh.tip) : ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }

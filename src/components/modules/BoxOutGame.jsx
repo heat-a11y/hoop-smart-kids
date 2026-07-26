@@ -177,7 +177,7 @@ export default function BoxOutGame({ onComplete, onAdvance }) {
         )}
 
         <div className="relative">
-          <BasketballCourt width={400} height={320}>
+          <BasketballCourt width={400} half="top">
             {/* Basket */}
             <g transform={`translate(${d.basket.x}, ${d.basket.y})`}>
               <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />
@@ -316,18 +316,16 @@ export default function BoxOutGame({ onComplete, onAdvance }) {
         )}
       </AnimatePresence>
 
-      {/* Coach Bear */}
-      {showCoach && feedback && (
-        <CoachBear
-          show={showCoach}
-          type={feedback.type}
-          title={feedback.title}
-          feedback={feedback.feedback}
-          tip={feedback.tip}
-          onNext={onAdvance || (onComplete ? handleNext : undefined)}
-          onDismiss={() => setShowCoach(false)}
-        />
-      )}
+      {/* Coach Bear — always rendered so exit animation plays */}
+      <CoachBear
+        show={showCoach}
+        type={feedback?.type || 'correct'}
+        title={feedback?.title || ''}
+        feedback={feedback?.feedback || ''}
+        tip={feedback?.tip || ''}
+        onNext={onAdvance || (onComplete ? handleNext : undefined)}
+        onDismiss={() => setShowCoach(false)}
+      />
     </div>
   );
 }
