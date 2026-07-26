@@ -7,13 +7,12 @@
  * Three-point line is correctly drawn FURTHER from the basket than the free-throw line.
  */
 
-function CourtHalf({ cx, w, baseY, dir, label }) {
+function CourtHalf({ cx, w, baseY, dir }) {
   // baseY = inner-baseline y coordinate (where basket sits)
   // dir = 1 for top half (y increases into court), -1 for bottom half (y decreases into court)
   const paintH = 72; // key height from baseline into court
   const ftY = baseY + paintH * dir; // free-throw line
   const arcCtrlY = baseY + 232 * dir; // control point for 3pt arc — arcs peak ~140px from baseline
-  const arcPeakY = baseY + 116 * dir; // three-point peak (further than FT line at 72px)
   const labelY = baseY + 110 * dir;
 
   return (
@@ -63,7 +62,6 @@ export default function BasketballCourt({ children, width = 400, height = 640, c
   const cx = width / 2;
 
   // Baseline (inner border) for each half
-  const baseY = isBottom ? height - padding - 8 : padding + 8;
 
   return (
     <svg
