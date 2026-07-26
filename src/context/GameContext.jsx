@@ -1,5 +1,6 @@
-import { createContext, useContext, useReducer, useCallback } from 'react';
+import { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 import badges from '../data/badges';
+import { setMuted } from '../services/SFXEngine';
 
 const GameContext = createContext();
 
@@ -11,6 +12,8 @@ const TITLES = [
   { minXP: 700, en: 'Hoop Genius', zh: '篮球小学霸', icon: '🧠' },
   { minXP: 1200, en: 'All-Star MVP', zh: '全明星MVP', icon: '🏆' },
 ];
+
+const STORAGE_KEY = 'hoop-smart-kids-save';
 
 function getLevel(totalXP) {
   let level = 0;
@@ -62,6 +65,9 @@ function checkNewBadges(state) {
 
 function gameReducer(state, action) {
   switch (action.type) {
+    case 'HYDRATE':
+      return { ...state, ...action.payload };
+
     case 'ADD_XP': {
       const newXP = state.totalXP + action.amount;
       const newLevel = getLevel(newXP);
@@ -71,16 +77,14 @@ function gameReducer(state, action) {
 
       const drillCount = state.drillsCompleted + (action.drill ? 1 : 0);
 
-      // Track module results
       const moduleResults = { ...state.moduleResults };
       if (action.module) {
         const prev = moduleResults[action.module] || { correct: 0, total: 0, stars: 0 };
         moduleResults[action.module] = {
           correct: prev.correct + (action.correct ? 1 : 0),
           total: prev.total + 1,
-          stars: 0, // recalculated below
+          stars: 0,
         };
-        // Recalculate stars (3 = all correct, 2 = 2/3, 1 = 1/3, 0 = 0/3)
         const m = moduleResults[action.module];
         if (m.total >= 3) {
           const ratio = m.correct / m.total;
@@ -114,23 +118,26 @@ function gameReducer(state, action) {
       };
     }
 
-    case 'DISMISS_LEVELUP': {
+    case 'DISMISS_LEVELUP':
       return { ...state, showLevelUp: false };
-    }
 
-    case 'CLEAR_BADGE_NOTIFICATIONS': {
+    case 'CLEAR_BADGE_NOTIFICATIONS':
       return { ...state, newlyUnlockedBadges: [] };
-    }
 
-    case 'TOGGLE_SOUND': {
+    case 'TOGGLE_SOUND':
       return { ...state, soundEnabled: !state.soundEnabled };
-    }
+
+    case 'SET_LANGUAGE':
+      return { ...state, language: action.lang };
 
     case 'RESET_MODULE': {
       const moduleResults = { ...state.moduleResults };
       moduleResults[action.module] = { correct: 0, total: 0, stars: 0 };
       return { ...state, moduleResults };
     }
+
+    case 'RESET_ALL':
+      return { ...initialState, newlyUnlockedBadges: [], unlockedBadges: new Set() };
 
     default:
       return state;
@@ -160,8 +167,81 @@ const initialState = {
   },
 };
 
+/** Serialize state to JSON-safe shape for localStorage */
+function serialize(state) {
+  return {
+    totalXP: state.totalXP,
+    level: state.level,
+    drillsCompleted: state.drillsCompleted,
+    soundEnabled: state.soundEnabled,
+    language: state.language,
+    unlockedBadges: Array.from(state.unlockedBadges),
+    moduleResults: state.moduleResults,
+    titleEn: state.titleEn,
+    titleZh: state.titleZh,
+    titleIcon: state.titleIcon,
+  };
+}
+
+/** Deserialize saved data back into state shape */
+function deserialize(saved) {
+  if (!saved) return null;
+  const title = getTitle(saved.totalXP || 0);
+  return {
+    totalXP: saved.totalXP || 0,
+    level: getLevel(saved.totalXP || 0),
+    prevLevel: getLevel(saved.totalXP || 0),
+    drillsCompleted: saved.drillsCompleted || 0,
+    streak: saved.streak || 0,
+    soundEnabled: saved.soundEnabled !== false,
+    language: saved.language || 'en',
+    unlockedBadges: new Set(saved.unlockedBadges || []),
+    newlyUnlockedBadges: [],
+    showLevelUp: false,
+    lastXPGain: 0,
+    title,
+    titleEn: title.en,
+    titleZh: title.zh,
+    titleIcon: title.icon,
+    moduleResults: saved.moduleResults || {
+      offense: { correct: 0, total: 0, stars: 0 },
+      defense: { correct: 0, total: 0, stars: 0 },
+      communication: { correct: 0, total: 0, stars: 0 },
+    },
+  };
+}
+
 export function GameProvider({ children }) {
   const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  // Hydrate from localStorage on mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        const hydrated = deserialize(saved);
+        if (hydrated) {
+          dispatch({ type: 'HYDRATE', payload: hydrated });
+        }
+      }
+    } catch (e) { /* ignore corrupt save */ }
+  }, []);
+
+  // Sync soundEnabled to SFXEngine master mute
+  useEffect(() => {
+    setMuted(!state.soundEnabled);
+  }, [state.soundEnabled]);
+
+  // Persist to localStorage on every meaningful state change
+  useEffect(() => {
+    if (state === initialState) return; // don't save default state
+    try {
+      const data = serialize(state);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (e) { /* storage full or private mode */ }
+  }, [state.totalXP, state.drillsCompleted, state.soundEnabled, state.language,
+      state.unlockedBadges, state.moduleResults, state.titleEn]);
 
   const addXP = useCallback((amount, { drill = false, module = null, correct = false } = {}) => {
     dispatch({ type: 'ADD_XP', amount, drill, module, correct });
@@ -171,11 +251,14 @@ export function GameProvider({ children }) {
   const clearBadgeNotifications = useCallback(() => dispatch({ type: 'CLEAR_BADGE_NOTIFICATIONS' }), []);
   const toggleSound = useCallback(() => dispatch({ type: 'TOGGLE_SOUND' }), []);
   const resetModule = useCallback((module) => dispatch({ type: 'RESET_MODULE', module }), []);
+  const setLanguage = useCallback((lang) => dispatch({ type: 'SET_LANGUAGE', lang }), []);
+  const resetAll = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEY);
+    dispatch({ type: 'RESET_ALL' });
+  }, []);
 
   const xpForNext = getXPForNextLevel(state.totalXP);
   const progressPercent = getProgressPercent(state.totalXP);
-
-  // Count total correct across modules
   const totalCorrect = Object.values(state.moduleResults).reduce((sum, m) => sum + m.correct, 0);
   const totalDrills = Object.values(state.moduleResults).reduce((sum, m) => sum + m.total, 0);
 
@@ -192,6 +275,8 @@ export function GameProvider({ children }) {
         clearBadgeNotifications,
         toggleSound,
         resetModule,
+        setLanguage,
+        resetAll,
         TITLES,
       }}
     >

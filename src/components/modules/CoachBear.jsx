@@ -98,11 +98,11 @@ export default function CoachBear({ show, type = 'correct', title, feedback, tip
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               {onNext && (
                 <motion.button
                   onClick={onNext}
-                  className={`flex-1 px-5 py-3 rounded-2xl font-display font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2 ${type === 'correct' ? 'bg-gradient-to-r from-success-green to-emerald-600' : 'bg-gradient-to-r from-court-orange to-basketball-red'}`}
+                  className={`w-full sm:flex-1 px-5 py-4 sm:py-3 rounded-2xl font-display font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2 ${type === 'correct' ? 'bg-gradient-to-r from-success-green to-emerald-600' : 'bg-gradient-to-r from-court-orange to-basketball-red'}`}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
@@ -112,7 +112,7 @@ export default function CoachBear({ show, type = 'correct', title, feedback, tip
               )}
               <motion.button
                 onClick={onDismiss}
-                className="px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-xs text-white/60 font-semibold hover:bg-white/10 transition-colors flex items-center gap-1"
+                className={`w-full sm:w-auto px-4 py-4 sm:py-3 rounded-2xl bg-white/5 border border-white/10 text-xs text-white/60 font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-1 ${onNext ? '' : 'sm:mx-auto'}`}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >

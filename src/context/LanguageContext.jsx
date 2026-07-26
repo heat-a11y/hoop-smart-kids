@@ -1,14 +1,25 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import translations from '../i18n/translations';
+import { useGame } from './GameContext';
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('en');
+  const { language: savedLang, setLanguage } = useGame();
+  const [lang, setLang] = useState(savedLang || 'en');
+
+  // Sync from GameContext hydration
+  useEffect(() => {
+    if (savedLang && savedLang !== lang) {
+      setLang(savedLang);
+    }
+  }, [savedLang]);
 
   const toggleLang = useCallback(() => {
-    setLang(prev => (prev === 'en' ? 'zh' : 'en'));
-  }, []);
+    const next = lang === 'en' ? 'zh' : 'en';
+    setLang(next);
+    setLanguage(next);
+  }, [lang, setLanguage]);
 
   const t = useCallback(
     (path) => {
