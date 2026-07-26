@@ -8,7 +8,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/offenseScenarios';
 
-export default function SpacingGame({ onComplete }) {
+export default function SpacingGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.spacing;
@@ -265,7 +265,7 @@ export default function SpacingGame({ onComplete }) {
           title={lang === 'en' ? (moved ? text.choices[0].en.title : text.choices[1].en.title) : (moved ? text.choices[0].zh.title : text.choices[1].zh.title)}
           feedback={lang === 'en' ? (moved ? text.choices[0].en.feedback : text.choices[1].en.feedback) : (moved ? text.choices[0].zh.feedback : text.choices[1].zh.feedback)}
           tip={lang === 'en' ? (moved ? text.choices[0].en.tip : text.choices[1].en.tip) : (moved ? text.choices[0].zh.tip : text.choices[1].zh.tip)}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

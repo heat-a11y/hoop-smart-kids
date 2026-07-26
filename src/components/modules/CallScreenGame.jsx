@@ -9,7 +9,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/communicationScenarios';
 
-export default function CallScreenGame({ onComplete }) {
+export default function CallScreenGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.callScreen;
@@ -172,7 +172,7 @@ export default function CallScreenGame({ onComplete }) {
           title={getChoiceText(selectedChoice).title}
           feedback={getChoiceText(selectedChoice).feedback}
           tip={getChoiceText(selectedChoice).tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

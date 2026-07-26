@@ -12,7 +12,7 @@ import { useGame } from '../../context/GameContext';
  * Generic multiple-choice scenario game.
  * Renders any scenario data that has: title, subtitle, setup, choices[], and optional diagram{}.
  */
-export default function MultipleChoiceGame({ scenario, moduleKey, onComplete }) {
+export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, onAdvance }) {
   const { lang, t } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const text = lang === 'en' ? scenario.en : scenario.zh;
@@ -173,7 +173,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete }) 
           title={lang === 'en' ? selectedChoice.en?.title : selectedChoice.zh?.title || (lang === 'en' ? 'Great try!' : '不错的尝试！')}
           feedback={lang === 'en' ? selectedChoice.en?.feedback : selectedChoice.zh?.feedback || (lang === 'en' ? 'Keep learning!' : '继续学习！')}
           tip={lang === 'en' ? selectedChoice.en?.tip : selectedChoice.zh?.tip || (lang === 'en' ? 'Practice makes perfect!' : '熟能生巧！')}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

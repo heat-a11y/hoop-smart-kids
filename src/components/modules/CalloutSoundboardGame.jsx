@@ -8,7 +8,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/communicationScenarios';
 
-export default function CalloutSoundboardGame({ onComplete }) {
+export default function CalloutSoundboardGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.calloutBoard;
@@ -167,7 +167,7 @@ export default function CalloutSoundboardGame({ onComplete }) {
           title={feedback.title}
           feedback={feedback.feedback}
           tip={feedback.tip}
-          onNext={currentRound < rounds.length - 1 || onComplete ? handleNext : undefined}
+          onNext={onAdvance || (currentRound < rounds.length - 1 || onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

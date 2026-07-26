@@ -12,7 +12,7 @@ import scenarios from '../../data/defenseScenarios';
 const ARC_DURATION = 2200; // ms for full ball arc
 const PERFECT_WINDOW = 400; // ms window around peak for "perfect"
 
-export default function BoxOutGame({ onComplete }) {
+export default function BoxOutGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.boxOut;
@@ -324,7 +324,7 @@ export default function BoxOutGame({ onComplete }) {
           title={feedback.title}
           feedback={feedback.feedback}
           tip={feedback.tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

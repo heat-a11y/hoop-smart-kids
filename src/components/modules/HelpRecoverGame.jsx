@@ -9,7 +9,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/defenseScenarios';
 
-export default function HelpRecoverGame({ onComplete }) {
+export default function HelpRecoverGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.helpRecover;
@@ -215,7 +215,7 @@ export default function HelpRecoverGame({ onComplete }) {
           title={lang === 'en' ? selectedChoice.en.title : selectedChoice.zh.title}
           feedback={lang === 'en' ? selectedChoice.en.feedback : selectedChoice.zh.feedback}
           tip={lang === 'en' ? selectedChoice.en.tip : selectedChoice.zh.tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

@@ -10,7 +10,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/defenseScenarios';
 
-export default function SeeBallSeeManGame({ onComplete }) {
+export default function SeeBallSeeManGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.seeBallSeeMan;
@@ -189,7 +189,7 @@ export default function SeeBallSeeManGame({ onComplete }) {
           title={selectedPos.label}
           feedback={getPosText(selectedPos).feedback}
           tip={getPosText(selectedPos).tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

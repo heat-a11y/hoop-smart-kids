@@ -16,7 +16,7 @@ const STAGES = {
   FEEDBACK: 'feedback',
 };
 
-export default function FastbreakGame({ onComplete }) {
+export default function FastbreakGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.fastbreak;
@@ -239,7 +239,7 @@ export default function FastbreakGame({ onComplete }) {
           title={lang === 'en' ? selectedChoice.en.title : selectedChoice.zh.title}
           feedback={lang === 'en' ? selectedChoice.en.feedback : selectedChoice.zh.feedback}
           tip={lang === 'en' ? selectedChoice.en.tip : selectedChoice.zh.tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

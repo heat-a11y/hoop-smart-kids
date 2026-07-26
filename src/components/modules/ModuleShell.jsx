@@ -35,6 +35,24 @@ export default function ModuleShell({ drills, summary, moduleKey, icon: moduleIc
     });
   }, [currentIndex]);
 
+  const handleAdvance = useCallback(() => {
+    // Mark current drill as completed AND advance to the next one
+    // Used by CoachBear's "Next Scenario" button — one click = done
+    setCompleted(prev => {
+      const next = new Set(prev);
+      next.add(currentIndex);
+      return next;
+    });
+    // Small delay to let the completion state settle, then advance
+    setTimeout(() => {
+      if (currentIndex < drills.length - 1) {
+        setCurrentIndex(prev => prev + 1);
+      } else {
+        setShowSummary(true);
+      }
+    }, 50);
+  }, [currentIndex, drills.length]);
+
   const handleNext = useCallback(() => {
     if (currentIndex < drills.length - 1) {
       setCurrentIndex(prev => prev + 1);
@@ -171,7 +189,7 @@ export default function ModuleShell({ drills, summary, moduleKey, icon: moduleIc
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.25 }}
         >
-          <DrillComponent onComplete={handleComplete} />
+          <DrillComponent onComplete={handleComplete} onAdvance={handleAdvance} />
         </motion.div>
       </AnimatePresence>
 

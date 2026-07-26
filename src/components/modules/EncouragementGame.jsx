@@ -8,7 +8,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/communicationScenarios';
 
-export default function EncouragementGame({ onComplete }) {
+export default function EncouragementGame({ onComplete, onAdvance }) {
   const { lang } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.encouragement;
@@ -189,7 +189,7 @@ export default function EncouragementGame({ onComplete }) {
           title={getChoiceText(selectedChoice).title}
           feedback={getChoiceText(selectedChoice).feedback}
           tip={getChoiceText(selectedChoice).tip}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}

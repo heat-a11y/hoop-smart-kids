@@ -9,7 +9,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 import scenarios from '../../data/offenseScenarios';
 
-export default function TripleThreatGame({ onComplete }) {
+export default function TripleThreatGame({ onComplete, onAdvance }) {
   const { lang, t } = useLanguage();
   const { addXP, soundEnabled } = useGame();
   const scenario = scenarios.tripleThreat;
@@ -239,7 +239,7 @@ export default function TripleThreatGame({ onComplete }) {
           title={lang === 'en' ? selectedChoice.en.title : (selectedChoice.zh ? selectedChoice.zh.title : selectedChoice.en.title)}
           feedback={lang === 'en' ? selectedChoice.en.feedback : (selectedChoice.zh ? selectedChoice.zh.feedback : selectedChoice.en.feedback)}
           tip={lang === 'en' ? selectedChoice.en.tip : (selectedChoice.zh ? selectedChoice.zh.tip : selectedChoice.en.tip)}
-          onNext={onComplete ? handleNext : undefined}
+          onNext={onAdvance || (onComplete ? handleNext : undefined)}
           onDismiss={() => setShowCoach(false)}
         />
       )}
