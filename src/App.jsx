@@ -78,8 +78,8 @@ export default function App() {
   const [screen, setScreen] = useState('dashboard');
 
   return (
-    <LanguageProvider>
-      <GameProvider>
+    <GameProvider>
+      <LanguageProvider>
         <AnimatePresence mode="wait">
           {screen === 'dashboard' && (
             <motion.div
@@ -126,7 +126,7 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
-      </GameProvider>
-    </LanguageProvider>
+      </LanguageProvider>
+    </GameProvider>
   );
 }
