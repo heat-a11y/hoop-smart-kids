@@ -8,39 +8,45 @@ const hubIcons = {
   offense: Swords,
   defense: Shield,
   communication: MessageCircle,
+  fiveout: Swords,
 };
 
 const hubBgGradients = {
   offense: 'from-court-orange/20 via-court-orange/5 to-transparent',
   defense: 'from-neon-blue/20 via-neon-blue/5 to-transparent',
   communication: 'from-neon-yellow/20 via-neon-yellow/5 to-transparent',
+  fiveout: 'from-court-orange/20 via-court-orange/5 to-transparent',
 };
 
 const hubBorderColors = {
   offense: 'border-court-orange/40 group-hover:border-court-orange/70',
   defense: 'border-neon-blue/40 group-hover:border-neon-blue/70',
   communication: 'border-neon-yellow/40 group-hover:border-neon-yellow/70',
+  fiveout: 'border-court-orange/40 group-hover:border-court-orange/70',
 };
 
 const hubShadowColors = {
   offense: 'shadow-court-orange/20',
   defense: 'shadow-neon-blue/20',
   communication: 'shadow-neon-yellow/20',
+  fiveout: 'shadow-court-orange/20',
 };
 
 const hubAccentColors = {
   offense: 'bg-court-orange',
   defense: 'bg-neon-blue',
   communication: 'bg-neon-yellow',
+  fiveout: 'bg-court-orange',
 };
 
 const hubIconsBig = {
   offense: '🏀',
   defense: '🛡️',
   communication: '📢',
+  fiveout: '🏀',
 };
 
-export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCommunication }) {
+export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut }) {
   const { lang, t } = useLanguage();
   const { addXP } = useGame();
   const [activeHub, setActiveHub] = useState(null);
@@ -58,12 +64,16 @@ export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCom
       onEnterCommunication();
       return;
     }
+    if (hub === 'fiveout' && onEnterFiveOut) {
+      onEnterFiveOut();
+      return;
+    }
     setActiveHub(hub);
     addXP(5, { drill: false });
     setTimeout(() => setActiveHub(null), 1500);
   };
 
-  const hubs = ['offense', 'defense', 'communication'];
+  const hubs = ['offense', 'defense', 'communication', 'fiveout'];
 
   return (
     <section className="px-4 md:px-8 mb-8" id="learning-hubs">

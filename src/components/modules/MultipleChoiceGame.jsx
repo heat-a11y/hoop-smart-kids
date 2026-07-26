@@ -13,6 +13,9 @@ import { useGame } from '../../context/GameContext';
  * Shows animated player movement on the court after the user picks an answer,
  * so they can VISUALLY see what the play looks like.
  *
+ * Choices are rendered directly ON the court as clickable zones.
+ * Each choice can have a `position: {x, y}` — falls back to auto-layout.
+ *
  * Scenario choices can include an `animate` array:
  *   animate: [
  *     { target: 'teammate1', to: {x, y}, label: '✂️ Cut!', color: '#2ECC71' },
@@ -30,8 +33,22 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   const [phase, setPhase] = useState('intro'); // intro | animating | feedback
   const [selectedChoice, setSelectedChoice] = useState(null);
   const [showCoach, setShowCoach] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   const choiceLabels = ['A', 'B', 'C', 'D'];
+
+  const choiceColors = ['#2ECC71', '#EF4444', '#FFE135', '#00D4FF'];
+  const choiceBgColors = ['rgba(46,204,113,0.15)', 'rgba(239,68,68,0.15)', 'rgba(255,225,53,0.15)', 'rgba(0,212,255,0.15)'];
+
+  // Default positions on the half-court (width=400, height≈320 active area)
+  const getDefaultPosition = (index, total) => {
+    const layouts = {
+      2: [{ x: 100, y: 140 }, { x: 300, y: 140 }],
+      3: [{ x: 200, y: 70 }, { x: 90, y: 200 }, { x: 310, y: 200 }],
+      4: [{ x: 90, y: 70 }, { x: 310, y: 70 }, { x: 90, y: 200 }, { x: 310, y: 200 }],
+    };
+    return (layouts[total] || layouts[3])[index] || { x: 200, y: 140 };
+  };
 
   // Get the animation targets for the selected choice (if any)
   const getChoiceAnimations = (choice) => {
@@ -43,7 +60,6 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
     const animations = getChoiceAnimations(choice);
 
     if (animations.length > 0) {
-      // First play the animation
       setPhase('animating');
 
       if (choice.correct === true) {
@@ -53,13 +69,11 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         if (soundEnabled) sfx.wrong();
       }
 
-      // Allow animation to play, then show feedback + coach
       setTimeout(() => {
         setPhase('feedback');
         setTimeout(() => setShowCoach(true), 400);
-      }, 1200); // 1.2s animation window
+      }, 1200);
     } else {
-      // No animation — instant feedback
       setPhase('feedback');
       if (choice.correct === true) {
         addXP(100, { drill: true, module: moduleKey, correct: true });
@@ -72,6 +86,13 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
       }, 300);
     }
   }, [addXP, moduleKey, soundEnabled]);
+
+  const handleRetry = useCallback(() => {
+    setShowCoach(false);
+    setSelectedChoice(null);
+    setPhase('intro');
+    setRetryKey(k => k + 1);
+  }, []);
 
   const handleNext = useCallback(() => {
     setShowCoach(false);
@@ -99,11 +120,14 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
     return { animating: !!anim, path: anim };
   };
 
-  // Arrow color helpers
   const cutColor = '#2ECC71';
 
+  // Choice pill dimensions
+  const pillW = 148;
+  const pillH = 44;
+
   return (
-    <div className="px-4 md:px-8 mb-8">
+    <div className="px-4 md:px-8 mb-8" key={retryKey}>
       {/* Header */}
       <motion.div className="mb-4" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h2 className="font-display text-xl md:text-2xl font-bold text-white">{text.title}</h2>
@@ -130,12 +154,10 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                   <g key="bh">
                     {anim.animating && (
                       <>
-                        {/* Trajectory arrow */}
                         <path
                           d={`M ${d.ballHandler.x} ${d.ballHandler.y} Q ${(d.ballHandler.x + pos.x) / 2} ${Math.min(d.ballHandler.y, pos.y) - 30}, ${pos.x} ${pos.y}`}
                           fill="none" stroke={cutColor} strokeWidth="2.5" strokeDasharray="6,3" opacity="0.7"
                         />
-                        {/* Label at target */}
                         <text x={pos.x + 15} y={pos.y} fill={cutColor} fontSize="8" fontWeight="bold" fontFamily="Nunito, sans-serif">{anim.path.label || ''}</text>
                       </>
                     )}
@@ -210,44 +232,105 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                 const bp = getAnimatedPos('ballHandler', { x: d.ballHandler.x, y: d.ballHandler.y });
                 return <Basketball x={bp.x} y={bp.y - 16} animate delay={0.5} />;
               })()}
+
+              {/* ═══════════════════════════════════════════════════════════
+                 CHOICE BUTTONS ON THE COURT — interactive SVG foreignObjects
+                 Rendered only during intro phase (before a choice is made)
+                 ═══════════════════════════════════════════════════════════ */}
+              {phase === 'intro' && (
+                <g>
+                  {text.choices.map((choice, i) => {
+                    const pos = choice.position || getDefaultPosition(i, text.choices.length);
+                    const color = choiceColors[i % 4];
+                    const bg = choiceBgColors[i % 4];
+                    const letter = choiceLabels[i] || (i + 1);
+
+                    return (
+                      <g key={`choice-${choice.id}`}>
+                        <foreignObject
+                          x={pos.x - pillW / 2}
+                          y={pos.y - pillH / 2}
+                          width={pillW}
+                          height={pillH}
+                        >
+                          <div style={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '0 10px',
+                            borderRadius: '22px',
+                            border: '1px solid rgba(255,255,255,0.12)',
+                            background: 'rgba(15,15,30,0.85)',
+                            backdropFilter: 'blur(8px)',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            fontFamily: '"Nunito", system-ui, sans-serif',
+                            boxSizing: 'border-box',
+                          }}
+                            onMouseEnter={e => {
+                              e.currentTarget.style.borderColor = color;
+                              e.currentTarget.style.background = bg;
+                              e.currentTarget.style.transform = 'scale(1.04)';
+                            }}
+                            onMouseLeave={e => {
+                              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+                              e.currentTarget.style.background = 'rgba(15,15,30,0.85)';
+                              e.currentTarget.style.transform = 'scale(1)';
+                            }}
+                            onClick={() => handleChoice(choice)}
+                          >
+                            <span style={{
+                              flexShrink: 0,
+                              width: '26px',
+                              height: '26px',
+                              borderRadius: '50%',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '12px',
+                              fontWeight: 800,
+                              color: color,
+                              background: `${color}22`,
+                              border: `1.5px solid ${color}55`,
+                            }}>{letter}</span>
+                            <span style={{
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              color: '#fff',
+                              lineHeight: 1.2,
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              display: '-webkit-box',
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: 'vertical',
+                            }}>{choice.label}</span>
+                          </div>
+                        </foreignObject>
+                      </g>
+                    );
+                  })}
+                </g>
+              )}
             </InteractiveCourt>
+
+            {/* Interactive hint overlay — only visible during intro */}
+            {phase === 'intro' && (
+              <motion.div
+                className="absolute inset-0 flex items-end justify-center pb-3 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <span className="text-[10px] font-bold text-white/30 font-display tracking-wider uppercase">
+                  {lang === 'en' ? '← Tap a choice on the court →' : '← 点击球场上的选项 →'}
+                </span>
+              </motion.div>
+            )}
           </div>
         )}
       </motion.div>
-
-      {/* Choice Buttons */}
-      {phase === 'intro' && (
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 decision-grid"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {text.choices.map((choice, i) => (
-            <motion.button
-              key={choice.id}
-              onClick={() => handleChoice(choice)}
-              className="group relative overflow-hidden text-left bg-dark-card/60 hover:bg-dark-card-hover border border-white/5 hover:border-court-orange/40 rounded-2xl p-4 transition-all min-h-[52px]"
-              whileHover={{ scale: 1.01, x: 4 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <div className="flex items-start gap-3">
-                <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-display font-bold text-sm ${
-                  i === 0 ? 'bg-success-green/20 text-success-green' :
-                  i === 1 ? 'bg-basketball-red/20 text-basketball-red' :
-                  i === 2 ? 'bg-neon-yellow/20 text-neon-yellow' :
-                  'bg-neon-blue/20 text-neon-blue'
-                }`}>
-                  {choiceLabels[i] || i + 1}
-                </span>
-                <div>
-                  <p className="font-display font-bold text-sm text-white">{choice.label}</p>
-                </div>
-              </div>
-            </motion.button>
-          ))}
-        </motion.div>
-      )}
 
       {/* Animating indicator */}
       <AnimatePresence>
@@ -297,12 +380,20 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
                   : (lang === 'en' ? 'Not quite!' : '不太对！')}
               </span>
             </div>
-            <button
-              onClick={() => setShowCoach(true)}
-              className="text-xs text-white/60 hover:text-white transition-colors underline underline-offset-2"
-            >
-              {lang === 'en' ? 'Tap for Coach Bear →' : '点击听取熊教练 →'}
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowCoach(true)}
+                className="text-xs text-white/60 hover:text-white transition-colors underline underline-offset-2"
+              >
+                {lang === 'en' ? 'Tap for Coach Bear →' : '点击听取熊教练 →'}
+              </button>
+              <button
+                onClick={handleRetry}
+                className="text-xs text-white/60 hover:text-white transition-colors underline underline-offset-2 ml-auto"
+              >
+                {lang === 'en' ? '🔄 Try Again' : '🔄 重试'}
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

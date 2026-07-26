@@ -10,6 +10,7 @@ import BadgesDrawer from './components/BadgesDrawer';
 import OffenseModule from './components/modules/OffenseModule';
 import DefenseModule from './components/modules/DefenseModule';
 import CommunicationModule from './components/modules/CommunicationModule';
+import FiveOutModule from './components/modules/FiveOutModule';
 import sfx from './services/SFXEngine';
 
 function LevelUpOverlay() {
@@ -61,7 +62,7 @@ function LevelUpOverlay() {
   );
 }
 
-function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onViewBadges }) {
+function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut, onViewBadges }) {
   return (
     <div className="min-h-screen pb-12">
       <div className="max-w-6xl mx-auto">
@@ -73,7 +74,7 @@ function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onVie
           onViewBadges={onViewBadges}
         />
         <ProgressBar />
-        <LearningHub onEnterOffense={onEnterOffense} onEnterDefense={onEnterDefense} onEnterCommunication={onEnterCommunication} />
+        <LearningHub onEnterOffense={onEnterOffense} onEnterDefense={onEnterDefense} onEnterCommunication={onEnterCommunication} onEnterFiveOut={onEnterFiveOut} />
       </div>
       <LevelUpOverlay />
     </div>
@@ -99,6 +100,7 @@ export default function App() {
                 onEnterOffense={() => setScreen('offense')}
                 onEnterDefense={() => setScreen('defense')}
                 onEnterCommunication={() => setScreen('communication')}
+                onEnterFiveOut={() => setScreen('fiveout')}
                 onViewBadges={() => setShowBadges(true)}
               />
             </motion.div>
@@ -131,6 +133,16 @@ export default function App() {
               exit={{ opacity: 0 }}
             >
               <CommunicationModule onBack={() => setScreen('dashboard')} />
+            </motion.div>
+          )}
+          {screen === 'fiveout' && (
+            <motion.div
+              key="fiveout"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <FiveOutModule onBack={() => setScreen('dashboard')} />
             </motion.div>
           )}
         </AnimatePresence>

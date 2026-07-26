@@ -27,7 +27,8 @@ const translations = {
       "exploreXp": "+5 XP per explore",
       "offense": {"title": "Offense Mastery", "subtitle": "进攻决策", "description": "Learn pick & rolls, spacing, reading defenses, and when to pass vs shoot.", "stats": "12 Drills • 4 Levels", "cta": "Start Training", "color": "orange"},
       "defense": {"title": "Lockdown Defense", "subtitle": "铁壁防守", "description": "Master stance, help defense, rotations, steals, and rim protection.", "stats": "10 Drills • 4 Levels", "cta": "Lock In", "color": "blue"},
-      "communication": {"title": "Court Communication", "subtitle": "场上沟通", "description": "Call screens, signal cuts, use hand signs, and lead your team vocally.", "stats": "8 Drills • 3 Levels", "cta": "Lead the Team", "color": "yellow"}
+      "communication": {"title": "Court Communication", "subtitle": "场上沟通", "description": "Call screens, signal cuts, use hand signs, and lead your team vocally.", "stats": "8 Drills • 3 Levels", "cta": "Lead the Team", "color": "yellow"},
+      "fiveout": {"title": "5-Out Offense", "subtitle": "5外进攻体系", "description": "Master 5-out spacing, on-ball screens, off-ball cuts, and read-and-react offense.", "stats": "5 Stages • Interactive", "cta": "Run the Offense", "color": "orange"}
     },
     "progress": {
       "label": "Season Progress",
@@ -69,6 +70,7 @@ const translations = {
       "offense": {"title": "🏀 Offense Mastery", "summaryTitle": "Offense Master Complete!", "summaryDesc": "You made smart decisions and earned +300 IQ Points. Coach Bear is proud!", "backToDashboard": "Back to Dashboard", "scenario": "Scenario {current} of {total}"},
       "defense": {"title": "🛡️ Lockdown Defense", "summaryTitle": "Lockdown Defense Complete!", "summaryDesc": "You mastered positioning, help defense, and boxing out! +300 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Drill {current} of {total}"},
       "communication": {"title": "🗣️ Court Communication", "summaryTitle": "Court Communication Complete!", "summaryDesc": "You learned to call screens, use defensive callouts, and lift up your teammates! +300 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Drill {current} of {total}"},
+      "fiveout": {"title": "🏀 5-Out Offense", "summaryTitle": "5-Out Offense Complete!", "summaryDesc": "You mastered all 5 stages of 5-out offense! +500 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Stage {current} of {total}"},
       "scenarioLabelA": "Scenario A",
       "scenarioLabelB": "Scenario B",
       "scenarioLabelC": "Scenario C",
@@ -171,7 +173,8 @@ const translations = {
       "exploreXp": "每次探索 +5 XP",
       "offense": {"title": "进攻决策", "subtitle": "Offense Mastery", "description": "学习挡拆、空间站位、阅读防守以及何时传球或投篮。", "stats": "12项训练 • 4个等级", "cta": "开始训练", "color": "orange"},
       "defense": {"title": "铁壁防守", "subtitle": "Lockdown Defense", "description": "掌握防守姿势、协防、轮转、抢断和护框技巧。", "stats": "10项训练 • 4个等级", "cta": "全力防守", "color": "blue"},
-      "communication": {"title": "场上沟通", "subtitle": "Court Communication", "description": "呼叫挡拆、信号切入、使用手势，用声音带领全队。", "stats": "8项训练 • 3个等级", "cta": "带领团队", "color": "yellow"}
+      "communication": {"title": "场上沟通", "subtitle": "Court Communication", "description": "呼叫挡拆、信号切入、使用手势，用声音带领全队。", "stats": "8项训练 • 3个等级", "cta": "带领团队", "color": "yellow"},
+      "fiveout": {"title": "5外进攻体系", "subtitle": "5-Out Offense", "description": "掌握5外站位、持球掩护、无球切入和阅读反应进攻。", "stats": "5个阶段 • 互动演示", "cta": "开始进攻", "color": "orange"}
     },
     "progress": {
       "label": "赛季进度",
