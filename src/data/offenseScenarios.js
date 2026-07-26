@@ -288,10 +288,20 @@ const NEW_OFFENSE_SCENARIOS = {
       setup: "You pass to your teammate on the wing. Your defender turns their head to watch the ball for just a split second. That's all the separation you need. What's the right read?",
       choices: [
         { id: 'A', label: 'Backdoor cut to the basket', correct: true,
+          animate: [
+            { target: 'ballHandler', to: { x: 150, y: 100 }, label: '✂️ Backdoor cut!', color: '#2ECC71' },
+            { target: 'defender1', to: { x: 200, y: 160 }, label: '⏳ Reacts late', color: '#EF4444' },
+          ],
           en: { title: 'Sharp cut!', feedback: "YES! When your defender ball-watches, that's your cue to cut hard to the rim. Your teammate will find you with a pass for an easy layup. The give-and-go is the oldest play in basketball for a reason!", tip: 'If your defender looks at the ball, they lose you. Cut hard and expect the pass back.' } },
         { id: 'B', label: 'Stand still and wait', correct: false,
+          animate: [
+            { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ Recovers', color: '#EF4444' },
+          ],
           en: { title: 'Defense recovers', feedback: "By standing still, you let your defender recover. The window for the cut was open for only a second — and you missed it. Keep moving off the ball!", tip: 'If you pass, don\'t stand and watch. Cut, screen, or relocate. Movement creates offense.' } },
         { id: 'C', label: 'Set a screen for the passer', correct: 'suboptimal',
+          animate: [
+            { target: 'ballHandler', to: { x: 280, y: 200 }, label: '🧱 Setting screen', color: '#FFE135' },
+          ],
           en: { title: 'Screen not needed here', feedback: 'Setting a screen for your teammate could work, but the backdoor cut is wide open and leads to a higher-percentage shot. Take the easy points first!', tip: 'Look for the cut first. If it\'s not there, set the screen.' } },
       ],
     },
@@ -301,10 +311,20 @@ const NEW_OFFENSE_SCENARIOS = {
       setup: '你把球传给侧翼的队友。你的防守者转头看球了一瞬间。这就是你需要的空档。正确的选择是什么？',
       choices: [
         { id: 'A', label: '反跑切入篮下', correct: true,
+          animate: [
+            { target: 'ballHandler', to: { x: 150, y: 100 }, label: '✂️ 反跑切入！', color: '#2ECC71' },
+            { target: 'defender1', to: { x: 200, y: 160 }, label: '⏳ 反应慢了', color: '#EF4444' },
+          ],
           zh: { title: '犀利切入！', feedback: '没错！当你的防守者看球时，就是你切入篮下的信号。你的队友会找到你传出一个轻松上篮。传切配合是最古老的篮球战术，原因就在这里！', tip: '如果防守者看球，他们就会失去你。果断切入并期待回传。' } },
         { id: 'B', label: '站在原地等待', correct: false,
+          animate: [
+            { target: 'defender1', to: { x: 200, y: 180 }, label: '🛡️ 恢复防守', color: '#EF4444' },
+          ],
           zh: { title: '防守恢复', feedback: '站在原地让防守者有恢复时间。切入的窗口只开了一瞬间——你错过了。球传出去后要继续移动！', tip: '传完球不要站着看。切入、掩护或重新定位。移动创造进攻。' } },
         { id: 'C', label: '给持球队友做掩护', correct: 'suboptimal',
+          animate: [
+            { target: 'ballHandler', to: { x: 280, y: 200 }, label: '🧱 做掩护', color: '#FFE135' },
+          ],
           zh: { title: '这里不需要掩护', feedback: '给队友做掩护也可以，但反跑切入是完全空位且命中率更高。先拿轻松的分！', tip: '先寻找切入机会。如果没有，再做掩护。' } },
       ],
     },

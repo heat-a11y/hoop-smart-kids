@@ -9,8 +9,15 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useGame } from '../../context/GameContext';
 
 /**
- * Generic multiple-choice scenario game.
- * Renders any scenario data that has: title, subtitle, setup, choices[], and optional diagram{}.
+ * Generic multiple-choice scenario game with choice-based player animations.
+ * Shows animated player movement on the court after the user picks an answer,
+ * so they can VISUALLY see what the play looks like.
+ *
+ * Scenario choices can include an `animate` array:
+ *   animate: [
+ *     { target: 'teammate1', to: {x, y}, label: '✂️ Cut!', color: '#2ECC71' },
+ *     { target: 'ballHandler', to: {x, y}, label: '🎯 Pass!', color: '#00D4FF' },
+ *   ]
  */
 export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, onAdvance, half: courtHalfProp }) {
   const { lang, t: _t } = useLanguage();
@@ -18,35 +25,56 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   const text = lang === 'en' ? scenario.en : scenario.zh;
   const d = scenario.diagram;
 
-  // Determine court half: explicit half prop wins, else derive from moduleKey
-  // Offense (front court) = top half, Defense (back court) = bottom half
   const courtHalf = courtHalfProp || (moduleKey === 'offense' ? 'top' : 'bottom');
 
-  const [phase, setPhase] = useState('intro');
+  const [phase, setPhase] = useState('intro'); // intro | animating | feedback
   const [selectedChoice, setSelectedChoice] = useState(null);
-  const [_showResult, setShowResult] = useState(false);
   const [showCoach, setShowCoach] = useState(false);
+
+  const choiceLabels = ['A', 'B', 'C', 'D'];
+
+  // Get the animation targets for the selected choice (if any)
+  const getChoiceAnimations = (choice) => {
+    return choice?.animate || [];
+  };
 
   const handleChoice = useCallback((choice) => {
     setSelectedChoice(choice);
-    setPhase('feedback');
+    const animations = getChoiceAnimations(choice);
 
-    if (choice.correct === true) {
-      addXP(100, { drill: true, module: moduleKey, correct: true });
-      if (soundEnabled) sfx.whistle();
+    if (animations.length > 0) {
+      // First play the animation
+      setPhase('animating');
+
+      if (choice.correct === true) {
+        addXP(100, { drill: true, module: moduleKey, correct: true });
+        if (soundEnabled) sfx.whistle();
+      } else {
+        if (soundEnabled) sfx.wrong();
+      }
+
+      // Allow animation to play, then show feedback + coach
+      setTimeout(() => {
+        setPhase('feedback');
+        setTimeout(() => setShowCoach(true), 400);
+      }, 1200); // 1.2s animation window
     } else {
-      if (soundEnabled) sfx.wrong();
+      // No animation — instant feedback
+      setPhase('feedback');
+      if (choice.correct === true) {
+        addXP(100, { drill: true, module: moduleKey, correct: true });
+        if (soundEnabled) sfx.whistle();
+      } else {
+        if (soundEnabled) sfx.wrong();
+      }
+      setTimeout(() => {
+        setTimeout(() => setShowCoach(true), 400);
+      }, 300);
     }
-
-    setTimeout(() => {
-      setShowResult(true);
-      setTimeout(() => setShowCoach(true), 400);
-    }, 300);
   }, [addXP, moduleKey, soundEnabled]);
 
   const handleNext = useCallback(() => {
     setShowCoach(false);
-    setShowResult(false);
     setSelectedChoice(null);
     setPhase('intro');
     onComplete();
@@ -58,7 +86,22 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
     return 'wrong';
   };
 
-  const choiceLabels = ['A', 'B', 'C', 'D'];
+  // Resolve animated position for an avatar
+  const getAnimatedPos = (avatarKey, defaultPos) => {
+    if (phase !== 'animating' || !selectedChoice) return defaultPos;
+    const anim = selectedChoice.animate?.find(a => a.target === avatarKey);
+    return anim ? anim.to : defaultPos;
+  };
+
+  const getAvatarState = (avatarKey) => {
+    if (phase !== 'animating' || !selectedChoice) return { animating: false };
+    const anim = selectedChoice.animate?.find(a => a.target === avatarKey);
+    return { animating: !!anim, path: anim };
+  };
+
+  // Arrow color helpers
+  const arrowColor = '#00D4FF';
+  const cutColor = '#2ECC71';
 
   return (
     <div className="px-4 md:px-8 mb-8">
@@ -68,7 +111,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         <p className="text-sm text-court-wood-light/70 font-semibold">{text.subtitle}</p>
       </motion.div>
 
-      {/* Court Diagram (if present) + Setup */}
+      {/* Court + Setup */}
       <motion.div
         className="bg-dark-card/40 backdrop-blur-sm border border-white/5 rounded-3xl p-4 mb-4"
         initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
@@ -80,17 +123,94 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         {d && (
           <div className="relative">
             <InteractiveCourt simple width={400} half={courtHalf}>
-              {/* Render diagram players */}
-              {d.ballHandler && <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate glow pulse delay={0.1} />}
-              {d.teammate1 && <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />}
+              {/* Static players (visible before animation or used as base) */}
+              {d.ballHandler && (() => {
+                const anim = getAvatarState('ballHandler');
+                const pos = anim.animating ? anim.path.to : { x: d.ballHandler.x, y: d.ballHandler.y };
+                return (
+                  <g key="bh">
+                    {anim.animating && (
+                      <>
+                        {/* Trajectory arrow */}
+                        <path
+                          d={`M ${d.ballHandler.x} ${d.ballHandler.y} Q ${(d.ballHandler.x + pos.x) / 2} ${Math.min(d.ballHandler.y, pos.y) - 30}, ${pos.x} ${pos.y}`}
+                          fill="none" stroke={cutColor} strokeWidth="2.5" strokeDasharray="6,3" opacity="0.7"
+                        />
+                        {/* Label at target */}
+                        <text x={pos.x + 15} y={pos.y} fill={cutColor} fontSize="8" fontWeight="bold" fontFamily="Nunito, sans-serif">{anim.path.label || ''}</text>
+                      </>
+                    )}
+                    <motion.g
+                      animate={anim.animating ? { x: pos.x - d.ballHandler.x, y: pos.y - d.ballHandler.y } : {}}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    >
+                      <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate glow pulse delay={0.1} />
+                    </motion.g>
+                  </g>
+                );
+              })()}
+
+              {d.teammate1 && (() => {
+                const anim = getAvatarState('teammate1');
+                const pos = anim.animating ? anim.path.to : { x: d.teammate1.x, y: d.teammate1.y };
+                return (
+                  <g key="t1">
+                    {anim.animating && (
+                      <>
+                        <path
+                          d={`M ${d.teammate1.x} ${d.teammate1.y} Q ${(d.teammate1.x + pos.x) / 2} ${Math.min(d.teammate1.y, pos.y) - 30}, ${pos.x} ${pos.y}`}
+                          fill="none" stroke={cutColor} strokeWidth="2.5" strokeDasharray="6,3" opacity="0.7"
+                        />
+                        <text x={pos.x + 15} y={pos.y} fill={cutColor} fontSize="8" fontWeight="bold" fontFamily="Nunito, sans-serif">{anim.path.label || ''}</text>
+                      </>
+                    )}
+                    <motion.g
+                      animate={anim.animating ? { x: pos.x - d.teammate1.x, y: pos.y - d.teammate1.y } : {}}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    >
+                      <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />
+                    </motion.g>
+                  </g>
+                );
+              })()}
+
               {d.teammate2 && <TeammateAvatar x={d.teammate2.x} y={d.teammate2.y} label={d.teammate2.label} animate delay={0.25} />}
               {d.teammate3 && <TeammateAvatar x={d.teammate3.x} y={d.teammate3.y} label={d.teammate3.label} animate delay={0.3} />}
-              {d.defender1 && <DefenderAvatar x={d.defender1.x} y={d.defender1.y} label={d.defender1.label} animate delay={0.15} />}
+
+              {d.defender1 && (() => {
+                const anim = getAvatarState('defender1');
+                const pos = anim.animating ? anim.path.to : { x: d.defender1.x, y: d.defender1.y };
+                return (
+                  <g key="d1">
+                    {anim.animating && (
+                      <>
+                        <path
+                          d={`M ${d.defender1.x} ${d.defender1.y} Q ${(d.defender1.x + pos.x) / 2} ${Math.min(d.defender1.y, pos.y) - 20}, ${pos.x} ${pos.y}`}
+                          fill="none" stroke="#EF4444" strokeWidth="2" strokeDasharray="4,4" opacity="0.5"
+                        />
+                        <text x={pos.x + 12} y={pos.y} fill="#EF4444" fontSize="7" fontWeight="bold" fontFamily="Nunito, sans-serif">{anim.path.label || ''}</text>
+                      </>
+                    )}
+                    <motion.g
+                      animate={anim.animating ? { x: pos.x - d.defender1.x, y: pos.y - d.defender1.y } : {}}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    >
+                      <DefenderAvatar x={d.defender1.x} y={d.defender1.y} label={d.defender1.label} animate delay={0.15} />
+                    </motion.g>
+                  </g>
+                );
+              })()}
+
               {d.defender2 && <DefenderAvatar x={d.defender2.x} y={d.defender2.y} label={d.defender2.label} animate delay={0.25} />}
               {d.defender3 && <DefenderAvatar x={d.defender3.x} y={d.defender3.y} label={d.defender3.label} animate delay={0.35} />}
               {d.defender4 && <DefenderAvatar x={d.defender4.x} y={d.defender4.y} label={d.defender4.label} animate delay={0.2} />}
               {d.teammate4 && <TeammateAvatar x={d.teammate4.x} y={d.teammate4.y} label={d.teammate4.label} animate delay={0.3} />}
-              {d.ballHandler && <Basketball x={d.ballHandler.x} y={d.ballHandler.y - 16} animate delay={0.5} />}
+
+              {/* Ball follows ballHandler */}
+              {d.ballHandler && (() => {
+                const bp = getAnimatedPos('ballHandler', { x: d.ballHandler.x, y: d.ballHandler.y });
+                return <Basketball x={bp.x} y={bp.y - 16} animate delay={0.5} />;
+              })()}
             </InteractiveCourt>
           </div>
         )}
@@ -130,9 +250,28 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         </motion.div>
       )}
 
+      {/* Animating indicator */}
+      <AnimatePresence>
+        {phase === 'animating' && (
+          <motion.div
+            className="mt-4 text-center py-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-neon-blue/10 border border-neon-blue/30 rounded-2xl px-5 py-3">
+              <motion.span className="inline-block w-3 h-3 bg-neon-blue rounded-full" animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 0.6 }} />
+              <span className="font-display font-bold text-sm text-neon-blue">
+                {lang === 'en' ? '▶️ Playing out the play...' : '▶️ 展示跑位中...'}
+              </span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Feedback result */}
       <AnimatePresence>
-        {phase === 'feedback' && selectedChoice && (
+        {phase === 'feedback' && selectedChoice && !showCoach && (
           <motion.div
             className={`mt-4 rounded-2xl p-4 border ${
               selectedChoice.correct === true
@@ -169,7 +308,7 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
         )}
       </AnimatePresence>
 
-      {/* Coach Bear — always rendered so exit animation plays */}
+      {/* Coach Bear */}
       <CoachBear
         show={showCoach}
         type={selectedChoice ? getResultType(selectedChoice) : 'correct'}
