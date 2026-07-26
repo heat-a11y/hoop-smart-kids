@@ -100,28 +100,41 @@ const animationStyles = `
 
 function CourtHalfSVG({ cx, w, baseY, dir }) {
   // dir=1: top half (y increases into court), dir=-1: bottom half (y decreases)
-  const paintH = 72;
+  // Real lane: 16ft wide, 15ft deep. Half-court ≈ 47ft.
+  const paintH = 100;
+  const paintW = w * 0.32; // 128px — NBA lane width relative to court width
+  const paintX = cx - paintW / 2;
   const ftY = baseY + paintH * dir;
-  const arcCtrlY = baseY + 232 * dir;
+  const arcCtrlY = baseY + 320 * dir; // 3-pt apex ≈ 23.75ft in scaled coords
 
   return (
     <g>
-      {/* Three-point arc — further from basket than the free-throw line */}
+      {/* Three-point arc — wider spread at the baseline */}
       <path
-        d={`M ${w * 0.22} ${baseY} Q ${cx} ${arcCtrlY}, ${w * 0.78} ${baseY}`}
+        d={`M ${w * 0.19} ${baseY} Q ${cx} ${arcCtrlY}, ${w * 0.81} ${baseY}`}
         fill="none" stroke="white" strokeWidth="1.5" strokeOpacity="0.6"
       />
 
-      {/* Free-throw line */}
-      <line x1={w * 0.3} y1={ftY} x2={w * 0.7} y2={ftY} stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+      {/* Free-throw line — matches paint width */}
+      <line x1={paintX} y1={ftY} x2={paintX + paintW} y2={ftY} stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
 
-      {/* Paint / Key */}
+      {/* Paint / Key — proper lane width and depth */}
       <rect
-        x={w * 0.3} y={dir > 0 ? baseY : ftY}
-        width={w * 0.4} height={paintH}
+        x={paintX} y={dir > 0 ? baseY : ftY}
+        width={paintW} height={paintH}
         fill="none" stroke="white" strokeWidth="1.5"
         strokeOpacity="0.5" strokeDasharray="4,3"
       />
+
+      {/* Lane blocks (low-post marks) */}
+      {dir > 0 ? (
+        <g>
+          <line x1={paintX + paintW * 0.2} y1={baseY + paintH * 0.28} x2={paintX + paintW * 0.2} y2={baseY + paintH * 0.36} stroke="white" strokeWidth="1" strokeOpacity="0.3" />
+          <line x1={paintX + paintW * 0.8} y1={baseY + paintH * 0.28} x2={paintX + paintW * 0.8} y2={baseY + paintH * 0.36} stroke="white" strokeWidth="1" strokeOpacity="0.3" />
+          <line x1={paintX} y1={ftY} x2={cx} y2={ftY} stroke="white" strokeWidth="0.5" strokeOpacity="0.2" />
+          <line x1={paintX + paintW} y1={ftY} x2={cx} y2={ftY} stroke="white" strokeWidth="0.5" strokeOpacity="0.2" />
+        </g>
+      ) : null}
 
       {/* Basket */}
       <g transform={`translate(${cx}, ${baseY})`}>
@@ -130,8 +143,8 @@ function CourtHalfSVG({ cx, w, baseY, dir }) {
         <path d="M -8 8 Q -5 16 0 18 Q 5 16 8 8" fill="none" stroke="white" strokeWidth="1" strokeOpacity="0.5" />
       </g>
 
-      <text x={cx} y={baseY + 105 * dir} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold" fontFamily="Nunito, sans-serif">PAINT</text>
-      <text x={w * 0.88} y={baseY + 18 * dir} textAnchor="middle" fill="white" fontSize="7" opacity="0.2" fontFamily="Nunito, sans-serif">3PT</text>
+      <text x={cx} y={baseY + 108 * dir} textAnchor="middle" fill="white" fontSize="9" opacity="0.15" fontWeight="bold" fontFamily="Nunito, sans-serif">LANE</text>
+      <text x={w * 0.9} y={baseY + 18 * dir} textAnchor="middle" fill="white" fontSize="7" opacity="0.2" fontFamily="Nunito, sans-serif">3PT</text>
     </g>
   );
 }
