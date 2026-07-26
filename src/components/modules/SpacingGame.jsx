@@ -109,23 +109,25 @@ export default function SpacingGame({ onComplete }) {
           <BasketballCourt width={400} height={320}>
             {/* Other players crowded in paint */}
             {d.positions.slice(1).map((pos) => (
-              <TeammateAvatar
-                key={pos.id}
-                x={pos.x}
-                y={pos.y}
-                label={pos.label}
-                animate
-                delay={0.2}
-              />
-            ))}{d.positions.slice(1).some(p => p.defender) && d.positions.slice(1).filter(p => p.defender).map((pos) => (
-              <DefenderAvatar
-                key={pos.id}
-                x={pos.x}
-                y={pos.y}
-                label={pos.label}
-                animate
-                delay={0.2}
-              />
+              pos.defender ? (
+                <DefenderAvatar
+                  key={pos.id}
+                  x={pos.x}
+                  y={pos.y}
+                  label={pos.label}
+                  animate
+                  delay={0.2}
+                />
+              ) : (
+                <TeammateAvatar
+                  key={pos.id}
+                  x={pos.x}
+                  y={pos.y}
+                  label={pos.label}
+                  animate
+                  delay={0.2}
+                />
+              )
             ))}
 
             {/* Movable player */}

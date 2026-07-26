@@ -6,16 +6,14 @@
  */
 export default function BasketballCourt({ children, width = 400, height = 350, className = '' }) {
   const padding = 20;
-  const aspectRatio = width / height;
 
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
-      className={`w-full max-w-lg mx-auto touch-none select-none ${className}`}
+      className={`w-full max-w-lg mx-auto h-auto touch-none select-none ${className}`}
       style={{
         filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
-        maxHeight: 'min(50vh, 500px)',
-        aspectRatio: `${aspectRatio}`,
+        maxHeight: '50vh',
         touchAction: 'none',
       }}
     >
