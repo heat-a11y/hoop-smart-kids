@@ -100,7 +100,6 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   };
 
   // Arrow color helpers
-  const arrowColor = '#00D4FF';
   const cutColor = '#2ECC71';
 
   return (
