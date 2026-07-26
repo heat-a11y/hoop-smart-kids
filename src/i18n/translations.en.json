@@ -1,0 +1,183 @@
+{
+  "app": {
+    "title": "Hoop Smart Kids",
+    "subtitle": "Master Basketball IQ Through Play!",
+    "tagline": "Learn. Play. Dominate."
+  },
+  "nav": {
+    "iqPoints": "IQ Points",
+    "sound": "Sound",
+    "badges": "Badges",
+    "level": "Level",
+    "language": "EN",
+    "languageFull": "EN / 中文"
+  },
+  "hero": {
+    "heading": "🏀 Master Basketball IQ Through Play!",
+    "subheading": "Learn real game strategy through interactive challenges, fun animations, and smart decision-making drills.",
+    "cta": "Start Learning →",
+    "secondary": "View Badges",
+    "bilingualTag": "Bilingual Basketball Training"
+  },
+  "hubs": {
+    "title": "🏀 Learning Hubs",
+    "subtitle": "Pick a skill to master",
+    "exploreXp": "+5 XP per explore",
+    "offense": {
+      "title": "Offense Mastery",
+      "subtitle": "进攻决策",
+      "description": "Learn pick & rolls, spacing, reading defenses, and when to pass vs shoot.",
+      "stats": "12 Drills • 4 Levels",
+      "cta": "Start Training",
+      "color": "orange"
+    },
+    "defense": {
+      "title": "Lockdown Defense",
+      "subtitle": "铁壁防守",
+      "description": "Master stance, help defense, rotations, steals, and rim protection.",
+      "stats": "10 Drills • 4 Levels",
+      "cta": "Lock In",
+      "color": "blue"
+    },
+    "communication": {
+      "title": "Court Communication",
+      "subtitle": "场上沟通",
+      "description": "Call screens, signal cuts, use hand signs, and lead your team vocally.",
+      "stats": "8 Drills • 3 Levels",
+      "cta": "Lead the Team",
+      "color": "yellow"
+    }
+  },
+  "progress": {
+    "label": "Season Progress",
+    "currentLevel": "Level",
+    "xpToNext": "XP to next level",
+    "drillsCompleted": "Drills Completed",
+    "streak": "Day Streak"
+  },
+  "badges": {
+    "title": "🏆 Badge Collection",
+    "empty": "Complete drills to earn badges!",
+    "recent": "Recently Earned",
+    "locked": "🔒 Locked",
+    "newUnlocked": "🎉 New Badges Unlocked!"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong!",
+    "retry": "Try Again",
+    "back": "Back",
+    "next": "Next",
+    "complete": "Complete!",
+    "finish": "Finish",
+    "prev": "Prev",
+    "level": "Level",
+    "points": "pts",
+    "close": "Close",
+    "correct": "Correct!",
+    "wrong": "Not quite!",
+    "suboptimal": "Sub-optimal Choice",
+    "confirm": "Confirm",
+    "tapToHear": "Tap to hear Coach Bear →",
+    "tapForExplanation": "Tap for Coach Bear explanation →",
+    "letsGo": "Let's Go!",
+    "levelUp": "LEVEL UP!",
+    "xpGain": "+{amount} IQ Points"
+  },
+  "module": {
+    "offense": {
+      "title": "🏀 Offense Mastery",
+      "summaryTitle": "Offense Master Complete!",
+      "summaryDesc": "You made smart decisions and earned +300 IQ Points. Coach Bear is proud!",
+      "backToDashboard": "Back to Dashboard",
+      "scenario": "Scenario {current} of {total}"
+    },
+    "defense": {
+      "title": "🛡️ Lockdown Defense",
+      "summaryTitle": "Lockdown Defense Complete!",
+      "summaryDesc": "You mastered positioning, help defense, and boxing out! +300 IQ Points earned.",
+      "backToDashboard": "Back to Dashboard",
+      "drill": "Drill {current} of {total}"
+    },
+    "communication": {
+      "title": "🗣️ Court Communication",
+      "summaryTitle": "Court Communication Complete!",
+      "summaryDesc": "You learned to call screens, use defensive callouts, and lift up your teammates! +300 IQ Points earned.",
+      "backToDashboard": "Back to Dashboard",
+      "drill": "Drill {current} of {total}"
+    },
+    "scenarioLabelA": "Scenario A",
+    "scenarioLabelB": "Scenario B",
+    "scenarioLabelC": "Scenario C",
+    "drillLabelA": "Drill A",
+    "drillLabelB": "Drill B",
+    "drillLabelC": "Drill C"
+  },
+  "coach": {
+    "name": "Coach Bear",
+    "greatDecision": "✅ Great decision!",
+    "couldBeBetter": "⚡ Could be better!",
+    "letsLearn": "❌ Let's learn!",
+    "tip": "💡 Coach's Tip",
+    "nextScenario": "Next Scenario →",
+    "correctFeedback": "Correct! +100 IQ Points",
+    "xpGain": "+100 IQ Points"
+  },
+  "game": {
+    "driveToBasket": "🏃 Drive to the basket!",
+    "defenderClosing": "Defender closing in...",
+    "defenderCommitted": "⚡ Defender committed to you! What now?",
+    "moveToWing": "👆 Tap the highlighted player, then tap the open wing area!",
+    "stayInPaint": "I'll stay in the paint",
+    "confirmMoveWing": "✅ Confirm I moved to the wing!",
+    "shotGoesUp": "🏀 Shot goes up!",
+    "boxOutNow": "💪 BOX OUT NOW!",
+    "blind": "BLIND!",
+    "backdoor": "BACKDOOR!",
+    "easyLayup": "EASY LAYUP",
+    "blocked": "BLOCKED!",
+    "tooCrowded": "✗ TOO CROWDED",
+    "easy2": "EASY 2!",
+    "tap": "Tap",
+    "slidingToHelp": "🛡️ Sliding to help...",
+    "cutOffDrive": "✋ Cut off the drive!",
+    "recoveringBack": "🏃 Recovering back...",
+    "heldAndRecovered": "✅ HELD + RECOVERED!",
+    "tooEarly": "⏰ A bit early",
+    "tooLate": "⏰ Too late!",
+    "perfectBoxOut": "🏆 PERFECT BOX OUT!",
+    "rebound": "REBOUND!",
+    "sealed": "SEAL!",
+    "lostIt": "LOST IT!",
+    "early": "EARLY",
+    "prepared": "PREPARED!",
+    "blindsided": "BLINDSIDED!",
+    "stop": "STOP!",
+    "spacing": "✓ spacing",
+    "correctAnswer": "Correct!",
+    "wrongAnswer": "Wrong!",
+    "perfect": "Perfect!",
+    "notRightCall": "Not the right call!",
+    "nextRound": "Next Round"
+  },
+  "trophy": {
+    "title": "🏆 Trophy Room",
+    "currentTitle": "Current Title",
+    "careerStats": "🏀 Career Stats",
+    "iqPoints": "IQ Points",
+    "level": "Level",
+    "moduleRatings": "⭐ Module Ratings",
+    "correct": "correct",
+    "totalStars": "Total Stars",
+    "digitalBadges": "🏅 Digital Badges",
+    "printAll": "Print All"
+  },
+  "spirit": {
+    "label": "Team Spirit",
+    "unstoppable": "UNSTOPPABLE!",
+    "hyped": "HYPED!",
+    "okay": "OKAY",
+    "low": "LOW",
+    "critical": "CRITICAL"
+  }
+}

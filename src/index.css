@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-display: "Fredoka", "Noto Sans SC", sans-serif;
+  --font-family-body: "Nunito", "Noto Sans SC", sans-serif;
+
+  --color-court-orange: #FF6B35;
+  --color-court-orange-dark: #E55A2B;
+  --color-court-wood: #C97B3E;
+  --color-court-wood-light: #DEB887;
+  --color-court-line: #F5F5DC;
+  --color-neon-blue: #00D4FF;
+  --color-neon-yellow: #FFE135;
+  --color-basketball-red: #D62828;
+  --color-jersey-white: #F8F9FA;
+  --color-night-sky: #1A1A2E;
+  --color-dark-card: #16213E;
+  --color-dark-card-hover: #1F3460;
+  --color-success-green: #2ECC71;
+  --color-badge-gold: #FFD700;
+  --color-badge-silver: #C0C0C0;
+  --color-badge-bronze: #CD7F32;
+
+  --animate-bounce-in: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-score-pop: score-pop 0.4s ease-out;
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--color-neon-blue); }
+  50% { box-shadow: 0 0 20px var(--color-neon-blue), 0 0 40px var(--color-neon-blue); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes score-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+body {
+  font-family: var(--font-family-body);
+  background: linear-gradient(135deg, var(--color-night-sky) 0%, #2D1B69 50%, var(--color-night-sky) 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--color-jersey-white);
+  overflow-x: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+/* Basketball texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255,107,53,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(0,212,255,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Prevent double-tap zoom on interactive elements */
+button, a, .cursor-pointer {
+  touch-action: manipulation;
+}
+
+/* Kid-friendly 48px minimum touch targets */
+@media (pointer: coarse) {
+  button, 
+  a, 
+  [role="button"],
+  .btn-touch {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Decision buttons stack vertically on mobile */
+  .decision-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Larger tap areas for SVG clickable zones */
+  .touch-zone {
+    min-width: 48px;
+    min-height: 48px;
+  }
+}
+
+/* Desktop: side-by-side decision buttons */
+@media (min-width: 640px) {
+  .decision-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Prevent pull-to-refresh and overscroll during drills */
+.module-active {
+  overscroll-behavior: none;
+  overflow-y: hidden;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark-card);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-court-orange);
+  border-radius: 4px;
+}
+
+/* Card hover glow */
+.card-glow {
+  transition: all 0.3s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 25px rgba(255,107,53,0.3), 0 0 50px rgba(0,212,255,0.15);
+  transform: translateY(-4px);
+}
