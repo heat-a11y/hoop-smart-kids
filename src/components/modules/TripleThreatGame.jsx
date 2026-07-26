@@ -116,7 +116,7 @@ export default function TripleThreatGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <InteractiveCourt simple width={400} half="bottom">
+          <InteractiveCourt simple width={400} half="top">
             {/* Teammates */}
             <TeammateAvatar x={d.teammate1.x} y={d.teammate1.y} label={d.teammate1.label} animate delay={0.2} />
             <TeammateAvatar x={d.teammate2.x} y={d.teammate2.y} label={d.teammate2.label} animate delay={0.3} />

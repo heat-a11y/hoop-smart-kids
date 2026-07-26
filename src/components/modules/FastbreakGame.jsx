@@ -147,7 +147,7 @@ export default function FastbreakGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <InteractiveCourt simple width={400} half="bottom">
+          <InteractiveCourt simple width={400} half="top">
             {/* Teammate cutting to basket - tappable when glowing */}
             <g
               onClick={phase === 'decision' ? handleTapTeammate : undefined}

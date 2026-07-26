@@ -177,7 +177,7 @@ export default function BoxOutGame({ onComplete, onAdvance }) {
         )}
 
         <div className="relative">
-          <BasketballCourt width={400} half="top">
+          <BasketballCourt width={400} half="bottom">
             {/* Basket */}
             <g transform={`translate(${d.basket.x}, ${d.basket.y})`}>
               <rect x="-12" y="-2" width="24" height="4" fill="white" opacity="0.8" rx="1" />

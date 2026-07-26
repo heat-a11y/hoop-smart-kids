@@ -90,7 +90,7 @@ export default function CallScreenGame({ onComplete, onAdvance }) {
         </div>
 
         <div className="relative">
-          <InteractiveCourt simple width={400} half="bottom">
+          <InteractiveCourt simple width={400} half="top">
             {/* Ball Handler */}
             <BallHandlerAvatar x={d.ballHandler.x} y={d.ballHandler.y} label={d.ballHandler.label} animate />
             <Basketball x={d.ballHandler.x + 12} y={d.ballHandler.y} animate />

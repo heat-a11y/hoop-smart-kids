@@ -19,7 +19,8 @@ export default function MultipleChoiceGame({ scenario, moduleKey, onComplete, on
   const d = scenario.diagram;
 
   // Determine court half: explicit half prop wins, else derive from moduleKey
-  const courtHalf = courtHalfProp || (moduleKey === 'offense' ? 'bottom' : 'top');
+  // Offense (front court) = top half, Defense (back court) = bottom half
+  const courtHalf = courtHalfProp || (moduleKey === 'offense' ? 'top' : 'bottom');
 
   const [phase, setPhase] = useState('intro');
   const [selectedChoice, setSelectedChoice] = useState(null);

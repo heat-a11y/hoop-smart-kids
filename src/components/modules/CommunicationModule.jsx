@@ -18,14 +18,14 @@ const makeScenario = (key, icon, en, zh, half = 'top') => ({
 
 const DRILLS = [
   // ─── Front Court (Offense Communication) ───
-  { id: 'call-screen', component: CallScreenGame, icon: '📢', en: 'Call the Screen!', zh: '呼叫掩护！', subtitleEn: '🎯 Front Court', subtitleZh: '🎯 前场进攻沟通', color: 'from-neon-yellow to-yellow-500', half: 'bottom' },
-  { id: 'soundboard', component: CalloutSoundboardGame, icon: '🔊', en: 'Callout Soundboard', zh: '口令发声板', subtitleEn: 'Offensive Communication', subtitleZh: '进攻沟通', color: 'from-neon-blue to-blue-600', half: 'bottom' },
-  makeScenario('callSwitch', '🔄', 'Call the Switch', '呼叫换防', 'bottom'),
+  { id: 'call-screen', component: CallScreenGame, icon: '📢', en: 'Call the Screen!', zh: '呼叫掩护！', subtitleEn: '🎯 Front Court', subtitleZh: '🎯 前场进攻沟通', color: 'from-neon-yellow to-yellow-500', half: 'top' },
+  { id: 'soundboard', component: CalloutSoundboardGame, icon: '🔊', en: 'Callout Soundboard', zh: '口令发声板', subtitleEn: 'Offensive Communication', subtitleZh: '进攻沟通', color: 'from-neon-blue to-blue-600', half: 'top' },
+  makeScenario('callSwitch', '🔄', 'Call the Switch', '呼叫换防', 'top'),
   // ─── Back Court (Defense Communication) ───
-  { id: 'encourage', component: EncouragementGame, icon: '💪', en: 'Teammate Encouragement', zh: '鼓励队友', subtitleEn: '🛡️ Back Court', subtitleZh: '🛡️ 后场防守沟通', color: 'from-success-green to-emerald-600', half: 'top' },
-  makeScenario('transitionComm', '⚡', 'Transition Defense', '转换防守', 'top'),
-  makeScenario('offBallScreen', '👀', 'Off-Ball Screen', '无球掩护沟通', 'top'),
-  makeScenario('doubleTeam', '🪤', 'Call the Trap', '呼叫包夹', 'top'),
+  { id: 'encourage', component: EncouragementGame, icon: '💪', en: 'Teammate Encouragement', zh: '鼓励队友', subtitleEn: '🛡️ Back Court', subtitleZh: '🛡️ 后场防守沟通', color: 'from-success-green to-emerald-600', half: 'bottom' },
+  makeScenario('transitionComm', '⚡', 'Transition Defense', '转换防守', 'bottom'),
+  makeScenario('offBallScreen', '👀', 'Off-Ball Screen', '无球掩护沟通', 'bottom'),
+  makeScenario('doubleTeam', '🪤', 'Call the Trap', '呼叫包夹', 'bottom'),
 ];
 
 export default function CommunicationModule({ onBack }) {

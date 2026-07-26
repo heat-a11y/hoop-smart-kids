@@ -172,7 +172,7 @@ export default function SeeBallSeeManGame({ onComplete, onAdvance }) {
           <InteractiveCourt
             simple
             width={400}
-            half="top"
+            half="bottom"
             onCourtTap={handleCourtTap}
           >
             {/* Ball Handler */}

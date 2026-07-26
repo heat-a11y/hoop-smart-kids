@@ -106,7 +106,7 @@ export default function SpacingGame({ onComplete, onAdvance }) {
 
         {/* Court Diagram */}
         <div className="relative">
-          <BasketballCourt width={400} half="bottom">
+          <BasketballCourt width={400} half="top">
             {/* Other players crowded in paint */}
             {d.positions.slice(1).map((pos) => (
               pos.defender ? (
