@@ -16,11 +16,11 @@ const makeStage = (key, icon, en, zh) => ({
 });
 
 const DRILLS = [
-  makeStage('stage1', '📏', 'Basic 5-Out Spacing', '基本5外站位'),
-  makeStage('stage2', '🛡️', '5-Out vs Defense', '5外对防守'),
-  makeStage('stage3', '🧱', 'On-Ball Screens & Drive', '持球掩护与突破'),
-  makeStage('stage4', '✂️', 'Off-Ball Screens & Cut', '无球掩护与切入'),
-  makeStage('stage5', '🎯', '5-Out Full Possession', '5外完整回合'),
+  makeStage('stage1', '📏', 'Basic Cutting (5-on-0)', '基本切入（5对0）'),
+  makeStage('stage2', '🧱', 'Screening Away', '远离掩护'),
+  makeStage('stage3', '🏃', 'On-Ball Screen (Pick & Roll)', '持球掩护（挡拆）'),
+  makeStage('stage4', '✂️', 'Dribble At & Back Cut', '运球逼近与反跑'),
+  makeStage('stage5', '🎯', 'Full 5-Out Possession', '5外完整回合'),
 ];
 
 export default function FiveOutModule({ onBack }) {

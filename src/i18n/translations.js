@@ -28,7 +28,7 @@ const translations = {
       "offense": {"title": "Offense Mastery", "subtitle": "进攻决策", "description": "Learn pick & rolls, spacing, reading defenses, and when to pass vs shoot.", "stats": "12 Drills • 4 Levels", "cta": "Start Training", "color": "orange"},
       "defense": {"title": "Lockdown Defense", "subtitle": "铁壁防守", "description": "Master stance, help defense, rotations, steals, and rim protection.", "stats": "10 Drills • 4 Levels", "cta": "Lock In", "color": "blue"},
       "communication": {"title": "Court Communication", "subtitle": "场上沟通", "description": "Call screens, signal cuts, use hand signs, and lead your team vocally.", "stats": "8 Drills • 3 Levels", "cta": "Lead the Team", "color": "yellow"},
-      "fiveout": {"title": "5-Out Offense", "subtitle": "5外进攻体系", "description": "Master 5-out spacing, on-ball screens, off-ball cuts, and read-and-react offense.", "stats": "5 Stages • Interactive", "cta": "Run the Offense", "color": "orange"}
+      "fiveout": {"title": "5-Out Offense", "subtitle": "5外进攻体系", "description": "Learn the official 4 progressions: basic cutting, screening away, on-ball screens, and dribble-at actions.", "stats": "5 Stages • Interactive Playbook", "cta": "Run the Offense", "color": "orange"}
     },
     "progress": {
       "label": "Season Progress",
@@ -174,7 +174,7 @@ const translations = {
       "offense": {"title": "进攻决策", "subtitle": "Offense Mastery", "description": "学习挡拆、空间站位、阅读防守以及何时传球或投篮。", "stats": "12项训练 • 4个等级", "cta": "开始训练", "color": "orange"},
       "defense": {"title": "铁壁防守", "subtitle": "Lockdown Defense", "description": "掌握防守姿势、协防、轮转、抢断和护框技巧。", "stats": "10项训练 • 4个等级", "cta": "全力防守", "color": "blue"},
       "communication": {"title": "场上沟通", "subtitle": "Court Communication", "description": "呼叫挡拆、信号切入、使用手势，用声音带领全队。", "stats": "8项训练 • 3个等级", "cta": "带领团队", "color": "yellow"},
-      "fiveout": {"title": "5外进攻体系", "subtitle": "5-Out Offense", "description": "掌握5外站位、持球掩护、无球切入和阅读反应进攻。", "stats": "5个阶段 • 互动演示", "cta": "开始进攻", "color": "orange"}
+      "fiveout": {"title": "5外进攻体系", "subtitle": "5-Out Offense", "description": "学习官方4个阶段：基本切入、远离掩护、持球掩护和运球逼近。", "stats": "5个阶段 • 互动战术板", "cta": "开始进攻", "color": "orange"}
     },
     "progress": {
       "label": "赛季进度",
