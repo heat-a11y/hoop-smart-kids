@@ -628,9 +628,6 @@ const NEW_OFFENSE_SCENARIOS = {
       setup: "You're on the wing and your defender is overplaying the passing lane, trying to deny you the ball. They're face-guarding you with their back to the basket. Your teammate sees this and wants to pass to you. What's the right move?",
       choices: [
         { id: 'A', label: 'Fake out, then backdoor cut to the rim', correct: true,
-          
-
-          position: { x: 200, y: 170 },
           position: { x: 250, y: 140 },
           animate: [
             { target: 'teammate1', to: { x: 250, y: 150 }, label: '✂️ Backdoor!', color: '#2ECC71' },
@@ -638,9 +635,6 @@ const NEW_OFFENSE_SCENARIOS = {
           ],
           en: { title: 'Beautiful backdoor!', feedback: "TEXTBOOK! When a defender overplays the passing lane, they're vulnerable to the back cut. Give a slight move toward the ball (to sell the catch), then explode to the basket. Your teammate hits you with the pass for an easy layup!", tip: 'Overplay = backdoor. If they deny the pass, cut behind them. Simple read.' } },
         { id: 'B', label: 'Stand still and hope for the pass', correct: false,
-          
-
-          position: { x: 200, y: 110 },
           position: { x: 310, y: 210 },
           animate: [
             { target: 'defender1', to: { x: 300, y: 160 }, label: '🛡️ Denies firmly', color: '#EF4444' },
