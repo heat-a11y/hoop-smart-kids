@@ -489,7 +489,7 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
       ref={svgRef}
       viewBox={`0 0 ${width} ${height}`}
       preserveAspectRatio="xMidYMid meet"
-      className="w-full max-w-2xl mx-auto h-auto select-none"
+      className={`w-full mx-auto h-auto select-none ${simple ? 'max-w-lg' : 'max-w-2xl'}`}
       style={{
         touchAction: 'none',
         filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.3))',
@@ -497,10 +497,10 @@ const InteractiveCourt: React.FC<InteractiveCourtProps> = ({
         WebkitUserSelect: 'none',
         userSelect: 'none',
       }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
+      onPointerDown={!simple ? handlePointerDown : undefined}
+      onPointerMove={!simple ? handlePointerMove : undefined}
+      onPointerUp={!simple ? handlePointerUp : undefined}
+      onPointerLeave={!simple ? handlePointerUp : undefined}
     >
       {/* Animation keyframes via inline <style> */}
       <defs>
