@@ -29,16 +29,16 @@ export function BallHandlerAvatar({ x, y, size = 20, label = '', animate = false
       {/* Jersey stripe */}
       <path d={`M ${x - r * 0.25} ${y - r * 0.5} L ${x - r * 0.15} ${y + r * 0.5} L ${x + r * 0.15} ${y + r * 0.5} L ${x + r * 0.25} ${y - r * 0.5}`} fill="#F59E0B" opacity="0.35" />
 
-      {/* Basketball icon overlay */}
-      <g transform={`translate(${x + r * 0.4}, ${y - r * 0.35})`}>
+      {/* Basketball icon at bottom (dribbling, not shooting) */}
+      <g transform={`translate(${x + r * 0.4}, ${y + r * 0.3})`}>
         <circle cx={0} cy={0} r={r * 0.28} fill="#F97316" stroke="#7C2D12" strokeWidth="1.2" />
         <path d={`M 0 ${-r * 0.28} Q ${r * 0.14} 0, 0 ${r * 0.28}`} fill="none" stroke="#7C2D12" strokeWidth="0.6" opacity="0.6" />
         <path d={`M ${-r * 0.28} 0 Q 0 ${-r * 0.14}, ${r * 0.28} 0`} fill="none" stroke="#7C2D12" strokeWidth="0.6" opacity="0.6" />
       </g>
 
-      {/* Star accent */}
+      {/* Star accent at top */}
       <polygon
-        points={`${x - r * 0.38},${y - r * 0.2} ${x - r * 0.3},${y - r * 0.35} ${x - r * 0.22},${y - r * 0.2} ${x - r * 0.42},${y - r * 0.28} ${x - r * 0.18},${y - r * 0.28}`}
+        points={`${x - r * 0.38},${y - r * 0.25} ${x - r * 0.3},${y - r * 0.4} ${x - r * 0.22},${y - r * 0.25} ${x - r * 0.42},${y - r * 0.33} ${x - r * 0.18},${y - r * 0.33}`}
         fill="white" opacity="0.3"
       />
 
@@ -119,9 +119,9 @@ export function DefenderAvatar({ x, y, size = 18, label = '', animate = false, d
       {/* Shadow */}
       <ellipse cx={x} cy={y + r * 0.9} rx={r * 0.55} ry={r * 0.18} fill="rgba(0,0,0,0.15)" />
 
-      {/* Extended arms (defensive stance) — symmetric */}
-      <line x1={x - r * 0.5} y1={y - r * 0.05} x2={x - r * 0.5 - r * 0.5} y2={y - r * 0.3} stroke="#DC2626" strokeWidth={r * 0.15} strokeLinecap="round" />
-      <line x1={x + r * 0.5} y1={y - r * 0.05} x2={x + r * 0.5 + r * 0.5} y2={y - r * 0.3} stroke="#DC2626" strokeWidth={r * 0.15} strokeLinecap="round" />
+      {/* Extended arms (defensive stance) — symmetric, pointing DOWN (back to basket) */}
+      <line x1={x - r * 0.5} y1={y - r * 0.05} x2={x - r * 0.5 - r * 0.5} y2={y + r * 0.25} stroke="#DC2626" strokeWidth={r * 0.15} strokeLinecap="round" />
+      <line x1={x + r * 0.5} y1={y - r * 0.05} x2={x + r * 0.5 + r * 0.5} y2={y + r * 0.25} stroke="#DC2626" strokeWidth={r * 0.15} strokeLinecap="round" />
 
       {/* Wide legs */}
       <line x1={x - r * 0.25} y1={y + r * 0.5} x2={x - r * 0.45} y2={y + r * 0.85} stroke="#B91C1C" strokeWidth={r * 0.14} strokeLinecap="round" />

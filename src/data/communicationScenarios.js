@@ -165,4 +165,152 @@ const communicationScenarios = {
   },
 };
 
-export default communicationScenarios;
+const NEW_COMM_SCENARIOS = {
+  callSwitch: {
+    id: 'call-switch',
+    en: {
+      title: 'Call the Switch',
+      subtitle: 'Defensive Switch Communication',
+      setup: "A screen is coming on the wing. You and your teammate are both good defenders who can guard multiple positions. The ball handler is quick but small, and the screener is a big who can post up. What do you call?",
+      choices: [
+        { id: 'A', label: "'SWITCH!' — Swap assignments", correct: true,
+          en: { title: 'Clean switch!', feedback: "Excellent call! Switching works here because you're both capable defenders. By calling 'Switch!' early, there's no confusion — your teammate picks up your man, you take theirs. No open shooter, no blown coverage.", tip: 'Call switch BEFORE the screen arrives, not during. Early communication = clean defense.' } },
+        { id: 'B', label: "'FIGHT THROUGH!' — Chase over the top", correct: false,
+          en: { title: 'Too slow!', feedback: "Fighting through puts you a step behind while the ball handler turns the corner. They get an open look or force help rotation. If you can switch, switch — it keeps the pressure on.", tip: 'Only fight through screens if switching creates a terrible mismatch.' } },
+        { id: 'C', label: 'Stay silent, see what happens', correct: false,
+          en: { title: 'Disaster!', feedback: "Silence on a screen = one of you ends up guarding nobody while the other is stuck guarding two players. Communication isn't optional — it's mandatory on every screen.", tip: 'Every screen needs a call. Every single one. No exceptions.' } },
+      ],
+    },
+    zh: {
+      title: '呼叫换防',
+      subtitle: '防守换防沟通',
+      setup: '侧翼来了一个掩护。你和你队友都是能防多个位置的好防守者。持球者快速但身材矮小，掩护者是个大个子能低位单打。你该喊什么？',
+      choices: [
+        { id: 'A', label: '"换防！" — 交换防守对象', correct: true,
+          zh: { title: '干净换防！', feedback: '出色的呼叫！换防在这里有效因为你们都是能干的防守者。通过提前喊"换防"，没有混乱——你的队友接你的人，你接他们的。没有空位射手，没有防守漏洞。', tip: '在掩护到来之前喊换防，而不是在过程中。早期沟通 = 干净防守。' } },
+        { id: 'B', label: '"挤过！" — 从上方绕过', correct: false,
+          zh: { title: '太慢了！', feedback: '挤过掩护会让你慢一步，持球者已经转身突破了。他们会得到空位投篮机会或迫使协防。如果能换防就换防——保持压力。', tip: '只有当换防会造成严重错位时才挤过掩护。' } },
+        { id: 'C', label: '保持沉默，见机行事', correct: false,
+          zh: { title: '灾难！', feedback: '面对掩护保持沉默 = 一人防不住任何人，另一人被迫一防二。沟通不是可选的——每次掩护都必须沟通。', tip: '每次掩护都需要一个口令。每一次。没有例外。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 260, label: 'PG' },
+      teammate1: { x: 200, y: 190, label: 'Screener' },
+      defender1: { x: 180, y: 230, label: 'You' },
+      defender2: { x: 200, y: 160, label: 'Teammate' },
+    },
+  },
+
+  transitionComm: {
+    id: 'transition-comm',
+    en: {
+      title: 'Transition Defense',
+      subtitle: 'Communicate the Matchups',
+      setup: "The other team just grabbed a rebound and is pushing the ball up the court fast. You're sprinting back on defense with your teammates scattered. It's 4-on-3 against you. What do you yell?",
+      choices: [
+        { id: 'A', label: "'BALL! I GOT BALL!' — Pick up the handler", correct: true,
+          en: { title: 'Stopped the break!', feedback: "YES! In transition, the most important call is 'BALL!' so everyone knows the ball is picked up.", tip: 'Transition defense starts with stopping the ball.' } },
+        { id: 'B', label: "'FIND YOUR MAN!'", correct: false,
+          en: { title: 'Layup line!', feedback: "Everyone is looking around while the ball handler dribbles uncontested to the rim.", tip: 'Someone MUST pick up the ball immediately.' } },
+        { id: 'C', label: 'Run to the paint and wait', correct: false,
+          en: { title: 'Open three!', feedback: "If everyone runs to the paint, the ball handler pulls up for a wide-open three.", tip: 'Match up on the perimeter first.' } },
+      ],
+    },
+    zh: {
+      title: '转换防守',
+      subtitle: '沟通对位',
+      setup: '对方刚抢到篮板并快速推进。你全速回防，队友们分散在各处。对方4对3快攻。你喊什么？',
+      choices: [
+        { id: 'A', label: '"球！我来防持球者！"', correct: true,
+          zh: { title: '阻止了快攻！', feedback: '对！转换中最重要的是喊"球！"', tip: '转换防守从阻止球开始。' } },
+        { id: 'B', label: '"找到自己的人！"', correct: false,
+          zh: { title: '轻松上篮！', feedback: '所有人都在寻找自己的人，而持球者畅通无阻。', tip: '必须有人立即去防持球者。' } },
+        { id: 'C', label: '跑回禁区等待', correct: false,
+          zh: { title: '空位三分！', feedback: '如果所有人都回禁区，持球者可投空位三分。', tip: '先在外线对位。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 280, label: 'PG' },
+      teammate1: { x: 120, y: 200, label: 'Wing' },
+      teammate2: { x: 280, y: 210, label: 'Wing' },
+      defender1: { x: 200, y: 230, label: 'You' },
+      defender2: { x: 150, y: 170, label: 'Teammate' },
+    },
+  },
+
+  offBallScreen: {
+    id: 'off-ball-screen',
+    en: {
+      title: 'Off-Ball Screen',
+      subtitle: 'Communicate the Baseline Screen',
+      setup: "Your teammate is chasing their man who is running off a baseline screen. Your teammate can't see the screener coming. What do you yell?",
+      choices: [
+        { id: 'A', label: "'BASELINE SCREEN!' — Direction + action", correct: true,
+          en: { title: 'Perfect heads-up!', feedback: "YES! 'Baseline screen' tells your teammate exactly where and what's coming. They anticipate the screen and fight over it cleanly.", tip: 'Call the direction first, then the action. "Baseline screen!" or "Top screen!"' } },
+        { id: 'B', label: "'WATCH OUT!' — Vague warning", correct: false,
+          en: { title: 'Too vague!', feedback: "'Watch out' doesn't tell them what's coming or from where. They get screened because they don't know what to watch for.", tip: 'Be specific: direction + action. Vague warnings = screened anyway.' } },
+        { id: 'C', label: 'Stay silent — they should see it', correct: false,
+          en: { title: 'Blindsided!', feedback: "They can't see the screener! Their eyes are on their man. Silence gets them screened every time.", tip: 'If you see a screen, SAY IT. Your teammate is focused on their man.' } },
+      ],
+    },
+    zh: {
+      title: '无球掩护',
+      subtitle: '沟通底线掩护',
+      setup: '你的队友在追防他们的人，对方正跑过一个底线掩护。你的队友看不到掩护者正在靠近。你喊什么？',
+      choices: [
+        { id: 'A', label: '"底线掩护！" — 方向加动作', correct: true,
+          zh: { title: '完美提醒！', feedback: '没错！"底线掩护"准确告诉队友是什么和来自哪里。他们预判掩护并干净地绕过。', tip: '先喊方向，再喊动作。"底线掩护！"或"上线掩护！"' } },
+        { id: 'B', label: '"小心！" — 模糊警告', correct: false,
+          zh: { title: '太模糊了！', feedback: '"小心"没有告诉队友什么来了或从哪里来。他们不知道要提防什么。', tip: '要具体：方向加动作。模糊的警告 = 还是被挡住。' } },
+        { id: 'C', label: '保持沉默——他们应该能看到', correct: false,
+          zh: { title: '被偷袭了！', feedback: '他们看不到掩护者！他们的眼睛盯着自己的人。沉默让他们每次都被挡住。', tip: '如果你看到掩护，就说出来。你的队友专注于他们的人。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 120, y: 200, label: 'PG' },
+      teammate1: { x: 280, y: 210, label: 'Your Teammate' },
+      defender1: { x: 250, y: 140, label: 'Screener' },
+      defender2: { x: 280, y: 170, label: 'You' },
+    },
+  },
+
+  doubleTeam: {
+    id: 'double-team',
+    en: {
+      title: 'Call the Double Team',
+      subtitle: 'When and How to Trap',
+      setup: "The other team's best player has the ball on the wing with their back to the basket. They've been scoring easily. You want to send a double team. What do you call?",
+      choices: [
+        { id: 'A', label: "'TRAP!' — Signal immediately", correct: true,
+          en: { title: 'Trap set!', feedback: "YES! 'Trap!' tells your teammate to come immediately. The ball handler panics and picks up their dribble. The trap forces a tough pass or a turnover.", tip: 'Call trap early — the moment the ball handler picks up their dribble, you\'ve won.' } },
+        { id: 'B', label: "'HELP!' — Unclear intent", correct: false,
+          en: { title: 'Too slow!', feedback: "'Help' doesn't tell your teammate to trap — they just slide into help position, leaving the ball handler time to make a play.", tip: 'If you want a trap, say "TRAP!" If you want help, say "HELP!" Be clear.' } },
+        { id: 'C', label: 'Wait and see if they score again', correct: false,
+          en: { title: 'Too late!', feedback: "Waiting means they score again. By the time you decide to trap, the damage is done. Be proactive, not reactive.", tip: 'Don\'t wait to get scored on. Trap early, trap often.' } },
+      ],
+    },
+    zh: {
+      title: '呼叫包夹',
+      subtitle: '何时以及如何夹击',
+      setup: '对方最好的球员在侧翼接球，背对篮筐。他们已经多次轻松得分。你想叫包夹。你喊什么？',
+      choices: [
+        { id: 'A', label: '"包夹！" — 立即信号', correct: true,
+          zh: { title: '包夹到位！', feedback: '对！"包夹"告诉队友立即上前。持球者惊慌失措收球。包夹迫使艰难的传球或失误。', tip: '尽早喊包夹——持球者收球的那一刻你就赢了。' } },
+        { id: 'B', label: '"协防！" — 意图不明确', correct: false,
+          zh: { title: '太慢了！', feedback: '"协防"没有告诉队友要包夹——他们只会滑步到协防位置，给持球者时间处理球。', tip: '想要包夹就说"包夹"。想要协防就说"协防"。要清晰。' } },
+        { id: 'C', label: '等着看他们是否再得分', correct: false,
+          zh: { title: '太晚了！', feedback: '等待意味着他们再得分。等你决定包夹时，伤害已经造成了。要主动，不要被动。', tip: '不要等着被得分。尽早包夹，经常包夹。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 280, y: 200, label: 'PG' },
+      teammate1: { x: 150, y: 210, label: 'Teammate' },
+      defender1: { x: 250, y: 170, label: 'You' },
+      defender2: { x: 200, y: 190, label: 'Trapper' },
+    },
+  },
+};
+
+const allCommScenarios = { ...communicationScenarios, ...NEW_COMM_SCENARIOS };
+export default allCommScenarios;

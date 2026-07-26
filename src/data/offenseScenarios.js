@@ -242,4 +242,190 @@ const offenseScenarios = {
   },
 };
 
-export default offenseScenarios;
+const NEW_OFFENSE_SCENARIOS = {
+  pickAndRoll: {
+    id: 'pick-and-roll',
+    en: {
+      title: 'Read the Pick & Roll',
+      subtitle: 'Make the Right Decision Off the Screen',
+      setup: "You bring the ball up and call for a pick from your center. The defender goes UNDER the screen to prevent your drive, sagging way back. Your roll man is diving to the basket with a smaller defender switched onto them. What's your move?",
+      choices: [
+        { id: 'A', label: 'Pull up for the open jumper', correct: true,
+          en: { title: 'Pull up for the jumper!', feedback: "Perfect! When the defender goes under the screen, they're begging you to shoot. If you can knock down that jumper, they'll have to go over the top next time, which opens up your drive. Make them pay!", tip: 'When the defense goes under the screen, shoot it. When they go over, drive. Simple read!' } },
+        { id: 'B', label: 'Drive hard to the basket', correct: false,
+          en: { title: 'Drive into a crowd', feedback: "The defender went UNDER — they're already positioned to cut off your drive. If you try to force it, you'll run into the help defender too. The open shot was the right call here.", tip: 'Defender going under = they want you to drive so the help can trap you. Shoot instead!' } },
+        { id: 'C', label: 'Lob pass to the roller', correct: false,
+          en: { title: 'Lob intercepted!', feedback: "The defender going under is in perfect position to intercept a lob. Your roller is open underneath only if the defense is stretched — here, the floater or pull-up is higher percentage.", tip: "Don't force the lob when the paint is protected. Take what the defense gives you." } },
+      ],
+    },
+    zh: {
+      title: '挡拆阅读',
+      subtitle: '在掩护后做出正确决策',
+      setup: '你运球过半场，呼叫中锋做挡拆。防守球员选择从掩护下方绕过，大幅后退阻止你突破。你的顺下队友正冲向篮筐，由一名小个子防守者换防。你该怎么做？',
+      choices: [
+        { id: 'A', label: '急停跳投', correct: true,
+          zh: { title: '急停跳投！', feedback: '完美！当防守者从掩护下方绕过时，他们是在让你投篮。如果你能投进，下次他们就会从上方绕过，为你打开突破空间。让他们付出代价！', tip: '防守从下方绕过就投篮，从上方绕过就突破。简单阅读！' } },
+        { id: 'B', label: '强行突破', correct: false,
+          zh: { title: '突破入人群', feedback: '防守者从下方绕过已经有了突破位置的准备。强行突破会遇到协防。空位投篮才是正确选择。', tip: '防守从下方绕过 = 他们想让你突破以便夹击。选择投篮！' } },
+        { id: 'C', label: '高吊传给顺下队友', correct: false,
+          zh: { title: '高吊被截！', feedback: '从下方绕过的防守者正好可以截断高吊传球。只有防守被拉开时才能传顺下，这里中投或急停跳投更高效。', tip: '不要强行传高吊球。接受防守给你的机会。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 230, label: 'You' },
+      teammate1: { x: 200, y: 150, label: 'C/Roller' },
+      teammate2: { x: 300, y: 240, label: 'SG' },
+      defender1: { x: 200, y: 190, label: 'D (under)' },
+      defender2: { x: 200, y: 140, label: 'Help' },
+    },
+  },
+
+  giveAndGo: {
+    id: 'give-and-go',
+    en: {
+      title: 'Give & Go',
+      subtitle: 'Pass and Cut Decision',
+      setup: "You pass to your teammate on the wing. Your defender turns their head to watch the ball for just a split second. That's all the separation you need. What's the right read?",
+      choices: [
+        { id: 'A', label: 'Backdoor cut to the basket', correct: true,
+          en: { title: 'Sharp cut!', feedback: "YES! When your defender ball-watches, that's your cue to cut hard to the rim. Your teammate will find you with a pass for an easy layup. The give-and-go is the oldest play in basketball for a reason!", tip: 'If your defender looks at the ball, they lose you. Cut hard and expect the pass back.' } },
+        { id: 'B', label: 'Stand still and wait', correct: false,
+          en: { title: 'Defense recovers', feedback: "By standing still, you let your defender recover. The window for the cut was open for only a second — and you missed it. Keep moving off the ball!", tip: 'If you pass, don\'t stand and watch. Cut, screen, or relocate. Movement creates offense.' } },
+        { id: 'C', label: 'Set a screen for the passer', correct: 'suboptimal',
+          en: { title: 'Screen not needed here', feedback: 'Setting a screen for your teammate could work, but the backdoor cut is wide open and leads to a higher-percentage shot. Take the easy points first!', tip: 'Look for the cut first. If it\'s not there, set the screen.' } },
+      ],
+    },
+    zh: {
+      title: '传切配合',
+      subtitle: '传球后切入决策',
+      setup: '你把球传给侧翼的队友。你的防守者转头看球了一瞬间。这就是你需要的空档。正确的选择是什么？',
+      choices: [
+        { id: 'A', label: '反跑切入篮下', correct: true,
+          zh: { title: '犀利切入！', feedback: '没错！当你的防守者看球时，就是你切入篮下的信号。你的队友会找到你传出一个轻松上篮。传切配合是最古老的篮球战术，原因就在这里！', tip: '如果防守者看球，他们就会失去你。果断切入并期待回传。' } },
+        { id: 'B', label: '站在原地等待', correct: false,
+          zh: { title: '防守恢复', feedback: '站在原地让防守者有恢复时间。切入的窗口只开了一瞬间——你错过了。球传出去后要继续移动！', tip: '传完球不要站着看。切入、掩护或重新定位。移动创造进攻。' } },
+        { id: 'C', label: '给持球队友做掩护', correct: 'suboptimal',
+          zh: { title: '这里不需要掩护', feedback: '给队友做掩护也可以，但反跑切入是完全空位且命中率更高。先拿轻松的分！', tip: '先寻找切入机会。如果没有，再做掩护。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 230, label: 'You' },
+      teammate1: { x: 300, y: 220, label: 'PG' },
+      defender1: { x: 200, y: 170, label: 'D' },
+      defender2: { x: 300, y: 180, label: 'D' },
+    },
+  },
+
+  postUp: {
+    id: 'post-up',
+    en: {
+      title: 'Post-Up Vision',
+      subtitle: 'Read the Double Team',
+      setup: "You catch the ball in the low post with your back to the basket. Your defender is playing solid D, and you see their teammate starting to creep over for a double team. What's the smartest play?",
+      choices: [
+        { id: 'A', label: 'Quick pass to the open man', correct: true,
+          en: { title: 'Great vision!', feedback: "EXACTLY! You saw the double team coming and made the extra pass before getting trapped. Your teammate is now wide open. Good post players score, GREAT post players make everyone better!", tip: 'Always know where your teammates are before you catch the post entry. Beats the double team every time.' } },
+        { id: 'B', label: 'Try to score through both', correct: false,
+          en: { title: 'Blocked!', feedback: "Two defenders are too much even for the best post players. You're getting stripped or blocked. Trust your teammates and make the pass — you'll get the ball back next possession!", tip: 'Double team = someone is open. Find them immediately.' } },
+        { id: 'C', label: 'Wait for the double to arrive', correct: false,
+          en: { title: 'Too late!', feedback: "Once the double team arrives, your passing lanes shrink and you're in trouble. The key is to make your move BEFORE the double comes, not after.", tip: 'Read the defense early. The moment they commit two, the ball should be out of your hands.' } },
+      ],
+    },
+    zh: {
+      title: '低位策应',
+      subtitle: '阅读包夹防守',
+      setup: '你在低位接球，背对篮筐。防守者贴防很紧，你看到对方另一名球员正在靠近准备包夹。最聪明的打法是什么？',
+      choices: [
+        { id: 'A', label: '快速传给空位队友', correct: true,
+          zh: { title: '出色的视野！', feedback: '太对了！你在包夹形成之前就看到了并传出了球。你的队友现在完全空位。好的低位球员能得分，伟大的低位球员能让每个队友变得更好！', tip: '在低位接球前就要知道队友的位置。这样每次都能破解包夹。' } },
+        { id: 'B', label: '强打两人', correct: false,
+          zh: { title: '被盖了！', feedback: '两个防守者即使对最好的低位球员也太多了。你会被抢断或盖帽。相信队友并传球——下次进攻球还会回到你手中！', tip: '包夹 = 有人空位。立刻找到他。' } },
+        { id: 'C', label: '等包夹来了再说', correct: false,
+          zh: { title: '太晚了！', feedback: '包夹一旦形成，你的传球路线就会被封锁。关键是在包夹到来之前做出决定，而不是之后。', tip: '尽早阅读防守。一旦他们两人包夹，球就应该已经传出。' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 180, label: 'You' },
+      teammate1: { x: 300, y: 240, label: 'PG' },
+      teammate2: { x: 120, y: 230, label: 'SF' },
+      defender1: { x: 200, y: 140, label: 'D' },
+      defender2: { x: 260, y: 160, label: 'Help' },
+      defender3: { x: 180, y: 160, label: 'Doubler' },
+    },
+  },
+
+  isolation: {
+    id: 'isolation',
+    en: {
+      title: 'Isolation Attack',
+      subtitle: 'When to Go 1-on-1',
+      setup: "You're isolated at the top of the key with your defender in front of you. You have a size advantage — you're taller and stronger. The shot clock is at 10 seconds. What's the right approach?",
+      choices: [
+        { id: 'A', label: 'Back them down, seal, and score', correct: true,
+          en: { title: 'Use your size!', feedback: "EXACTLY! You have a size advantage — use it. Back your defender down, feel their position, seal them on your hip, and finish over them. That's efficient offense. No wasted dribbles.", tip: 'When you have a size mismatch, punish it immediately. Take one or two dribbles and go to work.' } },
+        { id: 'B', label: 'Fancy crossovers and step-back', correct: false,
+          en: { title: 'Too complicated', feedback: "Fancy dribbling wastes your size advantage and risks a turnover. You're taller — why are you playing small? Post them up or face up and attack the rim directly.", tip: 'Play to your strengths. If you\'re bigger, don\'t dance on the perimeter.' } },
+        { id: 'C', label: 'Pass it out and reset', correct: 'suboptimal',
+          en: { title: 'You had the advantage', feedback: "You passed up a mismatch! With 10 seconds on the clock, you have time to attack. If you consistently pass out of mismatches, the defense doesn't respect you. Be aggressive!", tip: 'Isolation mismatches are gold. Attack before the defense can send help.' } },
+      ],
+    },
+    zh: {
+      title: '单打进攻',
+      subtitle: '何时一对一',
+      setup: '你在弧顶单打，防守者在你面前。你有身材优势——更高更壮。进攻时间还剩10秒。正确的做法是什么？',
+      choices: [
+        { id: 'A', label: '背身推进，卡位，得分', correct: true,
+          zh: { title: '利用你的身材！', feedback: '没错！你有身材优势就利用它。背身推进，感受防守者的位置，把他们卡在身侧，然后在他们头上得分。这就是高效的进攻。不浪费运球。', tip: '当你有身材优势时，立即利用。一两下运球就开始进攻。' } },
+        { id: 'B', label: '花式运球和后撤步', correct: false,
+          zh: { title: '太复杂了', feedback: '花式运球浪费了你的身材优势还冒着失误的风险。你更高——为什么要打小个球？面框或背筐直接攻击篮筐。', tip: '发挥你的优势。如果你更大只，不要在外线跳舞。' } },
+        { id: 'C', label: '传出去重新组织', correct: 'suboptimal',
+          zh: { title: '你有优势', feedback: '你放弃了错位机会！还有10秒，你有时间进攻。如果你总是放弃错位，防守者就不会尊重你。要果断！', tip: '单打错位是金子。在防守协防到来之前进攻！' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 230, label: 'You' },
+      teammate1: { x: 300, y: 250, label: 'SG' },
+      teammate2: { x: 120, y: 240, label: 'PG' },
+      defender1: { x: 200, y: 180, label: 'D' },
+    },
+  },
+
+  backdoor: {
+    id: 'backdoor',
+    en: {
+      title: 'Backdoor Cut',
+      subtitle: 'When They Overplay You',
+      setup: "You're on the wing and your defender is overplaying the passing lane, trying to deny you the ball. They're face-guarding you with their back to the basket. Your teammate sees this and wants to pass to you. What's the right move?",
+      choices: [
+        { id: 'A', label: 'Fake out, then backdoor cut to the rim', correct: true,
+          en: { title: 'Beautiful backdoor!', feedback: "TEXTBOOK! When a defender overplays the passing lane, they're vulnerable to the back cut. Give a slight move toward the ball (to sell the catch), then explode to the basket. Your teammate hits you with the pass for an easy layup!", tip: 'Overplay = backdoor. If they deny the pass, cut behind them. Simple read.' } },
+        { id: 'B', label: 'Stand still and hope for the pass', correct: false,
+          en: { title: 'Too easy to guard', feedback: "Standing still makes you easy to guard. The defender has you denied — you're not getting the ball here. You need to CREATE separation with movement.", tip: 'If you can\'t get the ball, MOVE. Don\'t stand and watch. Cut, screen, or relocate.' } },
+        { id: 'C', label: 'Run to the opposite side of the court', correct: false,
+          en: { title: 'Too far', feedback: "Relocating is good, but you went too far. A quick backdoor cut takes advantage of the defender's momentum and gets you an open layup. Running to the other side gives them time to recover.", tip: 'When they overplay, the shortest path to open is behind them. Backdoor cut!' } },
+      ],
+    },
+    zh: {
+      title: '反跑切入',
+      subtitle: '当防守者过度防守时',
+      setup: '你在侧翼，防守者过度防守传球路线，试图阻止你接球。他们在面贴防守你，背对篮筐。你的队友看到了这一点想传球给你。正确的做法是什么？',
+      choices: [
+        { id: 'A', label: '假动作接球，然后反跑切入篮下', correct: true,
+          zh: { title: '漂亮的反跑！', feedback: '教科书！当防守者过度防守传球路线时，他们容易被打反跑。先向球方向做接球假动作，然后爆发切入篮下。你的队友传球给你轻松上篮！', tip: '过度防守 = 反跑。如果他们阻止接球，就从他们身后切入。简单阅读。' } },
+        { id: 'B', label: '站着等传球', correct: false,
+          zh: { title: '太好防了', feedback: '站着不动让你很容易被防守。防守者阻止了你接球——你在这里拿不到球。你需要通过移动创造空间。', tip: '如果你接不到球，就移动。不要站着看。切入、掩护或重新定位。' } },
+        { id: 'C', label: '跑到球场的另一侧', correct: false,
+          zh: { title: '太远了', feedback: '重新定位是好的，但你跑太远了。快速反跑利用防守者的动量来获得空位上篮。跑到另一侧给了他们恢复的时间。', tip: '当防守者过度防守时，最短的路径就是从他们身后切入。反跑！' } },
+      ],
+    },
+    diagram: {
+      ballHandler: { x: 200, y: 250, label: 'PG' },
+      teammate1: { x: 300, y: 210, label: 'You' },
+      defender1: { x: 300, y: 170, label: 'D (overplay)' },
+    },
+  },
+};
+
+// Merge new scenarios into the main export
+const allOffenseScenarios = { ...offenseScenarios, ...NEW_OFFENSE_SCENARIOS };
+export default allOffenseScenarios;
