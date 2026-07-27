@@ -28,7 +28,9 @@ const translations = {
       "offense": {"title": "Offense Mastery", "subtitle": "进攻决策", "description": "Learn pick & rolls, spacing, reading defenses, and when to pass vs shoot.", "stats": "12 Drills • 4 Levels", "cta": "Start Training", "color": "orange"},
       "defense": {"title": "Lockdown Defense", "subtitle": "铁壁防守", "description": "Master stance, help defense, rotations, steals, and rim protection.", "stats": "10 Drills • 4 Levels", "cta": "Lock In", "color": "blue"},
       "communication": {"title": "Court Communication", "subtitle": "场上沟通", "description": "Call screens, signal cuts, use hand signs, and lead your team vocally.", "stats": "8 Drills • 3 Levels", "cta": "Lead the Team", "color": "yellow"},
-      "fiveout": {"title": "5-Out Offense", "subtitle": "5外进攻体系", "description": "Learn the official 4 progressions: basic cutting, screening away, on-ball screens, and dribble-at actions.", "stats": "5 Stages • Interactive Playbook", "cta": "Run the Offense", "color": "orange"}
+      "fiveout": {"title": "5-Out Offense", "subtitle": "5外进攻体系", "description": "Learn the official 4 progressions: basic cutting, screening away, on-ball screens, and dribble-at actions.", "stats": "5 Stages • Interactive Playbook", "cta": "Run the Offense", "color": "orange"},
+      "mantoman": {"title": "Man-to-Man Defense", "subtitle": "人盯人防守", "description": "Master full-court and half-court man defense — pressure, deny, help, and recover in the defensive shell.", "stats": "2 Scenarios • Timeline Playbook", "cta": "Lock Up", "color": "blue"},
+      "transition": {"title": "Full Transition Cycle", "subtitle": "完整转换循环", "description": "Complete possession cycle from rebound to outlet to 5-out offense to score to throw-in to full-court and half-court defense.", "stats": "1 Full Possession • Timeline Playbook", "cta": "Run the Cycle", "color": "green"}
     },
     "progress": {
       "label": "Season Progress",
@@ -71,6 +73,8 @@ const translations = {
       "defense": {"title": "🛡️ Lockdown Defense", "summaryTitle": "Lockdown Defense Complete!", "summaryDesc": "You mastered positioning, help defense, and boxing out! +300 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Drill {current} of {total}"},
       "communication": {"title": "🗣️ Court Communication", "summaryTitle": "Court Communication Complete!", "summaryDesc": "You learned to call screens, use defensive callouts, and lift up your teammates! +300 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Drill {current} of {total}"},
       "fiveout": {"title": "🏀 5-Out Offense", "summaryTitle": "5-Out Offense Complete!", "summaryDesc": "You mastered all 5 stages of 5-out offense! +500 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Stage {current} of {total}"},
+      "mantoman": {"title": "🛡️ Man-to-Man Defense", "summaryTitle": "Man-to-Man Defense Complete!", "summaryDesc": "You learned full-court and half-court man defense principles! +300 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Scenario {current} of {total}"},
+      "transition": {"title": "🔄 Full Transition", "summaryTitle": "Transition Cycle Complete!", "summaryDesc": "You learned the complete possession cycle from rebound to defense! +200 IQ Points earned.", "backToDashboard": "Back to Dashboard", "drill": "Drill {current} of {total}"},
       "scenarioLabelA": "Scenario A",
       "scenarioLabelB": "Scenario B",
       "scenarioLabelC": "Scenario C",
@@ -174,7 +178,9 @@ const translations = {
       "offense": {"title": "进攻决策", "subtitle": "Offense Mastery", "description": "学习挡拆、空间站位、阅读防守以及何时传球或投篮。", "stats": "12项训练 • 4个等级", "cta": "开始训练", "color": "orange"},
       "defense": {"title": "铁壁防守", "subtitle": "Lockdown Defense", "description": "掌握防守姿势、协防、轮转、抢断和护框技巧。", "stats": "10项训练 • 4个等级", "cta": "全力防守", "color": "blue"},
       "communication": {"title": "场上沟通", "subtitle": "Court Communication", "description": "呼叫挡拆、信号切入、使用手势，用声音带领全队。", "stats": "8项训练 • 3个等级", "cta": "带领团队", "color": "yellow"},
-      "fiveout": {"title": "5外进攻体系", "subtitle": "5-Out Offense", "description": "学习官方4个阶段：基本切入、远离掩护、持球掩护和运球逼近。", "stats": "5个阶段 • 互动战术板", "cta": "开始进攻", "color": "orange"}
+      "fiveout": {"title": "5外进攻体系", "subtitle": "5-Out Offense", "description": "学习官方4个阶段：基本切入、远离掩护、持球掩护和运球逼近。", "stats": "5个阶段 • 互动战术板", "cta": "开始进攻", "color": "orange"},
+      "mantoman": {"title": "人盯人防守", "subtitle": "Man-to-Man Defense", "description": "掌握全场和半场人盯人防守 — 压迫、阻绝、协防和回位。", "stats": "2个场景 • 时间轴战术板", "cta": "开始防守", "color": "blue"},
+      "transition": {"title": "完整转换循环", "subtitle": "Full Transition Cycle", "description": "完整回合循环：从篮板到出球到5外进攻到得分到发球到全场和半场防守。", "stats": "1个完整回合 • 时间轴战术板", "cta": "开始循环", "color": "green"}
     },
     "progress": {
       "label": "赛季进度",
@@ -216,6 +222,8 @@ const translations = {
       "offense": {"title": "🏀 进攻决策", "summaryTitle": "进攻大师通关！", "summaryDesc": "你做出了聪明的决策并获得了+300篮球智商。熊教练为你骄傲！", "backToDashboard": "返回主菜单", "scenario": "场景 {current}/{total}"},
       "defense": {"title": "🛡️ 铁壁防守", "summaryTitle": "铁壁防守通关！", "summaryDesc": "你掌握了防守位置、协防和卡位！获得+300篮球智商。", "backToDashboard": "返回主菜单", "drill": "训练 {current}/{total}"},
       "communication": {"title": "🗣️ 场上沟通", "summaryTitle": "场上沟通通关！", "summaryDesc": "你学会了喊掩护、防守口令和鼓励队友！获得+300篮球智商。", "backToDashboard": "返回主菜单", "drill": "训练 {current}/{total}"},
+      "mantoman": {"title": "🛡️ 人盯人防守", "summaryTitle": "人盯人防守通关！", "summaryDesc": "你学习了全场和半场人盯人防守原则！获得+300篮球智商。", "backToDashboard": "返回主菜单", "drill": "场景 {current}/{total}"},
+      "transition": {"title": "🔄 完整转换", "summaryTitle": "转换循环通关！", "summaryDesc": "你学习了从篮板到防守的完整回合循环！获得+200篮球智商。", "backToDashboard": "返回主菜单", "drill": "训练 {current}/{total}"},
       "scenarioLabelA": "场景A",
       "scenarioLabelB": "场景B",
       "scenarioLabelC": "场景C",

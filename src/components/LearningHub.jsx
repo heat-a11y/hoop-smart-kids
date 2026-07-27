@@ -9,6 +9,8 @@ const hubIcons = {
   defense: Shield,
   communication: MessageCircle,
   fiveout: Swords,
+  mantoman: Shield,
+  transition: Swords,
 };
 
 const hubBgGradients = {
@@ -16,6 +18,8 @@ const hubBgGradients = {
   defense: 'from-neon-blue/20 via-neon-blue/5 to-transparent',
   communication: 'from-neon-yellow/20 via-neon-yellow/5 to-transparent',
   fiveout: 'from-court-orange/20 via-court-orange/5 to-transparent',
+  mantoman: 'from-neon-blue/20 via-neon-blue/5 to-transparent',
+  transition: 'from-court-orange/20 via-success-green/5 to-transparent',
 };
 
 const hubBorderColors = {
@@ -23,6 +27,8 @@ const hubBorderColors = {
   defense: 'border-neon-blue/40 group-hover:border-neon-blue/70',
   communication: 'border-neon-yellow/40 group-hover:border-neon-yellow/70',
   fiveout: 'border-court-orange/40 group-hover:border-court-orange/70',
+  mantoman: 'border-neon-blue/40 group-hover:border-neon-blue/70',
+  transition: 'border-success-green/40 group-hover:border-success-green/70',
 };
 
 const hubShadowColors = {
@@ -30,6 +36,8 @@ const hubShadowColors = {
   defense: 'shadow-neon-blue/20',
   communication: 'shadow-neon-yellow/20',
   fiveout: 'shadow-court-orange/20',
+  mantoman: 'shadow-neon-blue/20',
+  transition: 'shadow-success-green/20',
 };
 
 const hubAccentColors = {
@@ -37,6 +45,8 @@ const hubAccentColors = {
   defense: 'bg-neon-blue',
   communication: 'bg-neon-yellow',
   fiveout: 'bg-court-orange',
+  mantoman: 'bg-neon-blue',
+  transition: 'bg-success-green',
 };
 
 const hubIconsBig = {
@@ -44,9 +54,11 @@ const hubIconsBig = {
   defense: '🛡️',
   communication: '📢',
   fiveout: '🏀',
+  mantoman: '🛡️',
+  transition: '🔄',
 };
 
-export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut }) {
+export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut, onEnterManToMan, onEnterTransition }) {
   const { lang, t } = useLanguage();
   const { addXP } = useGame();
   const [activeHub, setActiveHub] = useState(null);
@@ -68,12 +80,20 @@ export default function LearningHub({ onEnterOffense, onEnterDefense, onEnterCom
       onEnterFiveOut();
       return;
     }
+    if (hub === 'mantoman' && onEnterManToMan) {
+      onEnterManToMan();
+      return;
+    }
+    if (hub === 'transition' && onEnterTransition) {
+      onEnterTransition();
+      return;
+    }
     setActiveHub(hub);
     addXP(5, { drill: false });
     setTimeout(() => setActiveHub(null), 1500);
   };
 
-  const hubs = ['offense', 'defense', 'communication', 'fiveout'];
+  const hubs = ['offense', 'defense', 'communication', 'fiveout', 'mantoman', 'transition'];
 
   return (
     <section className="px-4 md:px-8 mb-8" id="learning-hubs">

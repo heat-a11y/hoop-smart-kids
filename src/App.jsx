@@ -11,6 +11,8 @@ import OffenseModule from './components/modules/OffenseModule';
 import DefenseModule from './components/modules/DefenseModule';
 import CommunicationModule from './components/modules/CommunicationModule';
 import FiveOutModule from './components/modules/FiveOutModule';
+import ManToManModule from './components/modules/ManToManModule';
+import TransitionModule from './components/modules/TransitionModule';
 import sfx from './services/SFXEngine';
 
 function LevelUpOverlay() {
@@ -62,7 +64,7 @@ function LevelUpOverlay() {
   );
 }
 
-function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut, onViewBadges }) {
+function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnterFiveOut, onEnterManToMan, onEnterTransition, onViewBadges }) {
   return (
     <div className="min-h-screen pb-12">
       <div className="max-w-6xl mx-auto">
@@ -74,7 +76,7 @@ function Dashboard({ onEnterOffense, onEnterDefense, onEnterCommunication, onEnt
           onViewBadges={onViewBadges}
         />
         <ProgressBar />
-        <LearningHub onEnterOffense={onEnterOffense} onEnterDefense={onEnterDefense} onEnterCommunication={onEnterCommunication} onEnterFiveOut={onEnterFiveOut} />
+        <LearningHub onEnterOffense={onEnterOffense} onEnterDefense={onEnterDefense} onEnterCommunication={onEnterCommunication} onEnterFiveOut={onEnterFiveOut} onEnterManToMan={onEnterManToMan} onEnterTransition={onEnterTransition} />
       </div>
       <LevelUpOverlay />
     </div>
@@ -101,6 +103,8 @@ export default function App() {
                 onEnterDefense={() => setScreen('defense')}
                 onEnterCommunication={() => setScreen('communication')}
                 onEnterFiveOut={() => setScreen('fiveout')}
+                onEnterManToMan={() => setScreen('mantoman')}
+                onEnterTransition={() => setScreen('transition')}
                 onViewBadges={() => setShowBadges(true)}
               />
             </motion.div>
@@ -143,6 +147,26 @@ export default function App() {
               exit={{ opacity: 0 }}
             >
               <FiveOutModule onBack={() => setScreen('dashboard')} />
+            </motion.div>
+          )}
+          {screen === 'mantoman' && (
+            <motion.div
+              key="mantoman"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <ManToManModule onBack={() => setScreen('dashboard')} />
+            </motion.div>
+          )}
+          {screen === 'transition' && (
+            <motion.div
+              key="transition"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <TransitionModule onBack={() => setScreen('dashboard')} />
             </motion.div>
           )}
         </AnimatePresence>

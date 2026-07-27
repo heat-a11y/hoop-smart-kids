@@ -18,47 +18,8 @@ if [ $? -ne 0 ]; then
 fi
 echo "✅ Build OK"
 
-# 2. Validate court coordinate conventions
+# 3. Validate court coordinate conventions
 echo "🧮 Validating court coordinates..."
-node -e "
-const fs = require('fs');
-const path = require('path');
-const dataDir = 'src/data';
-let errors = [];
-
-// Check scenario data files for out-of-range y-values
-fs.readdirSync(dataDir).filter(f => f.endsWith('.js')).forEach(file => {
-  const content = fs.readFileSync(path.join(dataDir, file), 'utf-8');
-  const yMatches = content.matchAll(/y:\s*(\d+)/g);
-  for (const m of yMatches) {
-    const val = parseInt(m[1]);
-    if (val > 350) {
-      errors.push(\`\${file}: y=\${val} exceeds 350 — data must be in 0-320 space (court applies +320 translate internally)\`);
-    }
-  }
-});
-
-// Check specified half props match expected module type
-const gameFiles = fs.readdirSync('src/components/modules').filter(f => f.endsWith('.jsx'));
-gameFiles.forEach(file => {
-  const content = fs.readFileSync(path.join('src/components/modules', file), 'utf-8');
-  const isDefense = /defense/i.test(file) || file === 'SeeBallSeeManGame.jsx' || file === 'BoxOutGame.jsx' || file === 'HelpRecoverGame.jsx';
-  const isOffense = /offense/i.test(file) || file === 'TripleThreatGame.jsx' || file === 'FastbreakGame.jsx' || file === 'SpacingGame.jsx';
-  
-  if (isOffense && content.includes('half=\"bottom\"')) {
-    errors.push(\`\${file}: Offense should use half='top' (front court), found half='bottom'\`);
-  }
-  if (isDefense && content.includes('half=\"top\"')) {
-    errors.push(\`\${file}: Defense should use half='bottom' (back court), found half='top'\`);
-  }
-});
-
-if (errors.length > 0) {
-  console.log('❌ COORDINATE/ASSIGNMENT ERRORS:');
-  errors.forEach(e => console.log('  - ' + e));
-  process.exit(1);
-}
-console.log('✅ Coordinates & half assignments valid');
-"
+node .github/scripts/validate-court.mjs
 
 echo "🎉 All checks passed!"

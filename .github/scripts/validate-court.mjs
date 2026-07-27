@@ -12,14 +12,20 @@ const modulesDir = path.join(root, 'src/components/modules');
 
 let errors = [];
 
-// 1. Check scenario data y-values (must be 0-320)
+// 1. Check scenario data y-values
+//    If a file contains any scenario with half='top' (full-court, 0-640 space),
+//    allow y up to 640. Otherwise enforce 0-320 range.
 fs.readdirSync(dataDir).filter(f => f.endsWith('.js')).forEach(file => {
   const content = fs.readFileSync(path.join(dataDir, file), 'utf-8');
+  // Detect if file has any full-court (half='top') scenarios
+  const hasFullCourt = /half\s*:\s*'top'/.test(content);
+  const yLimit = hasFullCourt ? 640 : 350;
   const yMatches = content.matchAll(/y:\s*(\d+)/g);
   for (const m of yMatches) {
     const val = parseInt(m[1]);
-    if (val > 350) {
-      errors.push(`y-overflow: ${file} has y=${val} — data must be in 0-320 space`);
+    if (val > yLimit) {
+      const maxDesc = hasFullCourt ? '0-640 full-court space' : '0-320 half-court space';
+      errors.push(`y-overflow: ${file} has y=${val} — exceeds ${maxDesc}`);
     }
   }
 });
